@@ -1,8 +1,10 @@
-package com.android.address_book;
+package com.android.address_book_Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.android.address_book.R;
 
 /*
 ===========================================================================================================================
@@ -10,7 +12,7 @@ import android.os.Bundle;
 ===========================================================================================================================
 ======================                                                                              =======================
 ======================                                                                              =======================
-======================                                 회원가입 화면                                   =======================
+======================                                 연락처 보기 화면                                 =======================
 ======================                                                                              =======================
 ======================                                                                              =======================
 ===========================================================================================================================
@@ -18,11 +20,11 @@ import android.os.Bundle;
 ===========================================================================================================================
 */
 
-public class JoinActivity extends AppCompatActivity {
+public class ViewPeopleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join);
+        setContentView(R.layout.activity_view_people);
     }
 }

@@ -1,8 +1,15 @@
-package com.android.address_book;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.android.address_book_Activity;
 
 import android.os.Bundle;
+
+import com.android.address_book.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.view.View;
 
 /*
 ===========================================================================================================================
@@ -10,19 +17,30 @@ import android.os.Bundle;
 ===========================================================================================================================
 ======================                                                                              =======================
 ======================                                                                              =======================
-======================                                 ID 찾기 화면                                   =======================
-======================                               (결과창 Dialog)                                  =======================
+======================                                 주소록 전체 화면                                 =======================
+======================                                                                              =======================
 ======================                                                                              =======================
 ===========================================================================================================================
 ===========================================================================================================================
 ===========================================================================================================================
 */
 
-public class FindIDActivity extends AppCompatActivity {
+public class AddressListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_id);
+        setContentView(R.layout.activity_address_list);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 }
