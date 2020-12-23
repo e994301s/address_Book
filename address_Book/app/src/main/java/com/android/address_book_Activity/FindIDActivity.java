@@ -1,8 +1,10 @@
-package com.android.address_book;
+package com.android.address_book_Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.android.address_book.R;
 
 /*
 ===========================================================================================================================
@@ -10,19 +12,19 @@ import android.os.Bundle;
 ===========================================================================================================================
 ======================                                                                              =======================
 ======================                                                                              =======================
-======================                                 연락처 등록 화면                                 =======================
-======================                                                                              =======================
+======================                                 ID 찾기 화면                                   =======================
+======================                               (결과창 Dialog)                                  =======================
 ======================                                                                              =======================
 ===========================================================================================================================
 ===========================================================================================================================
 ===========================================================================================================================
 */
 
-public class RegisterPeopleActivity extends AppCompatActivity {
+public class FindIDActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_people);
+        setContentView(R.layout.activity_find_id);
     }
 }

@@ -1,9 +1,10 @@
-package com.android.address_book;
+package com.android.address_book_Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.android.address_book.R;
 
 /*
 ===========================================================================================================================
@@ -11,7 +12,7 @@ import android.os.Bundle;
 ===========================================================================================================================
 ======================                                                                              =======================
 ======================                                                                              =======================
-======================                                 로그인 화면                                     =======================
+======================                                 연락처 수정/삭제 화면                                     =======================
 ======================                                                                              =======================
 ======================                                                                              =======================
 ===========================================================================================================================
@@ -19,11 +20,12 @@ import android.os.Bundle;
 ===========================================================================================================================
 */
 
-public class MainActivity extends AppCompatActivity {
+
+public class ModifyPeopleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_modify_people);
     }
 }

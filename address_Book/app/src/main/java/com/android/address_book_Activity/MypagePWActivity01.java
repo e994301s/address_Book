@@ -1,8 +1,10 @@
-package com.android.address_book;
+package com.android.address_book_Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.android.address_book.R;
 
 /*
 ===========================================================================================================================
@@ -10,19 +12,19 @@ import android.os.Bundle;
 ===========================================================================================================================
 ======================                                                                              =======================
 ======================                                                                              =======================
-======================                                 ID 찾기 화면                                   =======================
-======================                               (결과창 Dialog)                                  =======================
+======================                                 My Page 기존 PW 입력 화면                                     =======================
+======================                                                                              =======================
 ======================                                                                              =======================
 ===========================================================================================================================
 ===========================================================================================================================
 ===========================================================================================================================
 */
 
-public class FindIDActivity extends AppCompatActivity {
+public class MypagePWActivity01 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_id);
+        setContentView(R.layout.activity_mypage_pw01);
     }
 }

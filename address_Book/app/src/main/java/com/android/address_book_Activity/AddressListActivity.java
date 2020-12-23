@@ -1,7 +1,8 @@
-package com.android.address_book;
+package com.android.address_book_Activity;
 
 import android.os.Bundle;
 
+import com.android.address_book.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

@@ -9,15 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Address_Book">
-        <activity android:name=".RegisterPeopleActivity"></activity>
+        <activity android:name="com.android.address_book_Activity.ModifyPeopleActivity"></activity>
+        <activity android:name="com.android.address_book_Activity.ViewPeopleActivity" />
+        <activity android:name="com.android.address_book_Activity.MypageActivity" />
+        <activity android:name="com.android.address_book_Activity.MypagePWActivity02" />
+        <activity android:name="com.android.address_book_Activity.MypagePWActivity01" />
+        <activity android:name="com.android.address_book_Activity.RegisterPeopleActivity" />
         <activity
-            android:name=".AddressListActivity"
+            android:name="com.android.address_book_Activity.AddressListActivity"
             android:label="@string/title_activity_address_list"
             android:theme="@style/Theme.Address_Book.NoActionBar" />
-        <activity android:name=".FindPWActivity" />
-        <activity android:name=".FindIDActivity" />
-        <activity android:name=".JoinActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.android.address_book_Activity.FindPWActivity" />
+        <activity android:name="com.android.address_book_Activity.FindIDActivity" />
+        <activity android:name="com.android.address_book_Activity.JoinActivity" />
+        <activity android:name="com.android.address_book_Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
