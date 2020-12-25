@@ -1,12 +1,16 @@
 package com.android.address_book_Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -29,7 +33,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class JoinActivity extends AppCompatActivity {
 
-    EditText inputLayoutEmail;
+    EditText email, name, pw, pwCheck, phone;
     Button backBtn, submitBtn;
 
     @Override
@@ -43,11 +47,37 @@ public class JoinActivity extends AppCompatActivity {
         inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
         inputLayoutPWCheck.setPasswordVisibilityToggleEnabled(true);
 
-        inputLayoutEmail = findViewById(R.id.email_join);
+        email = findViewById(R.id.email_join);
+        name = findViewById(R.id.name_join);
+        pw = findViewById(R.id.pw_join);
+        pwCheck = findViewById(R.id.pwCheck_join);
+        phone = findViewById(R.id.phone_join);
 
-        inputLayoutEmail.addTextChangedListener(changeListener);
+        findViewById(R.id.backBtn_join).setOnClickListener(mClickListener);
+        findViewById(R.id.submitBtn_join).setOnClickListener(mClickListener);
+        email.addTextChangedListener(changeListener);
     }
 
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+
+                // backButton 클릭 시 화면 JoinActivity 종료
+                case R.id.backBtn_join:
+                    finish();
+                    break;
+
+                // 완료 버튼 클릭 시
+                case R.id.submitBtn_join:
+                    checkField();
+                    insertUser();
+                    break;
+            }
+
+        }
+    };
 
     // email 입력란 text 변경 시 listener
     TextWatcher changeListener = new TextWatcher() {
@@ -63,7 +93,9 @@ public class JoinActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            validateEdit(s);
+            if(email.getText().toString().trim().length() != 0){
+                validateEdit(s);
+            }
         }
     };
 
@@ -71,10 +103,78 @@ public class JoinActivity extends AppCompatActivity {
     // email 형식 일치 확인
     private void validateEdit(Editable s){
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()){
-            inputLayoutEmail.setError("이메일 형식으로 입력해주세요.");
+            email.setError("이메일 형식으로 입력해주세요.");
         } else{
-            inputLayoutEmail.setError(null);         //에러 메세지 제거
+            email.setError(null);         //에러 메세지 제거
         }
+    }
+
+    // 입력란 field check
+    private void checkField(){
+        if(name.getText().toString().trim().length() == 0){
+            alertCheck("이름을");
+            name.setFocusableInTouchMode(true);
+            name.requestFocus();
+
+        } else if(email.getText().toString().trim().length() == 0){
+            alertCheck("이메일을");
+            email.setFocusableInTouchMode(true);
+            email.requestFocus();
+
+        } else if(pw.getText().toString().trim().length() == 0){
+            alertCheck("비밀번호를");
+            pw.setFocusableInTouchMode(true);
+            pw.requestFocus();
+
+        } else if(pwCheck.getText().toString().trim().length() == 0){
+            alertCheck("비밀번호 확인을");
+            pwCheck.setFocusableInTouchMode(true);
+            pwCheck.requestFocus();
+
+        } else if(phone.getText().toString().trim().length() == 0){
+            alertCheck("전화번호를");
+            phone.setFocusableInTouchMode(true);
+            phone.requestFocus();
+
+        }
+    }
+
+    // 미입력 시 알람 발생
+    private void alertCheck(String field){
+        new AlertDialog.Builder(JoinActivity.this)
+                .setTitle("알람")
+                .setMessage(field + " 입력해주세요.")
+                .setIcon(R.mipmap.ic_launcher)
+                .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
+                .setPositiveButton("닫기", null)  // 페이지 이동이 없으므로 null
+                .show();
+    }
+
+    // user 입력 data 송부
+    private void insertUser(){
+        String userName = name.getText().toString().trim();
+        String userEmail = email.getText().toString().trim();
+        String userPW = pw.getText().toString().trim();
+        String userPhone = phone.getText().toString().trim();
+
+
+    }
+
+    // 화면 touch 시 키보드 숨기
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 }
