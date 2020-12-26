@@ -2,6 +2,7 @@ package com.android.address_book_Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
             if(result.equals("1")){
                 Toast.makeText(MainActivity.this, "로그인 완료", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, AddressListActivity.class);
+                startActivity(intent);
             }else{
                 Toast.makeText(MainActivity.this, "아이디와 비밀번호를 확인하세요!", Toast.LENGTH_SHORT).show();
             }
