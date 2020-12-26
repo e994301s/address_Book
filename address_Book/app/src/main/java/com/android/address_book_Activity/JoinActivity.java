@@ -3,6 +3,8 @@ package com.android.address_book_Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +15,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -34,12 +38,18 @@ import com.google.android.material.textfield.TextInputLayout;
 public class JoinActivity extends AppCompatActivity {
 
     EditText email, name, pw, pwCheck, phone;
-    Button backBtn, submitBtn;
+    Button submitBtn;
+    String macIP, urlAddr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
+
+//        Intent intent = getIntent();
+//        macIP = intent.getStringExtra("macIP");
+        macIP = "192.168.219.100";
+        urlAddr = "http://" + macIP + ":8080/test/userInfoInsert.jsp?";
 
         TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);
         TextInputLayout inputLayoutPWCheck = findViewById(R.id.InputLayoutPwCheck_join);
@@ -72,7 +82,6 @@ public class JoinActivity extends AppCompatActivity {
                 // 완료 버튼 클릭 시
                 case R.id.submitBtn_join:
                     checkField();
-                    insertUser();
                     break;
             }
 
@@ -136,6 +145,12 @@ public class JoinActivity extends AppCompatActivity {
             phone.setFocusableInTouchMode(true);
             phone.requestFocus();
 
+        } else{
+            String userName = name.getText().toString().trim();
+            String userEmail = email.getText().toString().trim();
+            String userPW = pw.getText().toString().trim();
+            String userPhone = phone.getText().toString().trim();
+            insertUser(userName, userEmail, userPW, userPhone);
         }
     }
 
@@ -151,13 +166,38 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     // user 입력 data 송부
-    private void insertUser(){
-        String userName = name.getText().toString().trim();
-        String userEmail = email.getText().toString().trim();
-        String userPW = pw.getText().toString().trim();
-        String userPhone = phone.getText().toString().trim();
+    private void insertUser(String userName, String userEmail, String userPW, String userPhone){
 
+        urlAddr = urlAddr + "name=" + userName + "&email=" + userEmail + "&pw=" + userPW + "&phone=" + userPhone;
 
+        String result = connectInsertData(urlAddr);
+
+        if(result.equals("1")){
+            Toast.makeText(JoinActivity.this, userName + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+        } else{
+            Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+        }
+
+        //finish();
+
+    }
+
+    //connection Insert
+    private String connectInsertData(String urlAddr){
+        String result = null;
+
+        try{
+            NetworkTask insertNetworkTask = new NetworkTask(JoinActivity.this, urlAddr, "insert");
+            Object obj = insertNetworkTask.execute().get();
+            result = (String) obj;
+
+        } catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return result;
     }
 
     // 화면 touch 시 키보드 숨기
