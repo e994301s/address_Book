@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -13,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.spec.ECField;
+import java.util.ArrayList;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // Date : 2020.12.26
@@ -28,11 +31,13 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     String mAddr = null;
     ProgressDialog progressDialog = null;
     String where = null;
+    ArrayList<String> emailList = null;
 
     public NetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
         this.where = where;
+        this.emailList = new ArrayList<String>();
         Log.v(TAG, "Start : " + mAddr);
     }
 
@@ -108,7 +113,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
         if(where.equals("select")){
             //return 수정하기
-           return result;
+           return emailList;
         }else{
             return result;
         }
@@ -119,13 +124,20 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     private void parserSelect(String s){
         Log.v(TAG,"Parser()");
 
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+            emailList.clear();
 
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String email = jsonObject1.getString("useremail");
 
-        } catch (Exception e){
+                emailList.add(email);
+
+            }
+        }catch (Exception e){
             e.printStackTrace();
-
         }
     }
 
@@ -137,10 +149,10 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         try{
             JSONObject jsonObject = new JSONObject(s);
             returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
 
         } catch (Exception e){
             e.printStackTrace();
-
         }
 
         return returnResult;

@@ -3,6 +3,7 @@ package com.android.address_book_Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -10,16 +11,20 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
 
 /*
 ===========================================================================================================================
@@ -37,9 +42,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class JoinActivity extends AppCompatActivity {
 
+    final static String TAG = "JoinActivity";
+
     EditText email, name, pw, pwCheck, phone;
-    Button submitBtn;
+    TextView pwCheckMsg;
     String macIP, urlAddr;
+    String emailInput = null;
+    int btnCheck = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +58,7 @@ public class JoinActivity extends AppCompatActivity {
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
         macIP = "192.168.219.100";
-        urlAddr = "http://" + macIP + ":8080/test/userInfoInsert.jsp?";
+        urlAddr = "http://" + macIP + ":8080/test/";
 
         TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);
         TextInputLayout inputLayoutPWCheck = findViewById(R.id.InputLayoutPwCheck_join);
@@ -62,13 +71,17 @@ public class JoinActivity extends AppCompatActivity {
         pw = findViewById(R.id.pw_join);
         pwCheck = findViewById(R.id.pwCheck_join);
         phone = findViewById(R.id.phone_join);
+        pwCheckMsg = findViewById(R.id.tv_pwCheckMsg_join);
 
         findViewById(R.id.backBtn_join).setOnClickListener(mClickListener);
+        findViewById(R.id.btnEmailCheck_join).setOnClickListener(mClickListener);
         findViewById(R.id.submitBtn_join).setOnClickListener(mClickListener);
+
+        pwCheck.addTextChangedListener(changeListener1);
         email.addTextChangedListener(changeListener);
     }
 
-
+    // button 클릭 시
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -77,6 +90,13 @@ public class JoinActivity extends AppCompatActivity {
                 // backButton 클릭 시 화면 JoinActivity 종료
                 case R.id.backBtn_join:
                     finish();
+                    break;
+
+                // email 중복 체크
+                case R.id.btnEmailCheck_join:
+                    emailInput = email.getText().toString().trim();
+                    emailCheck(emailInput);
+
                     break;
 
                 // 완료 버튼 클릭 시
@@ -102,8 +122,37 @@ public class JoinActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
+            // email 입력 시
             if(email.getText().toString().trim().length() != 0){
                 validateEdit(s);
+            }
+        }
+    };
+
+    // pw 입력란 text 변경 시 listener
+    TextWatcher changeListener1 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // pwcheck 입력 시 일치 여부 message
+            if(pwCheck.getText().toString().trim().length() != 0){
+                if((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())){
+                    pwCheckMsg.setTextColor(getResources().getColor(R.color.blue));
+                    pwCheckMsg.setText("비밀번호 일치");
+
+                } else {
+                    pwCheckMsg.setTextColor(getResources().getColor(R.color.red));
+                    pwCheckMsg.setText("비밀번호 불일치");
+                }
             }
         }
     };
@@ -117,6 +166,39 @@ public class JoinActivity extends AppCompatActivity {
             email.setError(null);         //에러 메세지 제거
         }
     }
+
+    // email 중복 체크
+    private void emailCheck(String emailInput){
+        int count = 0;
+
+        if (emailInput.length() == 0) {
+            Toast.makeText(JoinActivity.this, "Email 입력해주세요.", Toast.LENGTH_SHORT).show();
+
+        } else {
+            String urlAddr2 = "";
+            urlAddr2 = urlAddr + "user_query_all.jsp?email=" + emailInput;
+
+            Log.v(TAG, "email : " + emailInput);
+
+            ArrayList<String> result = connectSelectData(urlAddr2);
+
+            for(int i =0; i<result.size(); i++){
+                if(emailInput.equals(result.get(i))){
+                    count ++;
+                }
+            }
+
+            if (count == 0) {
+                Toast.makeText(JoinActivity.this, "Email 사용이 가능합니다.", Toast.LENGTH_SHORT).show();
+                btnCheck = 1;
+            } else {
+                Toast.makeText(JoinActivity.this, "동일한 Email이 존재합니다.", Toast.LENGTH_SHORT).show();
+                btnCheck = 0;
+            }
+        }
+
+    }
+
 
     // 입력란 field check
     private void checkField(){
@@ -150,7 +232,21 @@ public class JoinActivity extends AppCompatActivity {
             String userEmail = email.getText().toString().trim();
             String userPW = pw.getText().toString().trim();
             String userPhone = phone.getText().toString().trim();
-            insertUser(userName, userEmail, userPW, userPhone);
+
+            if(btnCheck == 1) {
+                if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
+                    insertUser(userName, userEmail, userPW, userPhone);
+
+                } else {
+                    pwCheck.setText("");
+                    Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+
+                }
+            } else {
+                Toast.makeText(JoinActivity.this, "Email 중복 채크 해주세요.", Toast.LENGTH_SHORT).show();
+
+            }
+
         }
     }
 
@@ -167,10 +263,10 @@ public class JoinActivity extends AppCompatActivity {
 
     // user 입력 data 송부
     private void insertUser(String userName, String userEmail, String userPW, String userPhone){
+        String urlAddr1 = "";
+        urlAddr1 = urlAddr + "userInfoInsert.jsp?name=" + userName + "&email=" + userEmail + "&pw=" + userPW + "&phone=" + userPhone;
 
-        urlAddr = urlAddr + "name=" + userName + "&email=" + userEmail + "&pw=" + userPW + "&phone=" + userPhone;
-
-        String result = connectInsertData(urlAddr);
+        String result = connectInsertData(urlAddr1);
 
         if(result.equals("1")){
             Toast.makeText(JoinActivity.this, userName + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
@@ -198,6 +294,22 @@ public class JoinActivity extends AppCompatActivity {
 
         }
         return result;
+    }
+
+    //connection Select
+    private ArrayList<String> connectSelectData(String urlAddr){
+        ArrayList<String> result1 = null;
+
+        try{
+            NetworkTask selectNetworkTask = new NetworkTask(JoinActivity.this, urlAddr, "select");
+            Object obj = selectNetworkTask.execute().get();
+            result1 = (ArrayList<String>) obj;
+
+        } catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return result1;
     }
 
     // 화면 touch 시 키보드 숨기

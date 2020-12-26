@@ -20,7 +20,6 @@
         android:layout_height="0px"
         android:layout_weight="2"
         android:gravity="center"
-        android:layout_margin="10dp"
         android:textStyle="bold"
         android:textSize="30dp"
         android:text="회원가입"
@@ -31,7 +30,7 @@
         android:id="@+id/InputLayoutName_join"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1.8"
         app:errorEnabled="true"
         android:layout_margin="10dp"
         android:background="@color/white"
@@ -51,7 +50,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="2"
+        android:layout_weight="2.5"
         >
 
         <com.google.android.material.textfield.TextInputLayout
@@ -76,7 +75,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/emailCheck_join"
+            android:id="@+id/btnEmailCheck_join"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -118,7 +117,7 @@
         android:id="@+id/InputLayoutPw_join"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1.8"
         app:errorEnabled="true"
         android:layout_margin="10dp"
         android:background="@color/white"
@@ -139,7 +138,7 @@
         android:id="@+id/InputLayoutPwCheck_join"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1.8"
         app:errorEnabled="true"
         android:layout_margin="10dp"
         android:background="@color/white"
@@ -157,11 +156,19 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/tv_pwCheckMsg_join"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="1"
+        />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/InputLayoutPhone_join"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1.8"
         app:errorEnabled="true"
         android:layout_margin="10dp"
         android:background="@color/white"
