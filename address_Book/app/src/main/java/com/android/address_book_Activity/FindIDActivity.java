@@ -9,17 +9,20 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -59,6 +62,14 @@ public class FindIDActivity extends AppCompatActivity {
     //String SMSContents = "1234";
     String smsCode = createSMSCode();
 
+    /*카운트 다운 타이머에 관련된 필드*/
+
+    TextView time_counter; //시간을 보여주는 TextView
+    EditText emailAuth_number; //인증 번호를 입력 하는 칸
+    Button emailAuth_btn; // 인증버튼
+    CountDownTimer countDownTimer;
+    final int MILLISINFUTURE = 180 * 1000; //총 시간 (300초 = 5분)
+    final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
 
 
     @Override
@@ -133,6 +144,7 @@ public class FindIDActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.backBtn_findId:
+                    countDownTimer.cancel();
                     finish();
                     break;
 
@@ -177,6 +189,7 @@ public class FindIDActivity extends AppCompatActivity {
            } else{
                //sendSMS(userPhone, "[1234] 발송");
                sendMessage(userPhone);
+               countDownTimer();
                fieldCheck.setText("");
                layoutSMS.setVisibility(View.VISIBLE);
                Toast.makeText(FindIDActivity.this, "문자 발송하였습니다.", Toast.LENGTH_SHORT).show();
@@ -248,7 +261,6 @@ public class FindIDActivity extends AppCompatActivity {
         if(code.equals(smsCode)){
             Toast.makeText(FindIDActivity.this, "일치", Toast.LENGTH_SHORT).show();
             alertCheck();
-            finish();
 
         } else{
             codeNum.setText("");
@@ -264,8 +276,51 @@ public class FindIDActivity extends AppCompatActivity {
                 .setMessage( name.getText().toString().trim() + "님의 Email은 \n" + userEmail + " 입니다.")
                 .setIcon(R.mipmap.ic_launcher)
                 .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
-                .setPositiveButton("닫기", null)  // 페이지 이동이 없으므로 null
+                .setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 닫기 시 FindIDActivity 종료
+                        FindIDActivity.this.finish();
+                    }
+                })  // 페이지 이동이 없으므로 null
                 .show();
+    }
+
+
+    //카운트 다운 메소드
+    public void countDownTimer() {
+
+        time_counter = findViewById(R.id.time_findId);
+        //줄어드는 시간을 나타내는 TextView
+
+
+        countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
+            @Override
+            public void onTick(long millisUntilFinished) { //(300초에서 1초 마다 계속 줄어듬)
+
+                long emailAuthCount = millisUntilFinished / 1000;
+                Log.d("Alex", emailAuthCount + "");
+
+                if ((emailAuthCount - ((emailAuthCount / 60) * 60)) >= 10) { //초가 10보다 크면 그냥 출력
+                    time_counter.setText((emailAuthCount / 60) + " : " + (emailAuthCount - ((emailAuthCount / 60) * 60)));
+                } else { //초가 10보다 작으면 앞에 '0' 붙여서 같이 출력. ex) 02,03,04...
+                    time_counter.setText((emailAuthCount / 60) + " : 0" + (emailAuthCount - ((emailAuthCount / 60) * 60)));
+                }
+
+                //emailAuthCount은 종료까지 남은 시간임. 1분 = 60초 되므로,
+                // 분을 나타내기 위해서는 종료까지 남은 총 시간에 60을 나눠주면 그 몫이 분이 된다.
+                // 분을 제외하고 남은 초를 나타내기 위해서는, (총 남은 시간 - (분*60) = 남은 초) 로 하면 된다.
+
+            }
+
+
+            @Override
+            public void onFinish() { //시간이 다 되면 다이얼로그 종료
+
+                finish();
+
+            }
+        }.start();
     }
 
     // 화면 touch 시 키보드 숨기
