@@ -97,7 +97,6 @@ public class JoinActivity extends AppCompatActivity {
                 case R.id.btnEmailCheck_join:
                     emailInput = email.getText().toString().trim();
                     emailCheck(emailInput);
-
                     break;
 
                 // 완료 버튼 클릭 시

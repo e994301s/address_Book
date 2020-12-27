@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.android.address_book.R;
-import com.navdrawer.SimpleSideDrawer;
 
 /*
 ===========================================================================================================================

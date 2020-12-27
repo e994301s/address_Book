@@ -32,8 +32,14 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     Context context = null;
     String mAddr = null;
     ProgressDialog progressDialog = null;
+    int loginCheck = 0;
     String where = null;
     ArrayList<User> user= null;
+
+    public NetworkTask(Context context, String mAddr) {
+        this.context = context;
+        this.mAddr = mAddr;
+    }
 
     public NetworkTask(Context context, String mAddr, String where) {
         this.context = context;
@@ -94,6 +100,9 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if(where.equals("select")){
                     parserSelect(stringBuffer.toString());
+                }
+                if(where.equals("loginCount")){
+                    parserLoginCheck(stringBuffer.toString());
                 }else{
                     result = parserAction(stringBuffer.toString());
                 }
@@ -114,8 +123,11 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
         if(where.equals("select")){
-            //return 수정하기
            return user;
+
+        } else if(where.equals("loginCount")){
+            return loginCheck;
+
         }else{
             return result;
         }
@@ -161,6 +173,28 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
         return returnResult;
+    }
+
+    private void parserLoginCheck(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                int count = jsonObject1.getInt("count");
+
+                loginCheck = count;
+                Log.v("여기","parserLoginCheck : " + count);
+
+                Log.v(TAG, "----------------------------------");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
 }
