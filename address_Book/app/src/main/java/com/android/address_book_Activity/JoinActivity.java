@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -26,6 +27,8 @@ import com.android.address_book.User;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 ===========================================================================================================================
@@ -44,6 +47,8 @@ import java.util.ArrayList;
 public class JoinActivity extends AppCompatActivity {
 
     final static String TAG = "JoinActivity";
+    public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
+    Matcher match;
 
     EditText email, name, pw, pwCheck, phone;
     TextView pwCheckMsg;
@@ -78,6 +83,7 @@ public class JoinActivity extends AppCompatActivity {
         findViewById(R.id.btnEmailCheck_join).setOnClickListener(mClickListener);
         findViewById(R.id.submitBtn_join).setOnClickListener(mClickListener);
 
+        pw.addTextChangedListener(changeListener2);
         pwCheck.addTextChangedListener(changeListener1);
         email.addTextChangedListener(changeListener);
     }
@@ -128,6 +134,41 @@ public class JoinActivity extends AppCompatActivity {
             }
         }
     };
+
+    // pw 입력란 text 변경 시 listener
+    TextWatcher changeListener2 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // pw 입력 시
+            String pwCheck =pw.getText().toString().trim();
+            Boolean check = pwdRegularExpressionChk(pwCheck);
+
+                if(check == false){
+                    pw.setError("비밀번호는 특수문자 포함하여 최소 8자 이상 입력해주세요.");
+                }
+
+        }
+    };
+
+    // 비밀번호 영/숫/특 포함 설정
+    public boolean pwdRegularExpressionChk(String newPwd){
+        boolean chk = false;  // 특수문자, 영문, 숫자 조합 (8~10 자리)
+        match = Pattern.compile(pattern1).matcher(newPwd);
+        if (match.find()) {
+            chk = true;
+        }
+        return chk;
+    }
 
     // pw 입력란 text 변경 시 listener
     TextWatcher changeListener1 = new TextWatcher() {
@@ -234,13 +275,20 @@ public class JoinActivity extends AppCompatActivity {
             String userPhone = phone.getText().toString().trim();
 
             if(btnCheck == 1) {
-                if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                    insertUser(userName, userEmail, userPW, userPhone);
+                Boolean check = pwdRegularExpressionChk(userPW);
 
+                if(check == false){
+                    alertCheck("비밀번호를 특수문자 포함하여 최소 8자 이상");
                 } else {
-                    pwCheck.setText("");
-                    Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
 
+                    if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
+                        insertUser(userName, userEmail, userPW, userPhone);
+
+                    } else {
+                        pwCheck.setText("");
+                        Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             } else {
                 Toast.makeText(JoinActivity.this, "Email 중복 채크 해주세요.", Toast.LENGTH_SHORT).show();
