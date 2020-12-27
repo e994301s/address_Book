@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.Task.NetworkTask;
 import com.android.address_book.R;
+import com.android.address_book.User;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class JoinActivity extends AppCompatActivity {
 
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.219.100";
+        macIP = "192.168.219.154";
         urlAddr = "http://" + macIP + ":8080/test/";
 
         TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);
@@ -180,10 +181,10 @@ public class JoinActivity extends AppCompatActivity {
 
             Log.v(TAG, "email : " + emailInput);
 
-            ArrayList<String> result = connectSelectData(urlAddr2);
+            ArrayList<User> result = connectSelectData(urlAddr2);
 
             for(int i =0; i<result.size(); i++){
-                if(emailInput.equals(result.get(i))){
+                if(emailInput.equals(result.get(i).getUserEmail())){
                     count ++;
                 }
             }
@@ -297,13 +298,13 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     //connection Select
-    private ArrayList<String> connectSelectData(String urlAddr){
-        ArrayList<String> result1 = null;
+    private ArrayList<User> connectSelectData(String urlAddr){
+        ArrayList<User> result1 = null;
 
         try{
             NetworkTask selectNetworkTask = new NetworkTask(JoinActivity.this, urlAddr, "select");
             Object obj = selectNetworkTask.execute().get();
-            result1 = (ArrayList<String>) obj;
+            result1 = (ArrayList<User>) obj;
 
         } catch (Exception e){
             e.printStackTrace();

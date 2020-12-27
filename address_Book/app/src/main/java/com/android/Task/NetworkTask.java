@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.address_book.User;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,13 +33,13 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     String mAddr = null;
     ProgressDialog progressDialog = null;
     String where = null;
-    ArrayList<String> emailList = null;
+    ArrayList<User> user= null;
 
     public NetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
         this.where = where;
-        this.emailList = new ArrayList<String>();
+        this.user = new ArrayList<User>();
         Log.v(TAG, "Start : " + mAddr);
     }
 
@@ -113,7 +115,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
         if(where.equals("select")){
             //return 수정하기
-           return emailList;
+           return user;
         }else{
             return result;
         }
@@ -127,14 +129,17 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
-            emailList.clear();
+            user.clear();
 
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String name = jsonObject1.getString("username");
                 String email = jsonObject1.getString("useremail");
+                String pw = jsonObject1.getString("userpw");
+                String phone = jsonObject1.getString("userphone");
 
-                emailList.add(email);
-
+                User users = new User(name, email, pw, phone);
+                user.add(users);
             }
         }catch (Exception e){
             e.printStackTrace();
