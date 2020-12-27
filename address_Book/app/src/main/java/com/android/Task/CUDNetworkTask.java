@@ -70,7 +70,7 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
                     stringBuffer.append(strline + "\n");
                 }
 
-                result = parser(stringBuffer.toString());
+//                result = parser(stringBuffer.toString());
             }
 
         }catch (Exception e){
@@ -109,20 +109,20 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
     //      }
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    private String parser(String s){
-        Log.v(TAG,"Parser()");
-        String returnValue = null;
-
-        try {
-            Log.v(TAG, s);
-
-            JSONObject jsonObject = new JSONObject(s);
-            returnValue = jsonObject.getString("result");
-            Log.v(TAG, returnValue);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return returnValue;
-    }
+//    private String parser(String s){
+//        Log.v(TAG,"Parser()");
+//        String returnValue = null;
+//
+//        try {
+//            Log.v(TAG, s);
+//
+//            JSONObject jsonObject = new JSONObject(s);
+//            returnValue = jsonObject.getString("result");
+//            Log.v(TAG, returnValue);
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return returnValue;
+//    }
 }

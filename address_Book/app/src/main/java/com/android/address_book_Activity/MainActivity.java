@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.QuickContactBadge;
 import android.widget.Toast;
 
 import com.android.Task.CUDNetworkTask;
+import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 
 
@@ -33,54 +35,72 @@ public class MainActivity extends AppCompatActivity {
     EditText loginId;
     EditText loginPw;
     Button loginBtn;
-    String id, pw ;
-
-
-
+    String useremail, userpw, macIP;
+    String urlAddrLoginCheck = null;
+    int count = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        urlAddr = "http://192.168.35.251:8080/test/logincheck.jsp?";
+        macIP = "172.20.10.5";
+        urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
+        urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
 
         loginId = findViewById(R.id.login_id);
         loginPw = findViewById(R.id.login_pw);
         loginBtn = findViewById(R.id.login_btn);
 
         loginBtn.setOnClickListener(onClickListener);
+        useremail = loginId.getText().toString();
+        userpw = loginPw.getText().toString();
     }
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            id = loginId.getText().toString();
-            pw = loginPw.getText().toString();
 
-            urlAddr = urlAddr + "id=" + id + "&pw=" + pw;
+            urlAddr = urlAddr + "useremail=" + loginId.getText().toString() + "&userpw=" + loginPw.getText().toString();
+            urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
 
-            String result = connectUpdateData();
+            count= loginCount();
 
-            if(result.equals("1")){
+            if (count == 1) {
+                connectUpdateData();
                 Toast.makeText(MainActivity.this, "로그인 완료", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, AddressListActivity.class);
                 startActivity(intent);
-            }else{
+                finish();
+            } else {
                 Toast.makeText(MainActivity.this, "아이디와 비밀번호를 확인하세요!", Toast.LENGTH_SHORT).show();
+
             }
-            finish();
-
-
-
 
 
 
         }
     };
 
-    private String connectUpdateData(){
+//    private int loginCount(){
+//        try {
+//            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddrLoginCheck, "loginCount");
+//            Object obj = networkTask.execute().get();
+//
+//            count = (int) obj;
+//            Log.v("여기","loginCount : " + count);
+//
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return count;
+//    }
+//
+
+
+    private String connectUpdateData() {
 
         String result = null;
         try {
@@ -96,18 +116,24 @@ public class MainActivity extends AppCompatActivity {
             Object obj = updnetworkTask.execute().get();
             result = (String) obj;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
+    private int loginCount(){
+        try {
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddrLoginCheck, "loginCount");
+            Object obj = networkTask.execute().get();
+
+            count = (int) obj;
+            Log.v("여기","loginCount : " + count);
 
 
-
-
-
-
-
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return count;
+    }
 
 }//---------------------------
