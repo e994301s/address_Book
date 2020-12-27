@@ -1,33 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.address_book_Activity.AddressListActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.Address_Book.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Address_Book.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_address_list" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <HorizontalScrollView
+        android:id="@+id/hsv_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_marginTop="5px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        >
+        <LinearLayout
+            android:id="@+id/ll_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:text="Group1"
+                android:id="@+id/button1" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group2"
+                android:id="@+id/button2" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group3"
+                android:id="@+id/button3" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group4"
+                android:id="@+id/button4" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group5"
+                android:id="@+id/button5" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group6"
+                android:id="@+id/button6" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group7"
+                android:id="@+id/button7" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group8"
+                android:id="@+id/button8"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:orientation="vertical"
+        android:layout_weight="8"
+        >
+        <ListView
+            android:id="@+id/lv_student"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

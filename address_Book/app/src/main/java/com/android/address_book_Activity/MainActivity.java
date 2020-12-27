@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        macIP = "172.20.10.5";
+        macIP = "172.20.10.7";
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
         urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
 
@@ -65,12 +65,13 @@ public class MainActivity extends AppCompatActivity {
             urlAddr = urlAddr + "useremail=" + loginId.getText().toString() + "&userpw=" + loginPw.getText().toString();
             urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
 
-            count= loginCount();
+            count= 1;
 
             if (count == 1) {
                 connectUpdateData();
                 Toast.makeText(MainActivity.this, "로그인 완료", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, AddressListActivity.class);
+                intent.putExtra("macIP",macIP);
                 startActivity(intent);
                 finish();
             } else {

@@ -34,6 +34,11 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     String where = null;
     ArrayList<String> emailList = null;
 
+    public NetworkTask(Context context, String mAddr) {
+        this.context = context;
+        this.mAddr = mAddr;
+    }
+
     public NetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
