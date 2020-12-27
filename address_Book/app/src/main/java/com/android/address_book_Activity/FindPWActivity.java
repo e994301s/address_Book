@@ -35,12 +35,18 @@ public class FindPWActivity extends AppCompatActivity {
 
     final static String TAG = "FindPWActivity";
 
-    String user = "pakk7026@gmail.com"; // 보내는 계정의 id
-    String password = "kyeongmi7"; // 보내는 계정의 pw
+    ////////////////////////////////////////////
+    ////////////////////////////////////////////
+    /////////         계정 입력       ////////////
+    ////////////////////////////////////////////
+    ////////////////////////////////////////////
+
+    String user = "@gmail.com"; // 보내는 계정의 id
+    String password = ""; // 보내는 계정의 pw
 
     EditText name, email;
     TextView check;
-    String macIP, urlAddr, pw;
+    String macIP, urlAddr, pw, phone;
     ArrayList<User> users;
 
     @Override
@@ -80,14 +86,14 @@ public class FindPWActivity extends AppCompatActivity {
                     break;
 
                 case R.id.btnPhoneAuth_findPw:
-
+                    phoneFieldCheck();
                     break;
 
             }
         }
     };
 
-    // field check
+    // email field check
     private void emailFieldCheck(){
         String userName = name.getText().toString().trim();
         String userEmail = email.getText().toString().trim();
@@ -135,6 +141,51 @@ public class FindPWActivity extends AppCompatActivity {
         }
 
     }
+
+    // phone field check
+    private void phoneFieldCheck(){
+        String userName = name.getText().toString().trim();
+        String userEmail = email.getText().toString().trim();
+        int count = 0;
+
+        if(userName.length() == 0){
+            check.setText("이름을 입력해주세요.");
+        } else if (userEmail.length() == 0){
+            check.setText("이메일을 입력해주세요.");
+        } else {
+
+            urlAddr = urlAddr + "user_query_all.jsp?name=" + userName +"&email=" + userEmail;
+            users = connectSelectData(urlAddr);
+
+            for(int i =0; i<users.size(); i++){
+                if(userName.equals(users.get(i).getUserName()) && userEmail.equals(users.get(i).getUserEmail())){
+                    phone = users.get(i).getUserPhone();
+                    pw = users.get(i).getUserPW();
+                    count ++;
+                }
+            }
+
+            Log.v(TAG, Integer.toString(count));
+
+            if(count == 0) {
+                check.setText("일치하는 정보가 없습니다. \n이름 또는 이메일을 다시 입력해주세요");
+                name.setText("");
+                email.setText("");
+
+            } else {
+                check.setText("");
+
+                Intent intent = new Intent(FindPWActivity.this, PhoneFindPWActivity.class);
+                intent.putExtra("name", userName);
+                intent.putExtra("pw", pw);
+                intent.putExtra("phone", phone);
+                finish();
+                startActivity(intent);
+            }
+        }
+
+    }
+
 
     // user Info 검색
     private ArrayList<User> connectSelectData(String urlAddr){

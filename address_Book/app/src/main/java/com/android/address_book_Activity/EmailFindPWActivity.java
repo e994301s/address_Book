@@ -53,6 +53,7 @@ public class EmailFindPWActivity extends AppCompatActivity {
 
     }
 
+    // Click 이벤트
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
