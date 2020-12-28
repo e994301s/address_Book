@@ -8,6 +8,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.telephony.SmsManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,9 +22,16 @@ import android.widget.Toast;
 
 import com.android.address_book.R;
 
+import java.util.regex.Pattern;
+
 public class PhoneFindPWActivity extends AppCompatActivity {
 
     final static String TAG = "PhoneFindPWActivity";
+
+    public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+
+    private int _beforeLenght = 0;
+    private int _afterLenght = 0;
 
     TextView field;
     EditText phoneInput, codeNum;
@@ -58,6 +67,8 @@ public class PhoneFindPWActivity extends AppCompatActivity {
         findViewById(R.id.btnSendMsg_phonefindPw).setOnClickListener(mClickListener);
         findViewById(R.id.btnFindPw_phonefindPw).setOnClickListener(mClickListener);
 
+        phoneInput.addTextChangedListener(changeListener);
+
     }
 
     View.OnClickListener mClickListener = new View.OnClickListener() {
@@ -65,7 +76,9 @@ public class PhoneFindPWActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.backBtn_phonefindPw:
-                    finish();
+                    countDownTimer.cancel();
+                    Intent intent = new Intent(PhoneFindPWActivity.this, FindPWActivity.class);
+                    startActivity(intent);
                     break;
 
                 case R.id.btnSendMsg_phonefindPw:
@@ -80,22 +93,88 @@ public class PhoneFindPWActivity extends AppCompatActivity {
         }
     };
 
+    TextWatcher changeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            field.setText("");
+            _beforeLenght = s.length();
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            field.setText("");
+            _afterLenght = s.length();
+            // 삭제 중
+            if (_beforeLenght > _afterLenght) {
+                // 삭제 중에 마지막에 -는 자동으로 지우기
+                if (s.toString().endsWith("-")) {
+                    phoneInput.setText(s.toString().substring(0, s.length() - 1));
+                }
+            }
+            // 입력 중
+            else if (_beforeLenght < _afterLenght) {
+                if (_afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                    phoneInput.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                } else if (_afterLenght == 9) {
+                    phoneInput.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                } else if (_afterLenght == 14) {
+                    phoneInput.setText(s.toString().subSequence(0, 13) + "-" + s.toString().substring(13, s.length()));
+                }
+            }
+            phoneInput.setSelection(phoneInput.length());
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String phoneCheck = phoneInput.getText().toString().trim();
+            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+            if(phoneCheck.length() == 0){
+                phoneInput.setError(null);
+                field.setText("");
+            }
+            else {
+                if(flag == false) {
+                    field.setText("휴대폰 번호를 다시 입력해주세요.");
+                    phoneInput.setFocusableInTouchMode(true);
+                    phoneInput.requestFocus();
+                }
+            }
+        }
+    };
+
     private void phoneCheck(){
         String phoneIn = phoneInput.getText().toString().trim();
         field.setText("");
 
         if(phoneIn.length() == 0){
             field.setText("휴대폰 번호를 입력해주세요.");
+            phoneInput.setFocusableInTouchMode(true);
+            phoneInput.requestFocus();
 
         } else {
-            field.setText("");
-            if(phone.equals(phoneIn)){
-                sendMessage(phone);
-                countDownTimer();
-                layoutSMS.setVisibility(View.VISIBLE);
-                Toast.makeText(PhoneFindPWActivity.this, "문자 발송하였습니다.", Toast.LENGTH_SHORT).show();
+            String phoneCheck =phoneInput.getText().toString().trim();
+            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+            if(flag == false) {
+                field.setText("휴대폰 번호 확인 후 다시 입력해주세요.");
+                phoneInput.setFocusableInTouchMode(true);
+                phoneInput.requestFocus();
+
             } else {
-                field.setText("휴대폰 번호가 회원정보와 일치하지 않습니다.");
+
+                field.setText("");
+                if (phone.equals(phoneIn)) {
+                    sendMessage(phone);
+                    countDownTimer();
+                    layoutSMS.setVisibility(View.VISIBLE);
+                    Toast.makeText(PhoneFindPWActivity.this, "문자 발송하였습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    field.setText("휴대폰 번호가 회원정보와 일치하지 않습니다.");
+                    phoneInput.setFocusableInTouchMode(true);
+                    phoneInput.requestFocus();
+                }
             }
         }
 
@@ -150,6 +229,8 @@ public class PhoneFindPWActivity extends AppCompatActivity {
 
         } else{
             codeNum.setText("");
+            codeNum.setFocusableInTouchMode(true);
+            codeNum.requestFocus();
             Toast.makeText(PhoneFindPWActivity.this, "인증코드 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
 
         }

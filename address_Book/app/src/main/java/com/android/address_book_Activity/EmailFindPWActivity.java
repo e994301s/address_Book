@@ -60,7 +60,8 @@ public class EmailFindPWActivity extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.backBtn_emailfindPw:
                     countDownTimer.cancel();
-                    finish();
+                    Intent intent = new Intent(EmailFindPWActivity.this, FindPWActivity.class);
+                    startActivity(intent);
                     break;
 
                 case R.id.btnFindPw_emailfindPw:
@@ -79,6 +80,9 @@ public class EmailFindPWActivity extends AppCompatActivity {
             Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
             alertCheck();
         } else {
+            sendNum.setText("");
+            sendNum.setFocusableInTouchMode(true);
+            sendNum.requestFocus();
             msg.setText("인증번호가 다릅니다. \n다시 입력해주세요.");
         }
     }

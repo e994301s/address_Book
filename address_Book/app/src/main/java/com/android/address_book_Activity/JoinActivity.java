@@ -48,6 +48,7 @@ public class JoinActivity extends AppCompatActivity {
 
     final static String TAG = "JoinActivity";
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
+    public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
     Matcher match;
 
     EditText email, name, pw, pwCheck, phone;
@@ -55,6 +56,9 @@ public class JoinActivity extends AppCompatActivity {
     String macIP, urlAddr;
     String emailInput = null;
     int btnCheck = 0;
+
+    private int _beforeLenght = 0;
+    private int _afterLenght = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,7 @@ public class JoinActivity extends AppCompatActivity {
         findViewById(R.id.btnEmailCheck_join).setOnClickListener(mClickListener);
         findViewById(R.id.submitBtn_join).setOnClickListener(mClickListener);
 
+        phone.addTextChangedListener(changeListener3);
         pw.addTextChangedListener(changeListener2);
         pwCheck.addTextChangedListener(changeListener1);
         email.addTextChangedListener(changeListener);
@@ -135,6 +140,7 @@ public class JoinActivity extends AppCompatActivity {
         }
     };
 
+
     // pw 입력란 text 변경 시 listener
     TextWatcher changeListener2 = new TextWatcher() {
         @Override
@@ -153,12 +159,67 @@ public class JoinActivity extends AppCompatActivity {
             String pwCheck =pw.getText().toString().trim();
             Boolean check = pwdRegularExpressionChk(pwCheck);
 
-                if(check == false){
+            if(pwCheck.length() == 0){
+                pw.setError(null);
+
+            } else {
+                if (check == false) {
                     pw.setError("비밀번호는 특수문자 포함하여 최소 8자 이상 입력해주세요.");
                 }
-
+            }
         }
     };
+
+    // phone 입력란 text 변경 시 listener
+    TextWatcher changeListener3 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            _beforeLenght = s.length();
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            _afterLenght = s.length();
+            // 삭제 중
+            if (_beforeLenght > _afterLenght) {
+                // 삭제 중에 마지막에 -는 자동으로 지우기
+                if (s.toString().endsWith("-")) {
+                    phone.setText(s.toString().substring(0, s.length() - 1));
+                }
+            }
+            // 입력 중
+            else if (_beforeLenght < _afterLenght) {
+                if (_afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                    phone.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                } else if (_afterLenght == 9) {
+                    phone.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                } else if (_afterLenght == 14) {
+                    phone.setText(s.toString().subSequence(0, 13) + "-" + s.toString().substring(13, s.length()));
+                }
+            }
+            phone.setSelection(phone.length());
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String phoneCheck =phone.getText().toString().trim();
+            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+            if(phoneCheck.length() == 0){
+                phone.setError(null);
+            }
+            else {
+                if(flag == false) {
+                    phone.setError("휴대폰 번호를 다시 입력해주세요.");
+                }
+            }
+        }
+    };
+
 
     // 비밀번호 영/숫/특 포함 설정
     public boolean pwdRegularExpressionChk(String newPwd){
@@ -281,13 +342,22 @@ public class JoinActivity extends AppCompatActivity {
                     alertCheck("비밀번호를 특수문자 포함하여 최소 8자 이상");
                 } else {
 
-                    if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                        insertUser(userName, userEmail, userPW, userPhone);
+                    String phoneCheck =phone.getText().toString().trim();
+                    boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+                    if(flag == false) {
+                        alertCheck("휴대폰 번호 확인 후 다시");
 
                     } else {
-                        pwCheck.setText("");
-                        Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
 
+                        if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
+                            insertUser(userName, userEmail, userPW, userPhone);
+
+                        } else {
+                            pwCheck.setText("");
+                            Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
                 }
             } else {

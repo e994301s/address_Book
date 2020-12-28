@@ -18,6 +18,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.telephony.SmsManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,6 +37,7 @@ import com.android.address_book.User;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /*
 ===========================================================================================================================
@@ -53,6 +56,11 @@ import java.util.ArrayList;
 public class FindIDActivity extends AppCompatActivity {
 
     final static String TAG = "FindIDActivity";
+
+    private int _beforeLenght = 0;
+    private int _afterLenght = 0;
+
+    public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
 
     LinearLayout layoutSMS;
     EditText phone, name, codeNum;
@@ -110,6 +118,8 @@ public class FindIDActivity extends AppCompatActivity {
         findViewById(R.id.backBtn_findId).setOnClickListener(mClickListener);
         findViewById(R.id.btnSendMsg_findId).setOnClickListener(mClickListener);
         findViewById(R.id.btnFindId_findId).setOnClickListener(mClickListener);
+        phone.addTextChangedListener(changeListener);
+        name.addTextChangedListener(changeListener1);
 
     }
 
@@ -160,6 +170,74 @@ public class FindIDActivity extends AppCompatActivity {
         }
     };
 
+    // name text
+    TextWatcher changeListener1 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            fieldCheck.setText("");
+        }
+    };
+
+    // phone text
+    TextWatcher changeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            fieldCheck.setText("");
+            _beforeLenght = s.length();
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            fieldCheck.setText("");
+            _afterLenght = s.length();
+            // 삭제 중
+            if (_beforeLenght > _afterLenght) {
+                // 삭제 중에 마지막에 -는 자동으로 지우기
+                if (s.toString().endsWith("-")) {
+                    phone.setText(s.toString().substring(0, s.length() - 1));
+                }
+            }
+            // 입력 중
+            else if (_beforeLenght < _afterLenght) {
+                if (_afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                    phone.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                } else if (_afterLenght == 9) {
+                    phone.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                } else if (_afterLenght == 14) {
+                    phone.setText(s.toString().subSequence(0, 13) + "-" + s.toString().substring(13, s.length()));
+                }
+            }
+            phone.setSelection(phone.length());
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String phoneCheck =phone.getText().toString().trim();
+            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+            if(phoneCheck.length() == 0){
+                phone.setError(null);
+            }
+            else {
+                if(flag == false) {
+                    phone.setError("휴대폰 번호를 다시 입력해주세요.");
+                }
+            }
+        }
+    };
+
+
     // user 정보 확인
     private void userInfoCheck(){
         int count = 0;
@@ -169,31 +247,48 @@ public class FindIDActivity extends AppCompatActivity {
 
        if(userName.length() == 0){
             fieldCheck.setText("이름을 입력해주세요");
+           name.setFocusableInTouchMode(true);
+           name.requestFocus();
+
        } else if(userPhone.length() == 0){
            fieldCheck.setText("휴대폰 번호을 입력해주세요");
+           phone.setFocusableInTouchMode(true);
+           phone.requestFocus();
        } else{
-           urlAddr = urlAddr + "user_query_all.jsp?name=" + userName +"&phone=" + userPhone;
-           users = connectSelectData(urlAddr);
+           fieldCheck.setText("");
+           String phoneCheck =phone.getText().toString().trim();
+           boolean flag = Pattern.matches(pattern2, phoneCheck);
 
-           for(int i =0; i<users.size(); i++){
-               if(userName.equals(users.get(i).getUserName()) && userPhone.equals(users.get(i).getUserPhone())){
-                   userEmail = users.get(i).getUserEmail();
-                   count ++;
-               }
-           }
-               Log.v(TAG, Integer.toString(count));
-           if(count == 0){
-               fieldCheck.setText("일치하는 정보가 없습니다. \n이름 또는 휴대폰 번호를 다시 입력해주세요");
-               name.setText("");
-               phone.setText("");
-           } else{
-               //sendSMS(userPhone, "[1234] 발송");
-               sendMessage(userPhone);
-               countDownTimer();
+           if(flag == false) {
+               fieldCheck.setText("휴대폰 번호을 다시 입력해주세요");
+               phone.setFocusableInTouchMode(true);
+               phone.requestFocus();
+
+           } else {
                fieldCheck.setText("");
-               layoutSMS.setVisibility(View.VISIBLE);
-               Toast.makeText(FindIDActivity.this, "문자 발송하였습니다.", Toast.LENGTH_SHORT).show();
+               urlAddr = urlAddr + "user_query_all.jsp?name=" + userName + "&phone=" + userPhone;
+               users = connectSelectData(urlAddr);
 
+               for (int i = 0; i < users.size(); i++) {
+                   if (userName.equals(users.get(i).getUserName()) && userPhone.equals(users.get(i).getUserPhone())) {
+                       userEmail = users.get(i).getUserEmail();
+                       count++;
+                   }
+               }
+               Log.v(TAG, Integer.toString(count));
+               if (count == 0) {
+                   fieldCheck.setText("일치하는 정보가 없습니다. \n이름 또는 휴대폰 번호를 다시 입력해주세요");
+                   name.setText("");
+                   phone.setText("");
+               } else {
+                   //sendSMS(userPhone, "[1234] 발송");
+                   sendMessage(userPhone);
+                   countDownTimer();
+                   fieldCheck.setText("");
+                   layoutSMS.setVisibility(View.VISIBLE);
+                   Toast.makeText(FindIDActivity.this, "문자 발송하였습니다.", Toast.LENGTH_SHORT).show();
+
+               }
            }
        }
 
@@ -264,6 +359,8 @@ public class FindIDActivity extends AppCompatActivity {
 
         } else{
             codeNum.setText("");
+            codeNum.setFocusableInTouchMode(true);
+            codeNum.requestFocus();
             Toast.makeText(FindIDActivity.this, "인증코드 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
 
         }
