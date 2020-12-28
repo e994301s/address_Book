@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        macIP = "172.20.10.7";
+        macIP = "192.168.2.14";
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
         urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
 
+        loginBtn = findViewById(R.id.login_btn);
         loginId = findViewById(R.id.login_id);
         loginPw = findViewById(R.id.login_pw);
-        loginBtn = findViewById(R.id.login_btn);
 
         loginBtn.setOnClickListener(onClickListener);
         useremail = loginId.getText().toString();
@@ -61,17 +61,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            useremail = loginId.getText().toString();
+            userpw = loginPw.getText().toString();
 
-            urlAddr = urlAddr + "useremail=" + loginId.getText().toString() + "&userpw=" + loginPw.getText().toString();
-            urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
+            urlAddr = urlAddr + "useremail=" + useremail + "&userpw=" + userpw;
 
-            count= 1;
+
+            count = loginCount();
+
+            Log.v("여기",""+loginCount());
+
+            Log.v("아이디", "login : " + useremail + userpw);
 
             if (count == 1) {
                 connectUpdateData();
                 Toast.makeText(MainActivity.this, "로그인 완료", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, AddressListActivity.class);
-                intent.putExtra("macIP",macIP);
                 startActivity(intent);
                 finish();
             } else {
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-//    private int loginCount(){
+    //    private int loginCount(){
 //        try {
 //            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddrLoginCheck, "loginCount");
 //            Object obj = networkTask.execute().get();
@@ -99,6 +104,19 @@ public class MainActivity extends AppCompatActivity {
 //        return count;
 //    }
 //
+    private int loginCount() {
+        try {
+            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "loginCount");
+            Object obj = networkTask.execute().get();
+
+            count = (int) obj;
+            Log.v("여기", "loginCount : " + count);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
 
     private String connectUpdateData() {
@@ -122,19 +140,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return result;
     }
-    private int loginCount(){
-        try {
-            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddrLoginCheck, "loginCount");
-            Object obj = networkTask.execute().get();
 
-            count = (int) obj;
-            Log.v("여기","loginCount : " + count);
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return count;
-    }
 
 }//---------------------------
