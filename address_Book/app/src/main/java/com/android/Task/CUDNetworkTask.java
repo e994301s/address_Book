@@ -5,6 +5,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.address_book.User;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -12,18 +15,28 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
 
     final static String TAG = "NetworkTask";
     Context context = null;
     String mAddr = null;
+    String where = null;
     ProgressDialog progressDialog = null;
+    int favoriteCheck = 0;
+    int emergencyCheck = 0;
 
     public CUDNetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        Log.v(TAG, "Start : " + mAddr);
+    }
+
+    public CUDNetworkTask(Context context, String mAddr, String where) {
+        this.context = context;
+        this.mAddr = mAddr;
+        this.where = where;
+        Log.v(TAG, "Start : " + mAddr);;
     }
 
     @Override
@@ -32,51 +45,8 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setTitle("Create/Update/Delete");
-        progressDialog.setMessage("Ins ....");
+        progressDialog.setMessage("Working ....");
         progressDialog.show();
-
-    }
-
-    @Override
-    protected Object doInBackground(Integer... integers) {
-        Log.v(TAG, "doInBackground()");
-
-        ///////////////////////////////////////////////////////////////////////////////////////
-        // Date : 2020.12.24
-        //
-        // Description:
-        // - jsp를 실행후에 return 값을 Json으로 받는다.
-        //
-        ///////////////////////////////////////////////////////////////////////////////////////
-
-        StringBuffer stringBuffer = new StringBuffer();
-        InputStream inputStream = null;
-        InputStreamReader inputStreamReader = null;
-        BufferedReader bufferedReader = null;
-        String result = null;
-
-        try {
-            URL url = new URL(mAddr);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setConnectTimeout(10000);
-            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                inputStream = httpURLConnection.getInputStream();
-                inputStreamReader = new InputStreamReader(inputStream);
-                bufferedReader = new BufferedReader(inputStreamReader);
-
-                while (true){
-                    String strline = bufferedReader.readLine();
-                    if(strline == null) break;
-                    stringBuffer.append(strline + "\n");
-                }
-
-//                result = parser(stringBuffer.toString());
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
     }
 
     @Override
@@ -98,31 +68,127 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
         super.onCancelled();
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    // Date : 2020.12.24
-    //
-    // Description:
-    // - jsp의 결과인 Json을 Parsing한다.
-    // - Json 결과값
-    //      {
-    //           "result" : "1"
-    //      }
-    ///////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    protected Object doInBackground(Integer... integers) {
+        Log.v(TAG, "doInBackground()");
 
-//    private String parser(String s){
-//        Log.v(TAG,"Parser()");
-//        String returnValue = null;
+        StringBuffer stringBuffer = new StringBuffer();
+        InputStream inputStream = null;
+        InputStreamReader inputStreamReader = null;
+        BufferedReader bufferedReader = null;
+        String result = null;
+
+        try{
+            URL url = new URL(mAddr);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setConnectTimeout(10000);
+
+            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                inputStream = httpURLConnection.getInputStream();
+                inputStreamReader = new InputStreamReader(inputStream);
+                bufferedReader = new BufferedReader(inputStreamReader);
+
+                while(true){
+                    String strline = bufferedReader.readLine();
+                    if(strline == null) break;
+                    stringBuffer.append(strline + "\n");
+                }
+
+//                if(where.equals("modifyPeople")){
+//                    parserModifyPeople(stringBuffer.toString());
+//                }
+//                if(where.equals("deletePeople")){
+//                    parserDeletePeople(stringBuffer.toString());
+//                }
+//                if(where.equals("favoriteCount")){
+//                    parserfavoriteCheck(stringBuffer.toString());
+//                }else{
+//                    result = parserAction(stringBuffer.toString());
+//                }
+
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            try {
+                if(bufferedReader != null) bufferedReader.close();
+                if(inputStreamReader != null) inputStreamReader.close();
+                if(inputStream != null) inputStream.close();
+
+            }catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+
+//        if(where.equals("modifyPeople")){
+//           // return people;
 //
-//        try {
-//            Log.v(TAG, s);
-//
-//            JSONObject jsonObject = new JSONObject(s);
-//            returnValue = jsonObject.getString("result");
-//            Log.v(TAG, returnValue);
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return returnValue;
-//    }
-}
+//        } else if(where.equals("deletePeople")){
+//           // return people;
+
+        if(where.equals("favoriteCount")) {
+            return favoriteCheck;
+
+        } else if(where.equals("emergencyCount")){
+            return emergencyCheck;
+
+        } else{
+            return result;
+        }
+
+    }
+
+
+    // update action
+    private String parserModifyPeople(String s){
+        Log.v(TAG,"parserModifyPeople()");
+        String returnResult = null;
+
+        try{
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return returnResult;
+    }
+
+    // delete action
+    private String parserDeletePeople(String s){
+        Log.v(TAG,"parserDeletePeople()");
+        String returnResult = null;
+
+        try{
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return returnResult;
+    }
+
+    private void favoriteCheck(String s){
+        try {
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+
+
+
+
+} // end
