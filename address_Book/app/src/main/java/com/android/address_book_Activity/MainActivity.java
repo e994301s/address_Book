@@ -47,13 +47,21 @@ public class MainActivity extends AppCompatActivity {
         macIP = "192.168.35.251";
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
 
-
+        findViewById(R.id.join_btn).setOnClickListener(mClickListener);
         loginBtn = findViewById(R.id.login_btn);
         loginId = findViewById(R.id.login_id);
         loginPw = findViewById(R.id.login_pw);
 
 
     }
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, JoinActivity.class);
+            startActivity(intent);
+        }
+    };
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
