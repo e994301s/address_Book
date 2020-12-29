@@ -44,17 +44,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
         macIP = "192.168.0.76";
+=======
+        macIP = "192.168.35.251";
+>>>>>>> 93ab136d4686df9f5bbab1965d05c65477a38df9
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
-        urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
+
 
         loginBtn = findViewById(R.id.login_btn);
         loginId = findViewById(R.id.login_id);
         loginPw = findViewById(R.id.login_pw);
 
-        loginBtn.setOnClickListener(onClickListener);
-        useremail = loginId.getText().toString();
-        userpw = loginPw.getText().toString();
+
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -89,21 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //    private int loginCount(){
-//        try {
-//            NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddrLoginCheck, "loginCount");
-//            Object obj = networkTask.execute().get();
-//
-//            count = (int) obj;
-//            Log.v("여기","loginCount : " + count);
-//
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return count;
-//    }
-//
+
     private int loginCount() {
         try {
             NetworkTask networkTask = new NetworkTask(MainActivity.this, urlAddr, "loginCount");
