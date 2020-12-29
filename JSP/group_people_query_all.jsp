@@ -5,6 +5,7 @@
 <%
     request.setCharacterEncoding("utf-8");
     String useremail = request.getParameter("email");
+    String relation = request.getParameter("group");
 
 	String url_mysql = "jdbc:mysql://localhost/address?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
  	String id_mysql = "root";
@@ -23,10 +24,11 @@
         String WhereDefault = "select peopleno, peoplename, (SELECT JSON_ARRAYAGG(phonetel) FROM phone group by people_peopleno having people_peopleno = peopleno) peoplephone, ";
         String WhereDefault1 = "peopleemail, peoplerelation, peoplememo, peopleimage, s.peoplefavorite favorite, s.peopleemg emergency, r.userinfo_useremail useremail ";
         String WhereDefault2 = "from people peo, phone ph, statuspeople s, register r where peo.peopleno = ph.people_peopleno and s.people_peopleno = peo.peopleno and r.people_peopleno = peo.peopleno ";
-        String WhereDefault3 = "and r.userinfo_useremail = ? group by peo.peopleno, s.peoplefavorite, s.peopleemg, r.userinfo_useremail order by peoplename";
+        String WhereDefault3 = "and r.userinfo_useremail = ? and peoplerelation = ? group by peo.peopleno, s.peoplefavorite, s.peopleemg, r.userinfo_useremail order by peoplename";
 
         ps = conn_mysql.prepareStatement(WhereDefault + WhereDefault1 + WhereDefault2 + WhereDefault3); // 
         ps.setString(1, useremail);
+        ps.setString(2, relation);
         rs = ps.executeQuery();
 
 %>

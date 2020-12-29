@@ -26,7 +26,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -53,16 +55,15 @@ public class AddressListActivity extends AppCompatActivity {
     String urlAddr1 = null;
     String urlAddr2 = null;
     String urlAddr3 = null;
+    String urlAddr4 = null;
     ArrayList<People> searchArr;
     ArrayList<People> members;
-    ArrayList<People> favorite;
-    ArrayList<People> group;
     PeopleAdapter adapter;
     ListView listView;
     String macIP;
+    Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
 
     EditText search_EdT;
-    LinearLayout linearLayout;
 
     private BottomNavigationView mBottomNV;
 
@@ -83,11 +84,17 @@ public class AddressListActivity extends AppCompatActivity {
 //        });
 
         Intent intent = getIntent();
-
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.0.81";
+        macIP = "192.168.219.154";
         urlAddr = "http://" + macIP + ":8080/test/";
+        btnGroup1 = findViewById(R.id.button1);
+        btnGroup2 = findViewById(R.id.button2);
+        btnGroup3 = findViewById(R.id.button3);
+
+        btnGroup1.setOnClickListener(onCLickListener);
+        btnGroup2.setOnClickListener(onCLickListener);
+        btnGroup3.setOnClickListener(onCLickListener);
 
 
         search_EdT = findViewById(R.id.search_ET);
@@ -114,7 +121,24 @@ public class AddressListActivity extends AppCompatActivity {
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                 BottomNavigate(menuItem.getItemId());
+                // BottomNavigate(menuItem.getItemId());
+                switch (menuItem.getItemId()){
+                    case R.id.navigation_1:
+                        urlAddr2 = urlAddr + "people_query_all2.jsp";
+                        connectGetData(urlAddr2);
+                        break;
+
+                    case R.id.navigation_2:
+                        urlAddr4="";
+                        String group1 = btnGroup1.getText().toString();
+                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+                        connectGetData(urlAddr4);
+                        break;
+
+                    case R.id.navigation_3:
+                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp";
+                        connectGetData(urlAddr3);
+                }
 
 
                 return true;
@@ -217,8 +241,8 @@ public class AddressListActivity extends AppCompatActivity {
                 connectGetData(urlAddr2);
 
             } else if (id == R.id.navigation_2) {
-//                urlAddr = urlAddr + "group_people_query_all.jsp";
-//                connectGetData(urlAddr, "peopleGroup");
+                String urlAddr5 = urlAddr + "group_people_query_all.jsp";
+                connectGetData(urlAddr4);
 
             } else if (id == R.id.navigation_3){
                 urlAddr3 = urlAddr + "favorite_people_query_all.jsp";
@@ -233,5 +257,31 @@ public class AddressListActivity extends AppCompatActivity {
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNow();
-}
+    }
+
+    View.OnClickListener onCLickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.button1:
+                        urlAddr4 = "";
+                        String group1 = btnGroup1.getText().toString();
+
+                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
+                        connectGetData(urlAddr4);
+                        break;
+
+                case R.id.button2:
+                    urlAddr4 = "";
+                    String group2 = btnGroup2.getText().toString();
+
+                    urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group2;
+                    connectGetData(urlAddr4);
+                    break;
+
+            }
+        }
+    };
+
 }
