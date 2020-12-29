@@ -127,9 +127,8 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
         } else if(where.equals("loginCount")){
             return loginCheck;
-
         }else{
-            return result;
+            return null;
         }
 
     }
