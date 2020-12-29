@@ -21,6 +21,7 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
     final static String TAG = "NetworkTask";
     Context context = null;
     String mAddr = null;
+    String where = null;
     ProgressDialog progressDialog = null;
     ArrayList<People> members;
 
@@ -34,11 +35,11 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
     @Override
     protected void onPreExecute() {
         Log.v(TAG, "onPreExecute()");
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Data Fetch");
-        progressDialog.setMessage("Get...");
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+//        progressDialog.setTitle("Data Fetch");
+//        progressDialog.setMessage("Get...");
+//        progressDialog.show();
     }
 
 
@@ -73,7 +74,10 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
                 }
                 Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
                 Log.v("here","parser11");
-                parser(stringBuffer.toString());
+
+                    peopleParser(stringBuffer.toString());
+
+
             }
 
         }catch (Exception e){
@@ -87,7 +91,9 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-        return members;
+
+            return members;
+
     }
 
     @Override
@@ -100,7 +106,7 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
     protected void onPostExecute(Object o) {
         Log.v(TAG, "doPostExecute()");
         super.onPostExecute(o);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     @Override
@@ -109,7 +115,7 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
         super.onCancelled();
     }
 
-    private void parser(String s){
+    private void peopleParser(String s){
         Log.v(TAG, "parser()");
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -125,10 +131,13 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
                 String relation = jsonObject1.getString("relation");
                 String memo = jsonObject1.getString("memo");
                 String image = jsonObject1.getString("image");
+                String favorite = jsonObject1.getString("favorite");
+                String emergency = jsonObject1.getString("emergency");
+
 
                 Log.v("here", "no"+no);
 
-                People people = new People(no, name, tel, email, relation, memo, image);
+                People people = new People(no, name, tel, email, relation, memo, image, favorite, emergency);
                 members.add(people);
             }
 

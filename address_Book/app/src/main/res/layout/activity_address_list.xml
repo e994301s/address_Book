@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.address_book_Activity.AddressListActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,18 +24,74 @@
             app:popupTheme="@style/Theme.Address_Book.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_address_list" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/right_margin"
-        app:srcCompat="@drawable/ic_plus"
-        tools:ignore="VectorDrawableCompat"
-        android:backgroundTint="#74C6C6C6"/>
+        android:orientation="horizontal"
+        >
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <EditText
+            android:id="@+id/search_ET"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:hint="검색어를 입력해주세요."
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0px"-->
+<!--        android:layout_weight="5"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <include layout="@layout/content_address_list" />-->
+
+<!--    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <include layout="@layout/content_address_list" />
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="#ff0000"
+        app:itemTextColor="#ffffff"
+        app:menu="@menu/bottom_nav" />
+
+<!-- 연락처 등록 플로팅 버튼 -->
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_gravity="bottom|end"-->
+<!--        android:layout_marginBottom="@dimen/fab_margin"-->
+<!--        android:layout_marginRight="@dimen/right_margin"-->
+<!--        app:srcCompat="@drawable/ic_plus"-->
+<!--        tools:ignore="VectorDrawableCompat"-->
+<!--        android:backgroundTint="#74C6C6C6"/>-->
+
+</LinearLayout>

@@ -1,5 +1,7 @@
 package com.android.address_book_Activity;
 
+import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +17,9 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -45,8 +50,13 @@ public class AddressListActivity extends AppCompatActivity {
 
     final static String TAG = "SelectAllActivity";
     String urlAddr = null;
+    String urlAddr1 = null;
+    String urlAddr2 = null;
+    String urlAddr3 = null;
     ArrayList<People> searchArr;
     ArrayList<People> members;
+    ArrayList<People> favorite;
+    ArrayList<People> group;
     PeopleAdapter adapter;
     ListView listView;
     String macIP;
@@ -63,21 +73,21 @@ public class AddressListActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         Intent intent = getIntent();
 
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.2.2";
-        urlAddr = "http://" + macIP + ":8080/test/people_query_all.jsp";
+        macIP = "192.168.0.81";
+        urlAddr = "http://" + macIP + ":8080/test/";
 
 
         search_EdT = findViewById(R.id.search_ET);
@@ -104,19 +114,22 @@ public class AddressListActivity extends AppCompatActivity {
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                // BottomNavigate(menuItem.getItemId());
+                 BottomNavigate(menuItem.getItemId());
 
 
                 return true;
             }
         });
         mBottomNV.setSelectedItemId(R.id.navigation_1);
+        mBottomNV.setSelectedItemId(R.id.navigation_2);
+        mBottomNV.setSelectedItemId(R.id.navigation_3);
 
     }
     @Override
     protected void onResume() {
         super.onResume();
-        connectGetData();
+        urlAddr1 = urlAddr + "people_query_all2.jsp";
+        connectGetData(urlAddr1);
         searchArr = new ArrayList<People>();
         searchArr.addAll(members);
         Log.v(TAG, "onResume()");
@@ -124,7 +137,7 @@ public class AddressListActivity extends AppCompatActivity {
     }
 
     // NetworkTask에서 값을 가져오는 메소드
-    private void connectGetData() {
+    private void connectGetData(String urlAddr) {
         try {
             PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
             Object obj = peopleNetworkTask.execute().get();
@@ -185,4 +198,40 @@ public class AddressListActivity extends AppCompatActivity {
 //        fragmentTransaction.setReorderingAllowed(true);
 //        fragmentTransaction.commitNow();
 //}
+//
+//
+    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
+        String tag = String.valueOf(id);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment == null) {
+            if (id == R.id.navigation_1) {
+                urlAddr2 = urlAddr + "people_query_all2.jsp";
+                connectGetData(urlAddr2);
+
+            } else if (id == R.id.navigation_2) {
+//                urlAddr = urlAddr + "group_people_query_all.jsp";
+//                connectGetData(urlAddr, "peopleGroup");
+
+            } else if (id == R.id.navigation_3){
+                urlAddr3 = urlAddr + "favorite_people_query_all.jsp";
+                connectGetData(urlAddr3);
+            }
+
+            //fragmentTransaction.add(R.id.content_layout, fragment, tag);
+        } else {
+           // fragmentTransaction.show(fragment);
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.commitNow();
+}
 }

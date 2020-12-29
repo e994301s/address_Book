@@ -8,8 +8,10 @@ public class People {
     String relation;
     String memo;
     String image;
+    String favorite;
+    String emergency;
 
-    public People(String no, String name, String tel, String email, String relation, String memo, String image) {
+    public People(String no, String name, String tel, String email, String relation, String memo, String image, String favorite, String emergency) {
         this.no = no;
         this.name = name;
         this.tel = tel;
@@ -17,6 +19,8 @@ public class People {
         this.relation = relation;
         this.memo = memo;
         this.image = image;
+        this.favorite = favorite;
+        this.emergency = emergency;
     }
 
     public String getNo() {
@@ -73,5 +77,21 @@ public class People {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
+    public String getEmergency() {
+        return emergency;
+    }
+
+    public void setEmergency(String emergency) {
+        this.emergency = emergency;
     }
 }

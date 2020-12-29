@@ -7,33 +7,46 @@
     android:layout_height="match_parent"
     tools:context="com.android.address_book_Activity.AddressListActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        >
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:theme="@style/Theme.Address_Book.AppBarOverlay">-->
 
-        <EditText
-            android:id="@+id/search_ET"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="5"
-            android:hint="검색어를 입력해주세요."
-            android:padding="5dp"
-            android:layout_marginLeft="10dp"
-            />
-        <ImageView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_search"
-            android:layout_gravity="center"
-            />
-    </LinearLayout>
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+<!--            android:background="?attr/colorPrimary"-->
+<!--            app:popupTheme="@style/Theme.Address_Book.PopupOverlay" />-->
 
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0px"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="horizontal"-->
+<!--        >-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/search_ET"-->
+<!--            android:layout_width="0px"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="5"-->
+<!--            android:hint="검색어를 입력해주세요."-->
+<!--            android:padding="5dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            />-->
+<!--        <ImageView-->
+<!--            android:layout_width="0px"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:src="@drawable/ic_search"-->
+<!--            android:layout_gravity="center"-->
+<!--            />-->
+<!--    </LinearLayout>-->
 
     <HorizontalScrollView
         android:id="@+id/hsv_01"
@@ -129,7 +142,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
+
     </LinearLayout>
+
 
     <!--    <FrameLayout-->
     <!--        android:id="@+id/content_layout"-->
@@ -137,14 +152,7 @@
     <!--        android:layout_height="0dp"-->
     <!--        android:layout_weight="1" />-->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:itemIconTint="#ff0000"
-        app:itemTextColor="#ffffff"
-        app:menu="@menu/bottom_nav" />
+
 
 
 
