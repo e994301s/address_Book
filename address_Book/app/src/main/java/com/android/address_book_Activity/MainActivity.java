@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        macIP = "192.168.2.14";
+        macIP = "192.168.0.76";
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
         urlAddrLoginCheck = "http://" + macIP + ":8080/test/logincheck.jsp";
 
