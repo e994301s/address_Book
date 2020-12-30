@@ -141,6 +141,11 @@
             android:id="@+id/btn_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
 
             />
     </LinearLayout>

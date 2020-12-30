@@ -140,7 +140,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     strRegisterEmail = registerEmail.getText().toString();
                     // 관계
                     strRegisterComment = registerComment.getText().toString();
-                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+sdept+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
+                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
                     connectInsertData();
                     // 순서 3. insert 되서 생성된 peopleno 가져오기
                     connectGetData();

@@ -66,6 +66,7 @@ public class AddressListActivity extends AppCompatActivity {
     ListView listView;
     String macIP;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
+    String email;
 
     EditText search_EdT;
 
@@ -92,7 +93,7 @@ public class AddressListActivity extends AppCompatActivity {
 //        macIP = intent.getStringExtra("macIP");
 
         macIP = "192.168.0.76";
-
+        email = "con@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
         btnGroup1 = findViewById(R.id.button1);
@@ -132,19 +133,19 @@ public class AddressListActivity extends AppCompatActivity {
                 // BottomNavigate(menuItem.getItemId());
                 switch (menuItem.getItemId()){
                     case R.id.navigation_1:
-                        urlAddr2 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+                        urlAddr2 = urlAddr + "people_query_all.jsp?email=" + email;
                         connectGetData(urlAddr2);
                         break;
 
                     case R.id.navigation_2:
                         urlAddr4="";
                         String group1 = btnGroup1.getText().toString();
-                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
                         connectGetData(urlAddr4);
                         break;
 
                     case R.id.navigation_3:
-                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=qkr@naver.com";
+                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=" + email;
                         connectGetData(urlAddr3);
                 }
 
@@ -160,7 +161,7 @@ public class AddressListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+        urlAddr1 = urlAddr + "people_query_all.jsp?email=" + email;
         connectGetData(urlAddr1);
         searchArr = new ArrayList<People>();
         searchArr.addAll(members);
@@ -277,7 +278,7 @@ public class AddressListActivity extends AppCompatActivity {
                         urlAddr4 = "";
                         String group1 = btnGroup1.getText().toString();
 
-                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
 //                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
                         connectGetData(urlAddr4);
                         break;
@@ -286,7 +287,7 @@ public class AddressListActivity extends AppCompatActivity {
                     urlAddr4 = "";
                     String group2 = btnGroup2.getText().toString();
 
-                    urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group2;
+                    urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email +"&group=" + group2;
                     connectGetData(urlAddr4);
                     break;
 

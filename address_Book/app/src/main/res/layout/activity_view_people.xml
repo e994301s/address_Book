@@ -45,12 +45,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="30dp"
-        >
-        <ImageView
+        tools:ignore="WebViewLayout">
+        <WebView
             android:id="@+id/iv_viewPeople"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_background"
+            android:maxHeight="100dp"
+            android:maxWidth="100dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
             />
     </LinearLayout>
 

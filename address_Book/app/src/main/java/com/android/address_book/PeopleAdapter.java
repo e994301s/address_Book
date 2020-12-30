@@ -53,7 +53,6 @@ public class PeopleAdapter extends BaseAdapter {
 
         if(data.get(position).getImage().equals("null")){
             img_peopleImg.setImageResource(R.drawable.ic_defaultpeople);
-            iv_viewPeople.setImageResource(R.drawable.ic_defaultpeople);
 
         } else {
             img_peopleImg.setImageResource(Integer.parseInt(data.get(position).getImage()));

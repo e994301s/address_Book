@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,8 +15,11 @@ import android.widget.Toast;
 
 import com.android.Task.NetworkTask;
 import com.android.Task.SQLite;
+import com.android.address_book.People;
 import com.android.address_book.PeopleAdapter;
 import com.android.address_book.R;
+
+import java.util.ArrayList;
 
  /*
 ===========================================================================================================================
@@ -38,9 +42,10 @@ public class ViewPeopleActivity extends Activity {
     String IP; // MainActivity에서 넘겨줌
     String useremail, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel;
     int peopleno, phoneno, peoplefavorite, peopleemg;
+    ArrayList<People> data = null;
     int result;
     Button btn_edit_addressView = null;
-    ImageView iv_viewPeople;
+    WebView iv_viewPeople;
     ImageButton backToList, btn_view_favorite, btn_view_emergency, btn_view_dial, btn_view_message;
     TextView view_name, view_phone, view_email, view_relation, view_memo;
     PeopleAdapter adapter;
@@ -69,6 +74,8 @@ public class ViewPeopleActivity extends Activity {
         peoplefavorite = intent.getIntExtra("peoplefavorite", 0);
         peopleemg = intent.getIntExtra("peopleemg", 0);
 
+        iv_viewPeople=findViewById(R.id.iv_viewPeople);
+        imageCheck();
 
         // 클래스가 바뀌어도 memberinfo는 모든 클래스에 들어가 있어야 한다!
         // SQLite는 서버가 아닌 로컬DB이기 때문에 일일히 알려줘야 한다!
@@ -236,6 +243,32 @@ public class ViewPeopleActivity extends Activity {
         return result;
     }
 
+
+    public void imageCheck() {
+        // INTENT 받아온 값 추가
+        //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
+
+        String urlAddr1 = "";
+        //urlAddr1 = urlAddr + "people_query_SelectFavorite.jsp?usremail=" + useremail + "&peopleno=" + peopleno;
+
+       // if (peopleimage.length() == 0) {
+//        if (peopleimage.equals("null")) {
+        if (peopleimage == null) {
+//            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
+//            String result = connectCheckData(urlAddr1);
+
+           
+
+//        } else if(peopleimage.length() != 0) {
+       // } else if(peopleimage.equals("!=null")) {
+        } else if(peopleimage != null) {
+//            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
+//            String result = connectCheckData(urlAddr1);
+            iv_viewPeople.setImageResource(Integer.parseInt(peopleimage));
+
+
+        }
+    }
 
 
 } // 끝 ------------------------------------------------------------------------------------
