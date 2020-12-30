@@ -26,6 +26,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -86,7 +87,7 @@ public class AddressListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.219.154";
+        macIP = "192.168.0.81";
         urlAddr = "http://" + macIP + ":8080/test/";
         btnGroup1 = findViewById(R.id.button1);
         btnGroup2 = findViewById(R.id.button2);
@@ -96,6 +97,7 @@ public class AddressListActivity extends AppCompatActivity {
         btnGroup2.setOnClickListener(onCLickListener);
         btnGroup3.setOnClickListener(onCLickListener);
 
+        listView.setOnItemClickListener(itemListener);
 
         search_EdT = findViewById(R.id.search_ET);
 
@@ -191,6 +193,8 @@ public class AddressListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();  // 검색할때 매번 리셋해주는 역할을 한다.
     }
 
+
+
 //    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
 //        String tag = String.valueOf(id);
 //        FragmentManager fragmentManager = getSupportFragmentManager();
@@ -281,6 +285,19 @@ public class AddressListActivity extends AppCompatActivity {
                     break;
 
             }
+        }
+    };
+
+    AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(AddressListActivity.this, ViewPeopleActivity.class);
+            intent.putExtra("peopleno", members.get(position).getNo());
+            intent.putExtra("useremail", members.get(position).getUseremail());
+
+            startActivity(intent);
+
+
         }
     };
 
