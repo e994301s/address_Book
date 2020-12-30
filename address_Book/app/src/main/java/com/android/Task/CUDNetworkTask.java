@@ -102,7 +102,7 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
                 }
 
                 if(where.equals("Register")){
-                    parserRegister(stringBuffer.toString());
+                    result = parserRegister(stringBuffer.toString());
                 }
 //                if(where.equals("deletePeople")){
 //                    parserDeletePeople(stringBuffer.toString());
@@ -128,10 +128,11 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
             }
         }
 
-//        if(where.equals("modifyPeople")){
-//           // return people;
-//
-//        } else if(where.equals("deletePeople")){
+        if(where.equals("Register")){
+           return result;
+
+        }
+//        else if(where.equals("deletePeople")){
 //           // return people;
 
         if(where.equals("favoriteCount")) {
