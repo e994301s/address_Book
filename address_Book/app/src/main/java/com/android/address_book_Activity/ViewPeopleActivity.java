@@ -38,9 +38,9 @@ public class ViewPeopleActivity extends Activity {
     String useremail, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel;
     int peopleno, phoneno, peoplefavorite, peopleemg;
     int result;
-    Button backToList, btn_edit_addressView, btn_view_dial, btn_view_message = null;
+    Button backToList, btn_edit_addressView = null;
     ImageView iv_viewPeople;
-    ImageButton btn_view_favorite, btn_view_emergency;
+    ImageButton btn_view_favorite, btn_view_emergency, btn_view_dial, btn_view_message;
     TextView view_name, view_phone, view_email, view_relation, view_memo;
     SQLite favorite;
 
@@ -76,11 +76,18 @@ public class ViewPeopleActivity extends Activity {
         btn_edit_addressView = findViewById(R.id.btn_edit_addressView);
         btn_view_dial = findViewById(R.id.btn_view_dial);
         btn_view_message = findViewById(R.id.btn_view_message);
+        btn_view_favorite = findViewById(R.id.btn_view_favorite);
+        btn_view_emergency = findViewById(R.id.btn_view_emergency);
+
+        btn_view_dial.setImageResource(R.drawable.ic_dial);
+        btn_view_dial.setImageResource(R.drawable.ic_message);
 
         backToList.setOnClickListener(OnclickListener);
         btn_edit_addressView.setOnClickListener(OnclickListener);
         btn_view_dial.setOnClickListener(OnclickListener);
         btn_view_message.setOnClickListener(OnclickListener);
+        btn_view_favorite.setOnClickListener(OnclickListener);
+        btn_view_emergency.setOnClickListener(OnclickListener);
 
 
     } // onCreate 끝 -----------------------------------------------------------------------
@@ -150,6 +157,8 @@ public class ViewPeopleActivity extends Activity {
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=1&peopleno=" + peopleno;
             String result = connectCheckData(urlAddr1);
             peoplefavorite = 1;
+            btn_view_favorite.setImageResource(R.drawable.ic_favorite);
+
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "이 즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -157,6 +166,8 @@ public class ViewPeopleActivity extends Activity {
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=0&peopleno=" + peopleno;
             String result = connectCheckData(urlAddr1);
             peoplefavorite = 0;
+            btn_view_favorite.setImageResource(R.drawable.ic_nonfavorite);
+
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "이 즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
         }
@@ -189,6 +200,9 @@ public class ViewPeopleActivity extends Activity {
         if (peopleemg == 0) { // 0이라면 1로 세팅
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=1&peopleno=" + peopleno;
             peopleemg = 1;
+            btn_view_emergency.setImageResource(R.drawable.ic_emg2);
+
+
             String result = connectEmgCheckData(urlAddr1);
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "이 긴급연락처에 등록되었습니다.", Toast.LENGTH_SHORT).show();
@@ -197,6 +211,7 @@ public class ViewPeopleActivity extends Activity {
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=0&peopleno=" + peopleno;
             String result = connectEmgCheckData(urlAddr1);
             peopleemg = 0;
+            btn_view_emergency.setImageResource(R.drawable.ic_nonemg2);
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "이 긴급연락처에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
         }
