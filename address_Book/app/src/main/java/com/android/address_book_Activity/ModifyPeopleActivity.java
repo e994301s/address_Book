@@ -36,8 +36,8 @@ public class ModifyPeopleActivity extends Activity {
     String urlAddr = null;
     String peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel;
     int peopleno, phoneno;
-    Button btn_backToViewPeople, btn_updatePeople;
-    ImageButton btn_remove;
+    Button btn_updatePeople;
+    ImageButton btn_backToViewPeople, btn_remove;
     ImageView editImage;
     TextView tv_editPeopleImage;
     EditText editName,editPhone,editEmail,editMemo;
@@ -79,6 +79,7 @@ public class ModifyPeopleActivity extends Activity {
       //  editImage.setImageBitmap(peopleimage);
 
         btn_backToViewPeople = findViewById(R.id.btn_backToViewPeople);
+        btn_backToViewPeople.setImageResource(R.drawable.ic_back);
         btn_updatePeople = findViewById(R.id.btn_updatePeople);
         btn_remove = findViewById(R.id.btn_remove);
 

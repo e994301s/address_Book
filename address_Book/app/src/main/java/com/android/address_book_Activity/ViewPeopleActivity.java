@@ -82,7 +82,7 @@ public class ViewPeopleActivity extends Activity {
         btn_view_emergency = findViewById(R.id.btn_view_emergency);
 
         btn_view_dial.setImageResource(R.drawable.ic_dial);
-        btn_view_dial.setImageResource(R.drawable.ic_message);
+        btn_view_message.setImageResource(R.drawable.ic_message);
         backToList.setImageResource(R.drawable.ic_back);
 
         backToList.setOnClickListener(OnclickListener);
@@ -127,7 +127,7 @@ public class ViewPeopleActivity extends Activity {
                     startActivity(intent);
                     break;
                 case R.id.btn_view_dial: // 지정된 전화로 이동
-                    intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-1234-5678"));
+                    intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phonetel));
                     startActivity(intent);
                     break;
                 case R.id.btn_view_message: // 문자로 이동

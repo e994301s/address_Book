@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class JoinActivity extends AppCompatActivity {
     Matcher match;
 
     EditText email, name, pw, pwCheck, phone;
+    ImageButton backBtn_join;
     TextView pwCheckMsg;
     String macIP, urlAddr;
     String emailInput = null;
@@ -82,6 +84,9 @@ public class JoinActivity extends AppCompatActivity {
         pwCheck = findViewById(R.id.pwCheck_join);
         phone = findViewById(R.id.phone_join);
         pwCheckMsg = findViewById(R.id.tv_pwCheckMsg_join);
+        backBtn_join = findViewById(R.id.backBtn_join);
+        backBtn_join.setImageResource(R.drawable.ic_back);
+
 
         findViewById(R.id.backBtn_join).setOnClickListener(mClickListener);
         findViewById(R.id.btnEmailCheck_join).setOnClickListener(mClickListener);

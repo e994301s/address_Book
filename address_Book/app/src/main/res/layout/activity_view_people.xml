@@ -12,13 +12,18 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         >
+
         <ImageButton
             android:id="@+id/btn_backToList"
-            android:layout_width="wrap_content"
+            android:layout_width="12dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center"
+            android:layout_gravity="left|center"
             android:textStyle="bold"
-            />
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"/>
 
         <View
             android:layout_width="0dp"
@@ -31,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
             android:text="편집"
+            android:backgroundTint="#42BCFD"
             android:textStyle="bold"
             />
     </LinearLayout>
@@ -60,6 +66,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
             />
         <ImageButton
             android:id="@+id/btn_view_message"
@@ -67,18 +78,33 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
             />
         <ImageButton
             android:id="@+id/btn_view_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
             />
         <ImageButton
             android:id="@+id/btn_view_emergency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
             />
     </LinearLayout>
 
