@@ -95,6 +95,14 @@
             android:hint="이메일"
             android:layout_margin="10dp"
             />
+        <Spinner
+            android:id="@+id/group_spiner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:spinnerMode="dropdown"
+            android:layout_gravity="center"
+            />
 
         <EditText
             android:id="@+id/registerComment"

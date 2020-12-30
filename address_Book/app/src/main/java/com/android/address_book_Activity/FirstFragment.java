@@ -2,6 +2,7 @@ package com.android.address_book_Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -37,6 +38,7 @@ public class FirstFragment extends Fragment {
     String macIP;
     String email;
     TextView textView;
+    String peopleNum;
 
 
 
@@ -93,12 +95,22 @@ public class FirstFragment extends Fragment {
 
     public boolean onContextItemSelected(MenuItem item)                                             // 메뉴 레이아웃에서 버튼 아이템 선택
     {
+        String tel = "tel:" + peopleNum;
         switch(item.getItemId())
         {
             case R.id.call:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+peopleNum));
+                startActivity(intent);
                 Toast.makeText(getActivity(), "전화 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 전화 선택시
                 return true;
             case R.id.message:
+                Uri smsUri = Uri.parse("tel:" + "010");
+                Intent smsIntent = new Intent(Intent.ACTION_VIEW); // 보내는 화면이 팝업됨
+
+                smsIntent.putExtra("sms_body", "01086730811"); // 받는 번호
+                smsIntent.setType("vnd.android-dir/mms-sms");
+                startActivity(smsIntent);
+
                 Toast.makeText(getActivity(), "문자 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 문자 선택시
                 return true;
             case R.id.kakao:

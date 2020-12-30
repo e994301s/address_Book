@@ -13,10 +13,12 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.Task.CUDNetworkTask;
@@ -71,6 +73,8 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
     String peopleNo, peopleInsertResult, phoneInsert, statusInsert;
     ArrayList<String> totalPhoneNo = new ArrayList<String>();
+    ArrayAdapter<CharSequence> spinnerAdapter = null;
+    Spinner spinner = null;
 
     int bookMark = 0;
     int emergencyStatus = 0;
@@ -127,6 +131,11 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                 .permitDiskWrites()
                 .permitNetwork().build());
 
+        // spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.groupSpinner, ansdroid.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner = findViewById(R.id.group_spiner);
+        spinner.setAdapter(spinnerAdapter);
     }
 
     View.OnClickListener mClickListener = new View.OnClickListener() {
