@@ -24,6 +24,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +34,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -87,7 +90,9 @@ public class AddressListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
+
         macIP = "192.168.0.81";
+
         urlAddr = "http://" + macIP + ":8080/test/";
         btnGroup1 = findViewById(R.id.button1);
         btnGroup2 = findViewById(R.id.button2);
@@ -288,6 +293,40 @@ public class AddressListActivity extends AppCompatActivity {
         }
     };
 
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.top_list, menu);
+        return true;
+    }
+
+    //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.add_group:
+                // User chose the "Settings" item, show the app settings UI...
+                Toast.makeText(getApplicationContext(), "그룹 추가 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.change_passwd:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(AddressListActivity.this, MypagePWActivity01.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                Intent intent2 = new Intent(AddressListActivity.this, MainActivity.class);
+
+                startActivity(intent2);
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
     AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -300,5 +339,6 @@ public class AddressListActivity extends AppCompatActivity {
 
         }
     };
+
 
 }
