@@ -53,7 +53,7 @@ public class ModifyPeopleActivity extends Activity {
         Log.v(TAG, IP);
 
        // urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp";
-        urlAddr = "http://" + IP + ":8080/address/";
+        urlAddr = "http://" + IP + ":8080/test/";
         Log.v(TAG, urlAddr);
 
         peopleno = intent.getIntExtra("peopleno",0);

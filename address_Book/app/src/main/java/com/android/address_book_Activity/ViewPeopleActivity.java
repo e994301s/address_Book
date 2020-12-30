@@ -55,7 +55,7 @@ public class ViewPeopleActivity extends Activity {
         Intent intent = getIntent();
         IP = intent.getStringExtra("IP");
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
-        urlAddr = "http://" + IP + ":8080/address/";
+        urlAddr = "http://" + IP + ":8080/test/";
 
         peopleno = intent.getIntExtra("peopleno", 0);
         phoneno = intent.getIntExtra("phoneno", 0);
