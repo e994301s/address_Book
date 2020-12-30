@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String urlAddr = null;
     EditText loginId;
     EditText loginPw;
-    Button loginBtn;
+    Button loginBtn, findIdBtn, findPwBtn;
     String useremail, userpw, macIP;
     String urlAddrLoginCheck = null;
     CheckBox savechb;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         savechb = findViewById(R.id.save_chb);
+        savechb.setOnClickListener(chbClickListener);
 
         macIP = "192.168.2.14";
 
@@ -61,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
 
+        findIdBtn = findViewById(R.id.findId_btn);
+        findPwBtn = findViewById(R.id.findPW_btn);
+        findIdBtn.setOnClickListener(findClickListener);
+        findPwBtn.setOnClickListener(findClickListener);
 
         loginBtn = findViewById(R.id.login_btn);
         loginId = findViewById(R.id.login_id);
@@ -70,16 +75,45 @@ public class MainActivity extends AppCompatActivity {
         useremail = loginId.getText().toString();
         userpw = loginPw.getText().toString();
 
-        appData = getSharedPreferences("appData", MODE_PRIVATE);
-        load();
-
-        if (saveLoginData) {
-            loginId.setText(useremail);
-            loginPw.setText(userpw);
-            savechb.setChecked(saveLoginData);
-        }
 
     }
+
+    View.OnClickListener chbClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (savechb.isChecked()) {
+                save();
+
+                appData = getSharedPreferences("appData", MODE_PRIVATE);
+                load();
+
+                if (saveLoginData) {
+                    loginId.setText(useremail);
+                    loginPw.setText(userpw);
+                    savechb.setChecked(saveLoginData);
+                }
+            }
+        }
+    };
+
+
+    View.OnClickListener findClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+                case R.id.findId_btn:
+                    Intent intent = new Intent(MainActivity.this, FindIDActivity.class);
+                    break;
+                case R.id.findPW_btn:
+                    Intent intent1 = new Intent(MainActivity.this, FindPWActivity.class);
+                    break;
+            }
+
+        }
+    };
+
 
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
@@ -94,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            save();
+
             useremail = loginId.getText().toString();
             userpw = loginPw.getText().toString();
 
@@ -185,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }//---------------------------
