@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String urlAddr = null;
     EditText loginId;
     EditText loginPw;
-    Button loginBtn, findIdBtn, findPwBtn;
+    Button loginBtn, findIdBtn, findPwBtn, joinBtn;
     String useremail, userpw, macIP;
     String urlAddrLoginCheck = null;
     CheckBox savechb;
@@ -67,10 +67,13 @@ public class MainActivity extends AppCompatActivity {
         findIdBtn.setOnClickListener(findClickListener);
         findPwBtn.setOnClickListener(findClickListener);
 
+        joinBtn = findViewById(R.id.join_btn);
         loginBtn = findViewById(R.id.login_btn);
         loginId = findViewById(R.id.login_id);
         loginPw = findViewById(R.id.login_pw);
 
+
+        joinBtn.setOnClickListener(mClickListener);
         loginBtn.setOnClickListener(onClickListener);
         useremail = loginId.getText().toString();
         userpw = loginPw.getText().toString();
@@ -93,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
                     loginPw.setText(userpw);
                     savechb.setChecked(saveLoginData);
                 }
+            } else {
+
             }
         }
     };
