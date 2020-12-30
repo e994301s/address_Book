@@ -45,8 +45,8 @@ public class ViewPeopleActivity extends Activity {
     final static String TAG = "ViewPeopleActivity";
     String urlAddr, urlAddr2 = null;
     String IP; // MainActivity에서 넘겨줌
-    String useremail, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel;
-    int peopleno, phoneno, peoplefavorite, peopleemg;
+    String useremail, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel, peopleno;
+    int phoneno, peoplefavorite, peopleemg;
     ArrayList<People> data = null;
     int result;
     Button btn_edit_addressView = null;
@@ -68,7 +68,7 @@ public class ViewPeopleActivity extends Activity {
         IP = intent.getStringExtra("IP");
         urlImgae = urlAddr;
 
-        peopleno = intent.getIntExtra("peopleno", 0);
+        peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
         phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";

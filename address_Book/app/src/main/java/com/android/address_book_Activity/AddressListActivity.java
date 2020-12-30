@@ -136,6 +136,7 @@ public class AddressListActivity extends AppCompatActivity {
                 // BottomNavigate(menuItem.getItemId());
                 switch (menuItem.getItemId()){
                     case R.id.navigation_1:
+                        urlAddr2="";
                         urlAddr2 = urlAddr + "people_query_all.jsp?email=" + email;
                         connectGetData(urlAddr2);
                         break;
@@ -148,8 +149,10 @@ public class AddressListActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_3:
+                        urlAddr3="";
                         urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=" + email;
                         connectGetData(urlAddr3);
+                        break;
                 }
 
 
