@@ -38,8 +38,8 @@ public class GroupCustomDialogActivity{
     public void callFunction() {
 
         email = "qkr@naver.com";
-        macIP = "192.168.43.39";
-        urlAddr = "http://" + macIP + ":8080/test/relationInsert.jsp?email=" + email;
+        macIP = "192.168.219.154";
+        urlAddr = "http://" + macIP + ":8080/test/";
 
         // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
         final Dialog dlg = new Dialog(context);
@@ -83,7 +83,7 @@ public class GroupCustomDialogActivity{
                     }
 
                     if(count == 0) {
-                        insertGroup(groupName);
+                       insertGroup(groupName);
 
                         // 커스텀 다이얼로그를 종료한다.
                         dlg.dismiss();
@@ -108,7 +108,7 @@ public class GroupCustomDialogActivity{
     // group insert action
     private void insertGroup(String relationname) {
         String urlAddr2 = "";
-        urlAddr2 = urlAddr + "&relationname=" + relationname;
+        urlAddr2 = urlAddr + "relationInsert.jsp?email=" + email + "&relationname=" + relationname;
 
         String result = connectInsertData(urlAddr2);
 

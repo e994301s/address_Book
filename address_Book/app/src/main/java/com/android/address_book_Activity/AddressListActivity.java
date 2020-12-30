@@ -256,7 +256,6 @@ public class AddressListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.add_group:
                 // User chose the "Settings" item, show the app settings UI...
-                Toast.makeText(getApplicationContext(), "그룹 추가 버튼 클릭됨", Toast.LENGTH_LONG).show();
                 LayoutInflater inflate = getLayoutInflater();
 
                 GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
