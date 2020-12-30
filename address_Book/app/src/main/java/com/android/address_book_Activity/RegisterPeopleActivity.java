@@ -31,12 +31,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-//import okhttp3.MediaType;
-//import okhttp3.MultipartBody;
-//import okhttp3.OkHttpClient;
-//import okhttp3.Request;
-//import okhttp3.RequestBody;
-//import okhttp3.Response;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /*
 ===========================================================================================================================
@@ -59,11 +59,14 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     EditText registerName, registerMainTelNo, registerAddPhoneNumber1, registerAddPhoneNumber2, registerAddPhoneNumber3, registerAddPhoneNumber4, registerEmail, registerComment;
     String strRegisterName, strRegisterMainTelNo, strRegisterAddPhoneNumber1, strRegisterAddPhoneNumber2, strRegisterAddPhoneNumber3, strRegisterAddPhoneNumber4, strRegisterEmail, strRegisterComment;
 
-    String macIP, urlAddPeople, urlGetNumber, urlAddPhoneNumber;
+    String macIP, urlAddPeople, urlGetNumber, urlAddPhoneNumber, urlAddstatus;
 
-    String peopleNo, peopleInsertResult, phoneInsertResult;
+    String peopleNo, peopleInsertResult, phoneInsert, statusInsert;
+    ArrayList<String> totalPhoneNo = new ArrayList<String>();
 
     int bookMark = 0;
+    int emergencyStatus = 0;
+    int phoneInsertResult = 0;
 
     // 사진 올리고 내리기 위한 변수들
     private final int REQ_CODE_SELECT_IMAGE = 100;
@@ -98,9 +101,10 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
-        urlAddPeople = "http://"+macIP+":8080/test/studentInsert.jsp?";
+        urlAddPeople = "http://"+macIP+":8080/test/peopleInsert.jsp?";
         urlGetNumber = "http://"+macIP+":8080/test/getPeopleNo.jsp";
-        urlAddPhoneNumber = "http://"+macIP+":8080/test/studentInsert.jsp?";
+        urlAddPhoneNumber = "http://"+macIP+":8080/test/phoneInsert.jsp?";
+        urlAddstatus = "http://"+macIP+":8080/test/statusInsert.jsp?";
 
         add_view.setOnClickListener(mClickListener);
         registerButton.setOnClickListener(mClickListener);
@@ -140,7 +144,8 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     strRegisterEmail = registerEmail.getText().toString();
                     // 관계
                     strRegisterComment = registerComment.getText().toString();
-                   // urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+sdept+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
+                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
+
                     connectInsertData();
                     // 순서 3. insert 되서 생성된 peopleno 가져오기
                     connectGetData();
@@ -150,14 +155,37 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     strRegisterAddPhoneNumber2 = registerAddPhoneNumber2.getText().toString();
                     strRegisterAddPhoneNumber3 = registerAddPhoneNumber3.getText().toString();
                     strRegisterAddPhoneNumber4 = registerAddPhoneNumber4.getText().toString();
-                    urlAddPhoneNumber = urlAddPhoneNumber+"people_peopleno="+peopleNo+"&strRegisterMainTelNo="+strRegisterMainTelNo+"&strRegisterAddPhoneNumber1="+strRegisterAddPhoneNumber1+"&strRegisterAddPhoneNumber2="+strRegisterAddPhoneNumber2+"&strRegisterAddPhoneNumber3"+strRegisterAddPhoneNumber3+"&strRegisterAddPhoneNumber4"+strRegisterAddPhoneNumber4;
-                    connectInsertPhoneNo();
-                    if(peopleInsertResult.equals("1")&&phoneInsertResult.equals("1")){
+                    if(strRegisterMainTelNo.length()!=0){
+                        totalPhoneNo.add(strRegisterName);
+                    }
+                    if(strRegisterAddPhoneNumber1.length()!=0){
+                        totalPhoneNo.add(strRegisterAddPhoneNumber1);
+                    }
+                    if(strRegisterAddPhoneNumber2.length()!=0){
+                        totalPhoneNo.add(strRegisterAddPhoneNumber2);
+                    }
+                    if(strRegisterAddPhoneNumber3.length()!=0){
+                        totalPhoneNo.add(strRegisterAddPhoneNumber3);
+                    }
+                    if(strRegisterAddPhoneNumber4.length()!=0){
+                        totalPhoneNo.add(strRegisterAddPhoneNumber4);
+                    }
+                    for (int i = 0; i<totalPhoneNo.size();i++){
+                        urlAddPhoneNumber = urlAddPhoneNumber+"people_peopleno="+peopleNo+"&totalPhoneNo="+totalPhoneNo.get(i);
+                        connectInsertPhoneNo();
+                        if(phoneInsert.equals("1")){
+                            phoneInsertResult++;
+                        }
+                    }
+                    // 순서 5. 좋아요, 긴급연락처 추가
+                        // urlAddstatus = urlAddstatus+"people_peopleno="+peopleNo+"&userinfo_useremail="+"&peopleemg="+emergencyStatus+"&peoplefavorite="+bookMark;
+
+
+                    if(peopleInsertResult.equals("1")&&phoneInsertResult==totalPhoneNo.size()&&statusInsert.equals("1")){
                         Toast.makeText(RegisterPeopleActivity.this, "입력이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(RegisterPeopleActivity.this, "입력이 실패 했습니다. !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterPeopleActivity.this, "관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
                     }
-
                     break;
                 case R.id.registerImage:
                     Intent intent = new Intent(Intent.ACTION_PICK);
@@ -168,13 +196,19 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
                 case R.id.registerBookMarkButton:
                     if(bookMark == 0){
-
+                        bookMark = 1;
+                    }else if (bookMark ==1){
+                        bookMark = 0;
                     }
 
                     break;
 
                 case R.id.registerEmergencyPhoneNumber:
-
+                    if(emergencyStatus == 0){
+                        emergencyStatus = 1;
+                    }else if (emergencyStatus ==1){
+                        emergencyStatus = 0;
+                    }
                     break;
             }
         }
@@ -239,31 +273,31 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
         File f = new File(img_path);
 
- //       DoActualRequest(f);
+        DoActualRequest(f);
     }
 
     //서버 보내기
-//    private void DoActualRequest(File file) {
-//        OkHttpClient client = new OkHttpClient();
-//
-//
-//        RequestBody body = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("image", file.getName(),
-//                        RequestBody.create(MediaType.parse("image/jpeg"), file))
-//                .build();
-//
-//        Request request = new Request.Builder()
-//                .url(url)
-//                .post(body)
-//                .build();
-//
-//        try {
-//            Response response = client.newCall(request).execute();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+   private void DoActualRequest(File file) {
+       OkHttpClient client = new OkHttpClient();
+
+
+       RequestBody body = new MultipartBody.Builder()
+               .setType(MultipartBody.FORM)
+               .addFormDataPart("image", file.getName(),
+                       RequestBody.create(MediaType.parse("image/jpeg"), file))
+               .build();
+
+       Request request = new Request.Builder()
+               .url(url)
+               .post(body)
+               .build();
+
+       try {
+           Response response = client.newCall(request).execute();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
 
     private void connectInsertData() {
         try {
@@ -289,7 +323,16 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         try {
             CUDNetworkTask insTelNonetworkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlAddPhoneNumber, "Register");
             Object object = insTelNonetworkTask.execute().get();
-            phoneInsertResult =(String) object;
+            phoneInsert =(String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void connectInsertStatus() {
+        try {
+            CUDNetworkTask insTelNonetworkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlAddstatus, "Register");
+            Object object = insTelNonetworkTask.execute().get();
+            statusInsert =(String) object;
         } catch (Exception e) {
             e.printStackTrace();
         }
