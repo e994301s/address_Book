@@ -8,7 +8,7 @@
 
 		
 //------
-	String url_mysql = "jdbc:mysql://localhost/adderss?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
+	String url_mysql = "jdbc:mysql://localhost/address?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
 	String id_mysql = "root";
 	String pw_mysql = "qwer1234";
 
@@ -20,7 +20,7 @@
 	    Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 		Statement stmt_mysql = conn_mysql.createStatement();
 	
-	    String A = "insert into phone (people_peopleno, phonetel";
+	    String A = "insert into address.phone (people_peopleno, phonetel";
 	    String B = ") values (?,?)";
 	
 	    ps = conn_mysql.prepareStatement(A+B);
