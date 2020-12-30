@@ -12,6 +12,8 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/registerAddPhoneNumber1"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
@@ -30,6 +32,8 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/registerAddPhoneNumber2"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
@@ -48,6 +52,8 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/registerAddPhoneNumber3"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
@@ -66,6 +72,7 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/registerAddPhoneNumber4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
