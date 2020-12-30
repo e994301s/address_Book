@@ -72,8 +72,8 @@ public class ViewPeopleActivity extends Activity {
         useremail = intent.getStringExtra("useremail");
         phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
-        urlAddr = "http://192.168.0.76:8080/test/";
-        urlAddr2 = "http://192.168.0.76:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr = "http://192.168.43.39:8080/test/";
+        urlAddr2 = "http://192.168.43.39:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
 
 
 //        peoplename = intent.getStringExtra("peoplename");
@@ -96,11 +96,11 @@ public class ViewPeopleActivity extends Activity {
 
 
         // Task 연결
-        connectSelectedData(urlAddr2);
+        members = connectSelectedData(urlAddr2);
 
 
         // get Data // set Text
-        peoplename = members.get(position).getName();
+        peoplename = members.get(0).getName();
         view_name = findViewById(R.id.view_name);
         view_name.setText(peoplename);
 
@@ -313,35 +313,20 @@ public class ViewPeopleActivity extends Activity {
     }
 
     //
-    private void connectSelectedData(String urlAddr2) {
+    private ArrayList<People> connectSelectedData(String urlAddr2) {
 
         try {
             PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(ViewPeopleActivity.this, urlAddr2);
 
             Object obj = peopleNetworkTask.execute().get();
 
-
             // members에 obj를 줄거야! type은 Arraylist!
             members = (ArrayList<People>) obj;
 
-
-            for (int i = 0; i < response.length(); i++) {
-                People jsonObject = response.getJSONObject(i);
-
-                int tv_name = Integer.parseInt(obj.getString("peoplename"));
-                int no = Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
-                String name = jsonObject.getString("name");
-                String msg = jsonObject.getString("message");
-                String imgPath = jsonObject.getString("imgPath");
-                String date = jsonObject.getString("date");
-
-                adapter = new PeopleAdapter(ViewPeopleActivity.this, R.layout.activity_view_people, members);
-                scrollview_people.setAdapter(adapter);
-
-            } catch(ExecutionException e){
-                e.printStackTrace();
-            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
+        return members;
     }
 
 } // 끝 ------------------------------------------------------------------------------------

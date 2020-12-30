@@ -35,10 +35,10 @@
 
 <!--        <activity android:name="com.android.address_book_Activity.RegisterPeopleActivity" />-->
 
-        <activity android:name="com.android.address_book_Activity.AddressListActivity" />
+        <activity android:name="com.android.address_book_Activity.RegisterPeopleActivity" />
 
         <activity
-            android:name="com.android.address_book_Activity.RegisterPeopleActivity"
+            android:name="com.android.address_book_Activity.AddressListActivity"
             android:label="@string/title_activity_address_list"
             android:theme="@style/Theme.Address_Book.NoActionBar"
             android:windowSoftInputMode="adjustPan">
@@ -55,8 +55,6 @@
         <activity android:name="com.android.address_book_Activity.MainActivity">
 
         </activity>
-
-        <activity android:name="com.android.address_book_Activity.JoinActivity" />
 
     </application>
 

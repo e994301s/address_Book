@@ -95,8 +95,8 @@ public class AddressListActivity extends AppCompatActivity {
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
 
-        macIP = "192.168.0.76";
-        email = "con@naver.com";
+        macIP = "192.168.43.39";
+        email = "qkr@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
         btnGroup1 = findViewById(R.id.button1);
@@ -314,7 +314,7 @@ public class AddressListActivity extends AppCompatActivity {
             case R.id.add_group:
                 // User chose the "Settings" item, show the app settings UI...
                 Toast.makeText(getApplicationContext(), "그룹 추가 버튼 클릭됨", Toast.LENGTH_LONG).show();
-                LayoutInflater inflater=getLayoutInflater();
+                LayoutInflater inflate = getLayoutInflater();
 
                 GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
                 customDialog.callFunction();
