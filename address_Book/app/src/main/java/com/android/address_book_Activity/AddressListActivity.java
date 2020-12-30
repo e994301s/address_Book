@@ -68,6 +68,7 @@ public class AddressListActivity extends AppCompatActivity {
     ListView listView;
     String macIP;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
+
     String email;
 
     EditText search_EdT;
@@ -95,19 +96,11 @@ public class AddressListActivity extends AppCompatActivity {
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
 
-        macIP = "192.168.43.39";
+        macIP = "192.168.2.2";
         email = "qkr@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
-        btnGroup1 = findViewById(R.id.button1);
-        btnGroup2 = findViewById(R.id.button2);
-        btnGroup3 = findViewById(R.id.button3);
 
-        btnGroup1.setOnClickListener(onCLickListener);
-        btnGroup2.setOnClickListener(onCLickListener);
-        btnGroup3.setOnClickListener(onCLickListener);
-
-        listView.setOnItemClickListener(itemListener);
 
         search_EdT = findViewById(R.id.search_ET);
 
@@ -133,27 +126,29 @@ public class AddressListActivity extends AppCompatActivity {
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                // 하단 탭 선택시 아이템 아이디 가져온다.!
+                 BottomNavigate(menuItem.getItemId());
+
+
+//                switch (menuItem.getItemId()){
+//                    case R.id.navigation_1:
+//                        urlAddr2 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+//                        connectGetData(urlAddr2);
+//                        break;
+//
+//                    case R.id.navigation_2:
+//                        urlAddr4="";
+//                        String group1 = btnGroup1.getText().toString();
+//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+//                        connectGetData(urlAddr4);
+//                        break;
+//
+//                    case R.id.navigation_3:
+//                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=qkr@naver.com";
+//                        connectGetData(urlAddr3);
+//                }
                 // BottomNavigate(menuItem.getItemId());
-                switch (menuItem.getItemId()){
-                    case R.id.navigation_1:
-                        urlAddr2="";
-                        urlAddr2 = urlAddr + "people_query_all.jsp?email=" + email;
-                        connectGetData(urlAddr2);
-                        break;
 
-                    case R.id.navigation_2:
-                        urlAddr4="";
-                        String group1 = btnGroup1.getText().toString();
-                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
-                        connectGetData(urlAddr4);
-                        break;
-
-                    case R.id.navigation_3:
-                        urlAddr3="";
-                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=" + email;
-                        connectGetData(urlAddr3);
-                        break;
-                }
 
 
                 return true;
@@ -164,32 +159,33 @@ public class AddressListActivity extends AppCompatActivity {
         mBottomNV.setSelectedItemId(R.id.navigation_3);
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        urlAddr1 = urlAddr + "people_query_all.jsp?email=" + email;
-        connectGetData(urlAddr1);
-        searchArr = new ArrayList<People>();
-        searchArr.addAll(members);
-        Log.v(TAG, "onResume()");
 
-    }
-
-    // NetworkTask에서 값을 가져오는 메소드
-    private void connectGetData(String urlAddr) {
-        try {
-            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
-            Object obj = peopleNetworkTask.execute().get();
-            members = (ArrayList<People>) obj;
-            Log.v("here", "" + members);
-            adapter = new PeopleAdapter(AddressListActivity.this, R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
-            listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+//        connectGetData(urlAddr1);
+//        searchArr = new ArrayList<People>();
+//        searchArr.addAll(members);
+//        Log.v(TAG, "onResume()");
+//
+//    }
+//
+//    // NetworkTask에서 값을 가져오는 메소드
+//    private void connectGetData(String urlAddr) {
+//        try {
+//            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
+//            Object obj = peopleNetworkTask.execute().get();
+//            members = (ArrayList<People>) obj;
+//            Log.v("here", "" + members);
+//            adapter = new PeopleAdapter(AddressListActivity.this, R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
+//            listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // 검색을 해주는 메소드
     public void search(String charText) {
@@ -208,40 +204,7 @@ public class AddressListActivity extends AppCompatActivity {
 
 
 
-//    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
-//        String tag = String.valueOf(id);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
-//        if (currentFragment != null) {
-//            fragmentTransaction.hide(currentFragment);
-//        }
-//
-//        Fragment fragment = fragmentManager.findFragmentByTag(tag);
-//        if (fragment == null) {
-//            if (id == R.id.navigation_1) {
-//                fragment = new FragmentPage1();
-//
-//            } else if (id == R.id.navigation_2) {
-//
-//                fragment = new FragmentPage2();
-//            } else {
-//                fragment = new FragmentPage3();
-//            }
-//
-//            fragmentTransaction.add(R.id., fragment, tag);
-//        } else {
-//            fragmentTransaction.show(fragment);content_layout
-//        }
-//
-//        fragmentTransaction.setPrimaryNavigationFragment(fragment);
-//        fragmentTransaction.setReorderingAllowed(true);
-//        fragmentTransaction.commitNow();
-//}
-//
-//
-    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
+    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경 (하단 탭 3개 선택)
         String tag = String.valueOf(id);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -252,23 +215,24 @@ public class AddressListActivity extends AppCompatActivity {
         }
 
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
+
         if (fragment == null) {
-            if (id == R.id.navigation_1) {
-                urlAddr2 = urlAddr + "people_query_all.jsp";
-                connectGetData(urlAddr2);
+            if (id == R.id.navigation_1) {  // 메뉴 아이템 1번 선택
+
+                fragment = new FirstFragment();  // 프래그먼트 1번으로 이동
 
             } else if (id == R.id.navigation_2) {
-                String urlAddr5 = urlAddr + "group_people_query_all.jsp";
-                connectGetData(urlAddr4);
 
-            } else if (id == R.id.navigation_3){
-                urlAddr3 = urlAddr + "favorite_people_query_all.jsp";
-                connectGetData(urlAddr3);
+                fragment = new SecondFragment();
+
+            } else {
+
+                fragment = new ThirdFragment();
             }
 
-            //fragmentTransaction.add(R.id.content_layout, fragment, tag);
+            fragmentTransaction.add(R.id.content_layout, fragment, tag);
         } else {
-           // fragmentTransaction.show(fragment);
+            fragmentTransaction.show(fragment);
         }
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
@@ -276,30 +240,7 @@ public class AddressListActivity extends AppCompatActivity {
         fragmentTransaction.commitNow();
     }
 
-    View.OnClickListener onCLickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.button1:
-                        urlAddr4 = "";
-                        String group1 = btnGroup1.getText().toString();
 
-                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
-//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
-                        connectGetData(urlAddr4);
-                        break;
-
-                case R.id.button2:
-                    urlAddr4 = "";
-                    String group2 = btnGroup2.getText().toString();
-
-                    urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email +"&group=" + group2;
-                    connectGetData(urlAddr4);
-                    break;
-
-            }
-        }
-    };
 
 
     public boolean onCreateOptionsMenu(Menu menu) {

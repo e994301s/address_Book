@@ -1,27 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.address_book_Activity.SecondFragment">
+    tools:context="com.android.address_book_Activity.FirstFragment">
 
-    <TextView
-        android:id="@+id/textview_second"
+    <HorizontalScrollView
+        android:id="@+id/hsv_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="5px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
 
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        >
+        <LinearLayout
+            android:id="@+id/ll_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:text="가족"
+                android:id="@+id/button1" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="친구"
+                android:id="@+id/button2" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group3"
+                android:id="@+id/button3" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group4"
+                android:id="@+id/button4" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group5"
+                android:id="@+id/button5" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group6"
+                android:id="@+id/button6" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group7"
+                android:id="@+id/button7" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group8"
+                android:id="@+id/button8"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:orientation="vertical"
+        android:layout_weight="9"
+        >
+        <ListView
+            android:id="@+id/lv_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

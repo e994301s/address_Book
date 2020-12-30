@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.address_book.People;
+import com.android.address_book_Activity.FirstFragment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
     final static String TAG = "PeopleNetworkTask";
     Context context = null;
+    FirstFragment firstFragment = null;
     String mAddr = null;
     String where = null;
     ProgressDialog progressDialog = null;
@@ -32,6 +34,13 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
         this.members = new ArrayList<People>();
         Log.v(TAG, "Start : "+ mAddr);
     }
+
+//    public PeopleNetworkTask(FirstFragment firstFragment, String mAddr) {
+//        this.firstFragment = firstFragment;
+//        this.mAddr = mAddr;
+//        this.members = new ArrayList<People>();
+//        Log.v(TAG, "Start : "+ mAddr);
+//    }
 
     @Override
     protected void onPreExecute() {

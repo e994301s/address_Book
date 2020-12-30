@@ -15,7 +15,7 @@
         android:layout_weight="9"
         >
         <ListView
-            android:id="@+id/lv_people"
+            android:id="@+id/lv_favorite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

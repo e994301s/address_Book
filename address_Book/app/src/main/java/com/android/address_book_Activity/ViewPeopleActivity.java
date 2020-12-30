@@ -45,7 +45,14 @@ public class ViewPeopleActivity extends Activity {
     final static String TAG = "ViewPeopleActivity";
     String urlAddr, urlAddr2 = null;
     String IP; // MainActivity에서 넘겨줌
-    String useremail, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel, peopleno;
+    String useremail;
+    String peoplename;
+    String peopleemail;
+    String peoplerelation;
+    String peoplememo;
+    String peopleimage;
+    ArrayList<String> phonetel;
+    String peopleno;
     int phoneno, peoplefavorite, peopleemg;
     ArrayList<People> data = null;
     int result;
@@ -56,7 +63,7 @@ public class ViewPeopleActivity extends Activity {
     TextView view_name, view_phone, view_email, view_relation, view_memo;
     PeopleAdapter adapter;
     ArrayList<People> members;
-    String urlImgae;
+    String urlImage;
 
 
     @Override
@@ -66,7 +73,7 @@ public class ViewPeopleActivity extends Activity {
 
         Intent intent = getIntent();
         IP = intent.getStringExtra("IP");
-        urlImgae = urlAddr;
+        urlImage = urlAddr;
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
@@ -104,10 +111,24 @@ public class ViewPeopleActivity extends Activity {
         view_name = findViewById(R.id.view_name);
         view_name.setText(peoplename);
 
-        // 클래스가 바뀌어도 memberinfo는 모든 클래스에 들어가 있어야 한다!
-        // SQLite는 서버가 아닌 로컬DB이기 때문에 일일히 알려줘야 한다!
-//        favorite = new SQLite(ViewPeopleActivity.this);
+        phonetel = members.get(0).getTel();
+        view_phone = findViewById(R.id.view_phone);
+        view_phone.setText((CharSequence) phonetel);
 
+        peopleemail = members.get(0).getEmail();
+        view_email = findViewById(R.id.view_email);
+        view_email.setText(peopleemail);
+
+        peoplerelation = members.get(0).getRelation();
+        view_relation = findViewById(R.id.view_relation);
+        view_relation.setText(peoplerelation);
+
+        peoplememo = members.get(0).getMemo();
+        view_memo = findViewById(R.id.view_memo);
+        view_memo.setText(peoplememo);
+
+
+        // button 연결
         backToList = findViewById(R.id.btn_backToList);
         btn_edit_addressView = findViewById(R.id.btn_edit_addressView);
         btn_view_dial = findViewById(R.id.btn_view_dial);
@@ -140,9 +161,10 @@ public class ViewPeopleActivity extends Activity {
             Intent intent;
             switch (v.getId()) { // List로 이동
                 case R.id.btn_backToList:
-                    intent = new Intent(ViewPeopleActivity.this, AddressListActivity.class); //화면 이동시켜주기
-                    intent.putExtra("IP", IP); //값 넘겨주기
-                    startActivity(intent); //이동시킨 화면 시작
+                    finish();
+//                    intent = new Intent(ViewPeopleActivity.this, AddressListActivity.class); //화면 이동시켜주기
+//                    intent.putExtra("IP", IP); //값 넘겨주기
+//                    startActivity(intent); //이동시킨 화면 시작
                     break;
                 case R.id.btn_edit_addressView: // 연락처 수정/삭제 페이지로 이동
                     intent = new Intent(ViewPeopleActivity.this, ModifyPeopleActivity.class); //화면 이동시켜주기
@@ -286,25 +308,23 @@ public class ViewPeopleActivity extends Activity {
         if (peopleimage == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            urlImgae = urlImgae+"ic_defaultpeople.png";
-            iv_viewPeople.loadUrl(urlImgae);
+            urlImage = urlImage+"ic_defaultpeople.png";
+            iv_viewPeople.loadUrl(urlImage);
             iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
-
-
 
 //        } else if(peopleimage.length() != 0) {
        // } else if(peopleimage.equals("!=null")) {
         } else if(peopleimage != null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            urlImgae = urlImgae + peopleimage;
-            iv_viewPeople.loadUrl(urlImgae);
+            urlImage = urlImage + peopleimage;
+            iv_viewPeople.loadUrl(urlImage);
             iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
         }
     }
-    private class WebViewClientClass extends WebViewClient {//페이지 이동
+    static class WebViewClientClass extends WebViewClient {//페이지 이동
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -312,7 +332,7 @@ public class ViewPeopleActivity extends Activity {
         }
     }
 
-    //
+    // obj members 가져오기
     private ArrayList<People> connectSelectedData(String urlAddr2) {
 
         try {
