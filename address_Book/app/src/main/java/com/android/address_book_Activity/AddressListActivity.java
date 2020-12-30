@@ -87,7 +87,7 @@ public class AddressListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.0.81";
+        macIP = "192.168.0.76";
         urlAddr = "http://" + macIP + ":8080/test/";
         btnGroup1 = findViewById(R.id.button1);
         btnGroup2 = findViewById(R.id.button2);

@@ -48,10 +48,13 @@ public class PeopleAdapter extends BaseAdapter {
         TextView tv_name = convertView.findViewById(R.id.tv_name_custom);
         ImageView img_favoirteImg = convertView.findViewById(R.id.imgFavorite_custom);
         ImageView img_emgImg = convertView.findViewById(R.id.imgEmg_custom);
+        ImageView iv_viewPeople = convertView.findViewById(R.id.iv_viewPeople);
 
 
         if(data.get(position).getImage().equals("null")){
-            img_peopleImg.setImageResource(R.drawable.ic_people);
+            img_peopleImg.setImageResource(R.drawable.ic_defaultpeople);
+            iv_viewPeople.setImageResource(R.drawable.ic_defaultpeople);
+
         } else {
             img_peopleImg.setImageResource(Integer.parseInt(data.get(position).getImage()));
         }

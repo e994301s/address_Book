@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.Task.NetworkTask;
 import com.android.Task.SQLite;
+import com.android.address_book.PeopleAdapter;
 import com.android.address_book.R;
 
  /*
@@ -38,11 +39,12 @@ public class ViewPeopleActivity extends Activity {
     String useremail, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel;
     int peopleno, phoneno, peoplefavorite, peopleemg;
     int result;
-    Button backToList, btn_edit_addressView = null;
+    Button btn_edit_addressView = null;
     ImageView iv_viewPeople;
-    ImageButton btn_view_favorite, btn_view_emergency, btn_view_dial, btn_view_message;
+    ImageButton backToList, btn_view_favorite, btn_view_emergency, btn_view_dial, btn_view_message;
     TextView view_name, view_phone, view_email, view_relation, view_memo;
-    SQLite favorite;
+    PeopleAdapter adapter;
+
 
 
     @Override
@@ -81,6 +83,7 @@ public class ViewPeopleActivity extends Activity {
 
         btn_view_dial.setImageResource(R.drawable.ic_dial);
         btn_view_dial.setImageResource(R.drawable.ic_message);
+        backToList.setImageResource(R.drawable.ic_back);
 
         backToList.setOnClickListener(OnclickListener);
         btn_edit_addressView.setOnClickListener(OnclickListener);

@@ -12,12 +12,11 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         >
-        <Button
+        <ImageButton
             android:id="@+id/btn_backToList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
-            android:text="◀"
             android:textStyle="bold"
             />
 
