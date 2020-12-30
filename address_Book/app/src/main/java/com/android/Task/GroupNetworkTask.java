@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.address_book.Group;
 import com.android.address_book.User;
 
 import org.json.JSONArray;
@@ -22,11 +23,13 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
     Context context = null;
     String mAddr = null;
     String where = null;
+    ArrayList<Group> group;
 
     public GroupNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
         this.where = where;
+        this.group = new ArrayList<Group>();
     }
 
     @Override
@@ -35,6 +38,7 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
 
     @Override
     protected void onPostExecute(Object o) {
+
         super.onPostExecute(o);
     }
 
@@ -66,7 +70,8 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
                 }
 
                 if (where.equals("select")) {
-                    //parserSelect(stringBuffer.toString());
+                    parserSelect(stringBuffer.toString());
+
                 } else {
                     result = parserAction(stringBuffer.toString());
                 }
@@ -87,8 +92,7 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
         if (where.equals("select")) {
-            return null;
-           // return user;
+            return group;
 
         }else{
             return result;
@@ -98,29 +102,28 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
     }
 
 
-//    // select action
-//    private void parserSelect(String s) {
-//        Log.v(TAG, "Parser()");
-//
-//        try {
-//            JSONObject jsonObject = new JSONObject(s);
-//            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
-//            user.clear();
-//
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                String name = jsonObject1.getString("username");
-//                String email = jsonObject1.getString("useremail");
-//                String pw = jsonObject1.getString("userpw");
-//                String phone = jsonObject1.getString("userphone");
-//
-//                User users = new User(name, email, pw, phone);
-//                user.add(users);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    // select action
+    private void parserSelect(String s) {
+        Log.v(TAG, "Parser()");
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("relation_info"));
+            group.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String groupNo = jsonObject1.getString("relationno");
+                String groupName = jsonObject1.getString("relationname");
+
+
+                Group groups = new Group(groupNo, groupName);
+                group.add(groups);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     // insert/update action
     private String parserAction(String s) {
