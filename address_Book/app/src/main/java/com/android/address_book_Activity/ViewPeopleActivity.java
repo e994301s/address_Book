@@ -6,20 +6,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.Task.NetworkTask;
+import com.android.Task.PeopleNetworkTask;
 import com.android.Task.SQLite;
 import com.android.address_book.People;
 import com.android.address_book.PeopleAdapter;
 import com.android.address_book.R;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
  /*
 ===========================================================================================================================
@@ -38,18 +43,20 @@ import java.util.ArrayList;
 public class ViewPeopleActivity extends Activity {
 
     final static String TAG = "ViewPeopleActivity";
-    String urlAddr = null;
+    String urlAddr, urlAddr2 = null;
     String IP; // MainActivity에서 넘겨줌
     String useremail, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phonetel;
     int peopleno, phoneno, peoplefavorite, peopleemg;
     ArrayList<People> data = null;
     int result;
     Button btn_edit_addressView = null;
+    ScrollView scrollview_people;
     WebView iv_viewPeople;
     ImageButton backToList, btn_view_favorite, btn_view_emergency, btn_view_dial, btn_view_message;
     TextView view_name, view_phone, view_email, view_relation, view_memo;
     PeopleAdapter adapter;
-
+    ArrayList<People> members;
+    String urlImgae;
 
 
     @Override
@@ -59,23 +66,43 @@ public class ViewPeopleActivity extends Activity {
 
         Intent intent = getIntent();
         IP = intent.getStringExtra("IP");
-        //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
-        urlAddr = "http://" + IP + ":8080/test/";
+        urlImgae = urlAddr;
 
         peopleno = intent.getIntExtra("peopleno", 0);
-        phoneno = intent.getIntExtra("phoneno", 0);
-        peoplename = intent.getStringExtra("peoplename");
-        peopleemail = intent.getStringExtra("peopleemail");
         useremail = intent.getStringExtra("useremail");
-        peoplerelation = intent.getStringExtra("peoplerelation");
-        peoplememo = intent.getStringExtra("peoplememo");
-        peopleimage = intent.getStringExtra("peopleimage");
-        phonetel = intent.getStringExtra("phonetel");
-        peoplefavorite = intent.getIntExtra("peoplefavorite", 0);
-        peopleemg = intent.getIntExtra("peopleemg", 0);
+        phoneno = intent.getIntExtra("phoneno", 0);
+        //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
+        urlAddr = "http://192.168.0.76:8080/test/";
+        urlAddr2 = "http://192.168.0.76:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
 
+
+//        peoplename = intent.getStringExtra("peoplename");
+//        peopleemail = intent.getStringExtra("peopleemail");
+//        useremail = intent.getStringExtra("useremail");
+//        peoplerelation = intent.getStringExtra("peoplerelation");
+//        peoplememo = intent.getStringExtra("peoplememo");
+//        peopleimage = intent.getStringExtra("peopleimage");
+//        phonetel = intent.getStringExtra("phonetel");
+//        peoplefavorite = intent.getIntExtra("peoplefavorite", 0);
+//        peopleemg = intent.getIntExtra("peopleemg", 0);
+
+        scrollview_people = findViewById(R.id.scrollview_people);
+
+
+        // Web View에 이미지 띄움
         iv_viewPeople=findViewById(R.id.iv_viewPeople);
+        iv_viewPeople.getSettings().setJavaScriptEnabled(true);
         imageCheck();
+
+
+        // Task 연결
+        connectSelectedData(urlAddr2);
+
+
+        // get Data // set Text
+        peoplename = members.get(position).getName();
+        view_name = findViewById(R.id.view_name);
+        view_name.setText(peoplename);
 
         // 클래스가 바뀌어도 memberinfo는 모든 클래스에 들어가 있어야 한다!
         // SQLite는 서버가 아닌 로컬DB이기 때문에 일일히 알려줘야 한다!
@@ -98,7 +125,8 @@ public class ViewPeopleActivity extends Activity {
         btn_view_message.setOnClickListener(OnclickListener);
         btn_view_favorite.setOnClickListener(OnclickListener);
         btn_view_emergency.setOnClickListener(OnclickListener);
-
+        favoriteCheck();
+        emergencyCheck();
 
     } // onCreate 끝 -----------------------------------------------------------------------
 
@@ -147,12 +175,15 @@ public class ViewPeopleActivity extends Activity {
                     favoriteCheck();
                     break;
                 case R.id.btn_view_emergency: // 긴급연락처 추가/해제
-                    emergencyCheck(useremail, peopleno);
+                    emergencyCheck();
                     break;
 
             }
         }
     };
+
+
+
 
     // 즐겨찾기 1인지 0인지 판단
     public void favoriteCheck() {
@@ -198,7 +229,7 @@ public class ViewPeopleActivity extends Activity {
 
 
     // 긴급연락처 1인지 0인지 판단
-    public void emergencyCheck(String useremail, int peopleno) {
+    public void emergencyCheck() {
         //int result = 0;
         // INTENT 받아온 값 추가
         //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
@@ -211,7 +242,6 @@ public class ViewPeopleActivity extends Activity {
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=1&peopleno=" + peopleno;
             peopleemg = 1;
             btn_view_emergency.setImageResource(R.drawable.ic_emg2);
-
 
             String result = connectEmgCheckData(urlAddr1);
 
@@ -256,19 +286,62 @@ public class ViewPeopleActivity extends Activity {
         if (peopleimage == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
+            urlImgae = urlImgae+"ic_defaultpeople.png";
+            iv_viewPeople.loadUrl(urlImgae);
+            iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
+            iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
 
-           
+
 
 //        } else if(peopleimage.length() != 0) {
        // } else if(peopleimage.equals("!=null")) {
         } else if(peopleimage != null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            iv_viewPeople.setImageResource(Integer.parseInt(peopleimage));
-
-
+            urlImgae = urlImgae + peopleimage;
+            iv_viewPeople.loadUrl(urlImgae);
+            iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
+            iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
+        }
+    }
+    private class WebViewClientClass extends WebViewClient {//페이지 이동
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
         }
     }
 
+    //
+    private void connectSelectedData(String urlAddr2) {
+
+        try {
+            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(ViewPeopleActivity.this, urlAddr2);
+
+            Object obj = peopleNetworkTask.execute().get();
+
+
+            // members에 obj를 줄거야! type은 Arraylist!
+            members = (ArrayList<People>) obj;
+
+
+            for (int i = 0; i < response.length(); i++) {
+                People jsonObject = response.getJSONObject(i);
+
+                int tv_name = Integer.parseInt(obj.getString("peoplename"));
+                int no = Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
+                String name = jsonObject.getString("name");
+                String msg = jsonObject.getString("message");
+                String imgPath = jsonObject.getString("imgPath");
+                String date = jsonObject.getString("date");
+
+                adapter = new PeopleAdapter(ViewPeopleActivity.this, R.layout.activity_view_people, members);
+                scrollview_people.setAdapter(adapter);
+
+            } catch(ExecutionException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
 } // 끝 ------------------------------------------------------------------------------------

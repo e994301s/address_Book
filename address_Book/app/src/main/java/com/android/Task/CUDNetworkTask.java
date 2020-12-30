@@ -2,6 +2,8 @@ package com.android.Task;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,9 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -74,14 +78,17 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
 
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream = null;
+        FileOutputStream fileOutputStream =null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
         String result = null;
+
 
         try{
             URL url = new URL(mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
+
 
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
                 inputStream = httpURLConnection.getInputStream();
@@ -183,9 +190,8 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
 
+
     }
-
-
 
 
 

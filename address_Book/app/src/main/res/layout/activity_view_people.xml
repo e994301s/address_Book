@@ -15,15 +15,15 @@
 
         <ImageButton
             android:id="@+id/btn_backToList"
-            android:layout_width="12dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:textStyle="bold"
-            android:maxHeight="70dp"
-            android:maxWidth="70dp"
+            android:layout_gravity="right|center"
             android:adjustViewBounds="true"
+            android:backgroundTint="#FFFFFF"
+            android:maxWidth="70dp"
+            android:maxHeight="70dp"
             android:scaleType="fitCenter"
-            android:backgroundTint="#FFFFFF"/>
+            android:textStyle="bold" />
 
         <View
             android:layout_width="0dp"
@@ -43,16 +43,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
-        tools:ignore="WebViewLayout">
+        android:layout_height="200dp"
+        android:gravity="center"
+      >
         <WebView
             android:id="@+id/iv_viewPeople"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:maxHeight="100dp"
-            android:maxWidth="100dp"
-            android:adjustViewBounds="true"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
             />
@@ -70,8 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
@@ -82,8 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
@@ -93,8 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
@@ -104,8 +101,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
@@ -113,6 +110,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollview_people"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
