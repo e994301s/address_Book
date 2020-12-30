@@ -110,9 +110,11 @@ public class MainActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.findId_btn:
                     Intent intent = new Intent(MainActivity.this, FindIDActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.findPW_btn:
                     Intent intent1 = new Intent(MainActivity.this, FindPWActivity.class);
+                    startActivity(intent1);
                     break;
             }
 
