@@ -96,8 +96,8 @@ public class AddressListActivity extends AppCompatActivity {
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
 
-        macIP = "192.168.219.154";
-        email = "qkr@naver.com";
+        macIP = "192.168.35.157";
+        email = "con@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
 
