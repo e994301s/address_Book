@@ -1,17 +1,20 @@
 package com.android.address_book;
 
+import java.util.ArrayList;
+
 public class People {
     String no;
     String name;
-    String tel;
+    ArrayList<String> tel;
     String email;
     String relation;
     String memo;
     String image;
     String favorite;
     String emergency;
+    String useremail;
 
-    public People(String no, String name, String tel, String email, String relation, String memo, String image, String favorite, String emergency) {
+    public People(String no, String name, ArrayList<String> tel, String email, String relation, String memo, String image, String favorite, String emergency, String useremail) {
         this.no = no;
         this.name = name;
         this.tel = tel;
@@ -21,6 +24,7 @@ public class People {
         this.image = image;
         this.favorite = favorite;
         this.emergency = emergency;
+        this.useremail = useremail;
     }
 
     public String getNo() {
@@ -39,11 +43,11 @@ public class People {
         this.name = name;
     }
 
-    public String getTel() {
+    public ArrayList<String> getTel() {
         return tel;
     }
 
-    public void setTel(String tel) {
+    public void setTel(ArrayList<String> tel) {
         this.tel = tel;
     }
 
@@ -94,4 +98,14 @@ public class People {
     public void setEmergency(String emergency) {
         this.emergency = emergency;
     }
+
+    public String getUseremail() {
+        return useremail;
+    }
+
+    public void setUseremail(String useremail) {
+        this.useremail = useremail;
+    }
+
+
 }

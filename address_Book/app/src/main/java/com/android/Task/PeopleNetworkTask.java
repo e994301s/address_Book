@@ -13,12 +13,13 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
-    final static String TAG = "NetworkTask";
+    final static String TAG = "PeopleNetworkTask";
     Context context = null;
     String mAddr = null;
     String where = null;
@@ -126,18 +127,37 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 String no = jsonObject1.getString("no");
                 String name = jsonObject1.getString("name");
-                String tel = jsonObject1.getString("tel");
+
+                ArrayList<String> phones = new ArrayList<String>();
+                JSONArray jsonArray1 = jsonObject1.getJSONArray("tel");
+
+                for (int j=0; j<jsonArray1.length(); j++){
+                    String phone = jsonArray1.getString(j);
+                    phones.add(phone);
+
+                }
+
                 String email = jsonObject1.getString("email");
                 String relation = jsonObject1.getString("relation");
                 String memo = jsonObject1.getString("memo");
                 String image = jsonObject1.getString("image");
                 String favorite = jsonObject1.getString("favorite");
                 String emergency = jsonObject1.getString("emergency");
+                String useremail = jsonObject1.getString("useremail");
+
+//                ArrayList<String> phonenoes = new ArrayList<String>();
+//                String phoneno = jsonObject1.getString("phoneno");
+//
+
+//                for (int k=0; k<jsonArray2.length(); k++){
+//                    int phoneno = Integer.parseInt(jsonArray2.getString(k));
+//                    Log.v(TAG, Integer.toString(phoneno));
+//                    phonenoes.add("1");
+//                }
+//
 
 
-                Log.v("here", "no"+no);
-
-                People people = new People(no, name, tel, email, relation, memo, image, favorite, emergency);
+                People people = new People(no, name, phones, email, relation, memo, image, favorite, emergency, useremail);
                 members.add(people);
             }
 

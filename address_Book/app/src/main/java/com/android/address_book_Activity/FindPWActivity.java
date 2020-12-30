@@ -2,6 +2,7 @@ package com.android.address_book_Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 ===========================================================================================================================
 */
 
-public class FindPWActivity extends AppCompatActivity {
+public class FindPWActivity extends Activity {
 
     final static String TAG = "FindPWActivity";
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +46,7 @@ import java.util.regex.Pattern;
 ===========================================================================================================================
 */
 
-public class JoinActivity extends AppCompatActivity {
+public class JoinActivity extends Activity {
 
     final static String TAG = "JoinActivity";
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
@@ -52,6 +54,7 @@ public class JoinActivity extends AppCompatActivity {
     Matcher match;
 
     EditText email, name, pw, pwCheck, phone;
+    ImageButton backBtn_join;
     TextView pwCheckMsg;
     String macIP, urlAddr;
     String emailInput = null;
@@ -82,6 +85,9 @@ public class JoinActivity extends AppCompatActivity {
         pwCheck = findViewById(R.id.pwCheck_join);
         phone = findViewById(R.id.phone_join);
         pwCheckMsg = findViewById(R.id.tv_pwCheckMsg_join);
+        backBtn_join = findViewById(R.id.backBtn_join);
+        backBtn_join.setImageResource(R.drawable.ic_back);
+
 
         findViewById(R.id.backBtn_join).setOnClickListener(mClickListener);
         findViewById(R.id.btnEmailCheck_join).setOnClickListener(mClickListener);

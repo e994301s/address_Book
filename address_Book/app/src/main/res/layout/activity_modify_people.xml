@@ -12,13 +12,17 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         >
-        <Button
+        <ImageButton
             android:id="@+id/btn_backToViewPeople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center"
-            android:text="◀"
+            android:layout_gravity="left|center"
             android:textStyle="bold"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
             />
 
         <View
@@ -31,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
+            android:backgroundTint="#42BCFD"
             android:text="수정"
             android:textStyle="bold"
             />
@@ -136,6 +141,11 @@
             android:id="@+id/btn_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
 
             />
     </LinearLayout>
