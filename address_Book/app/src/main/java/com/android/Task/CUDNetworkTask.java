@@ -94,9 +94,9 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
                     stringBuffer.append(strline + "\n");
                 }
 
-//                if(where.equals("modifyPeople")){
-//                    parserModifyPeople(stringBuffer.toString());
-//                }
+                if(where.equals("Register")){
+                    parserRegister(stringBuffer.toString());
+                }
 //                if(where.equals("deletePeople")){
 //                    parserDeletePeople(stringBuffer.toString());
 //                }
@@ -141,7 +141,7 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
 
 
     // update action
-    private String parserModifyPeople(String s){
+    private String parserRegister(String s){
         Log.v(TAG,"parserModifyPeople()");
         String returnResult = null;
 

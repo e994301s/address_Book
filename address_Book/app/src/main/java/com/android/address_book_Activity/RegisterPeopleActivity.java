@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.Task.CUDNetworkTask;
+import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 
 import java.io.File;
@@ -27,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import okhttp3.MediaType;
@@ -56,7 +58,12 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     Button add_view, registerButton, registerBookMarkButton, registerEmergencyPhoneNumber;
     EditText registerName, registerMainTelNo, registerAddPhoneNumber1, registerAddPhoneNumber2, registerAddPhoneNumber3, registerAddPhoneNumber4, registerEmail, registerComment;
     String strRegisterName, strRegisterMainTelNo, strRegisterAddPhoneNumber1, strRegisterAddPhoneNumber2, strRegisterAddPhoneNumber3, strRegisterAddPhoneNumber4, strRegisterEmail, strRegisterComment;
-    String macIP, urlAddPeople;
+
+    String macIP, urlAddPeople, urlGetNumber, urlAddPhoneNumber;
+
+    String peopleNo, peopleInsertResult, phoneInsertResult;
+
+    int bookMark = 0;
 
     // 사진 올리고 내리기 위한 변수들
     private final int REQ_CODE_SELECT_IMAGE = 100;
@@ -92,7 +99,8 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
         urlAddPeople = "http://"+macIP+":8080/test/studentInsert.jsp?";
-
+        urlGetNumber = "http://"+macIP+":8080/test/getPeopleNo.jsp";
+        urlAddPhoneNumber = "http://"+macIP+":8080/test/studentInsert.jsp?";
 
         add_view.setOnClickListener(mClickListener);
         registerButton.setOnClickListener(mClickListener);
@@ -135,7 +143,20 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+sdept+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
                     connectInsertData();
                     // 순서 3. insert 되서 생성된 peopleno 가져오기
+                    connectGetData();
                     // 순서 4. peopleno랑 전화번호 정보 insert
+                    strRegisterMainTelNo = registerMainTelNo.getText().toString();
+                    strRegisterAddPhoneNumber1 = registerAddPhoneNumber1.getText().toString();
+                    strRegisterAddPhoneNumber2 = registerAddPhoneNumber2.getText().toString();
+                    strRegisterAddPhoneNumber3 = registerAddPhoneNumber3.getText().toString();
+                    strRegisterAddPhoneNumber4 = registerAddPhoneNumber4.getText().toString();
+                    urlAddPhoneNumber = urlAddPhoneNumber+"people_peopleno="+peopleNo+"&strRegisterMainTelNo="+strRegisterMainTelNo+"&strRegisterAddPhoneNumber1="+strRegisterAddPhoneNumber1+"&strRegisterAddPhoneNumber2="+strRegisterAddPhoneNumber2+"&strRegisterAddPhoneNumber3"+strRegisterAddPhoneNumber3+"&strRegisterAddPhoneNumber4"+strRegisterAddPhoneNumber4;
+                    connectInsertPhoneNo();
+                    if(peopleInsertResult.equals("1")&&phoneInsertResult.equals("1")){
+                        Toast.makeText(RegisterPeopleActivity.this, "입력이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(RegisterPeopleActivity.this, "입력이 실패 했습니다. !", Toast.LENGTH_SHORT).show();
+                    }
 
                     break;
                 case R.id.registerImage:
@@ -146,6 +167,9 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     break;
 
                 case R.id.registerBookMarkButton:
+                    if(bookMark == 0){
+
+                    }
 
                     break;
 
@@ -241,11 +265,33 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         }
     }
 
-    private void connectInsertData(){
-        try{
-            CUDNetworkTask insnetworkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlAddr);
-            insnetworkTask.execute().get();
+    private void connectInsertData() {
+        try {
+            CUDNetworkTask insnetworkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlAddPeople, "Register");
+            Object object = insnetworkTask.execute().get();
+            peopleInsertResult = (String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void connectGetData(){
+        try {
+            CUDNetworkTask networkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlGetNumber, "Register");
+            Object obj = networkTask.execute().get();
+            peopleNo = (String) obj;
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    private void connectInsertPhoneNo() {
+        try {
+            CUDNetworkTask insTelNonetworkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlAddPhoneNumber, "Register");
+            Object object = insTelNonetworkTask.execute().get();
+            phoneInsertResult =(String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
