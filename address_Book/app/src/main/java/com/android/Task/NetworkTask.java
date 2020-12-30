@@ -34,7 +34,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     ProgressDialog progressDialog = null;
     int loginCheck = 0;
     String where = null;
-    ArrayList<User> user= null;
+    ArrayList<User> user = null;
 
     public NetworkTask(Context context, String mAddr) {
         this.context = context;
@@ -68,7 +68,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
     @Override
     protected void onCancelled() {
-        Log.v(TAG,"onCancelled()");
+        Log.v(TAG, "onCancelled()");
         super.onCancelled();
     }
 
@@ -82,67 +82,67 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         BufferedReader bufferedReader = null;
         String result = null;
 
-        try{
+        try {
             URL url = new URL(mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
 
-            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
                 bufferedReader = new BufferedReader(inputStreamReader);
 
-                while(true){
+                while (true) {
                     String strline = bufferedReader.readLine();
-                    if(strline == null) break;
+                    if (strline == null) break;
                     stringBuffer.append(strline + "\n");
                 }
 
-                if(where.equals("select")){
+                if (where.equals("select")) {
                     parserSelect(stringBuffer.toString());
                 }
-                if(where.equals("loginCount")){
+                if (where.equals("loginCount")) {
                     parserLoginCheck(stringBuffer.toString());
-                }else{
+                } else {
                     result = parserAction(stringBuffer.toString());
                 }
 
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if(bufferedReader != null) bufferedReader.close();
-                if(inputStreamReader != null) inputStreamReader.close();
-                if(inputStream != null) inputStream.close();
+                if (bufferedReader != null) bufferedReader.close();
+                if (inputStreamReader != null) inputStreamReader.close();
+                if (inputStream != null) inputStream.close();
 
-            }catch (Exception e2){
+            } catch (Exception e2) {
                 e2.printStackTrace();
             }
         }
 
-        if(where.equals("select")){
-           return user;
+        if (where.equals("select")) {
+            return user;
 
-        } else if(where.equals("loginCount")){
+        } else if (where.equals("loginCount")) {
             return loginCheck;
-        }else{
+        } else {
             return null;
         }
 
     }
 
     // select action
-    private void parserSelect(String s){
-        Log.v(TAG,"Parser()");
+    private void parserSelect(String s) {
+        Log.v(TAG, "Parser()");
 
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
             user.clear();
 
-            for(int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 String name = jsonObject1.getString("username");
                 String email = jsonObject1.getString("useremail");
@@ -152,44 +152,44 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
                 User users = new User(name, email, pw, phone);
                 user.add(users);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     // insert/update action
-    private String parserAction(String s){
-        Log.v(TAG,"parserAction()");
+    private String parserAction(String s) {
+        Log.v(TAG, "parserAction()");
         String returnResult = null;
 
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(s);
             returnResult = jsonObject.getString("result");
             Log.v(TAG, returnResult);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return returnResult;
     }
 
-    private void parserLoginCheck(String s){
+    private void parserLoginCheck(String s) {
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
 
-            for(int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
                 int count = jsonObject1.getInt("count");
 
                 loginCheck = count;
-                Log.v("여기","parserLoginCheck : " + count);
+                Log.v("여기", "parserLoginCheck : " + count);
 
                 Log.v(TAG, "----------------------------------");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
