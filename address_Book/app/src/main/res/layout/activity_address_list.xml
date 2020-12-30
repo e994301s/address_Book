@@ -61,108 +61,26 @@
 
 <!--    </LinearLayout>-->
 
-    <HorizontalScrollView
-        android:id="@+id/hsv_01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5px"
-        android:paddingLeft="10px"
-        android:paddingRight="10px"
 
 
-        >
-        <LinearLayout
-            android:id="@+id/ll_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:text="가족"
-                android:id="@+id/button1" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:text="친구"
-                android:id="@+id/button2" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:text="Group3"
-                android:id="@+id/button3" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:text="Group4"
-                android:id="@+id/button4" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:text="Group5"
-                android:id="@+id/button5" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:text="Group6"
-                android:id="@+id/button6" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:text="Group7"
-                android:id="@+id/button7" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6FC5C5C5"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:text="Group8"
-                android:id="@+id/button8"/>
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="5"
-        android:orientation="vertical">
-
-        <include layout="@layout/content_address_list" />
-
-    </LinearLayout>
+        android:layout_weight="9"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="0px"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="#ff0000"
         app:itemTextColor="#ffffff"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/bottom_nav"
+        android:layout_weight="1"/>
 
 <!-- 연락처 등록 플로팅 버튼 -->
 

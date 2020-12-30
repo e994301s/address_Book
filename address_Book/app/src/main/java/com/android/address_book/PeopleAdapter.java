@@ -8,10 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.address_book_Activity.FirstFragment;
+
 import java.util.ArrayList;
 
 public class PeopleAdapter extends BaseAdapter {
     Context mContext = null;
+    FirstFragment firstFragment = null;
     int layout = 0;
     ArrayList<People> data = null;
     LayoutInflater inflater = null;
@@ -22,6 +25,7 @@ public class PeopleAdapter extends BaseAdapter {
         this.data = data;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     @Override
     public int getCount() {
