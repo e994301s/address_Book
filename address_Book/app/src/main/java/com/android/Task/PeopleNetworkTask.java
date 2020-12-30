@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
-    final static String TAG = "NetworkTask";
+    final static String TAG = "PeopleNetworkTask";
     Context context = null;
     String mAddr = null;
     String where = null;
@@ -145,18 +145,19 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
                 String emergency = jsonObject1.getString("emergency");
                 String useremail = jsonObject1.getString("useremail");
 
-                ArrayList<String> phonenoes = new ArrayList<String>();
-                JSONArray jsonArray2 = jsonObject1.getJSONArray("phoneno");
+//                ArrayList<String> phonenoes = new ArrayList<String>();
+//                String phoneno = jsonObject1.getString("phoneno");
+//
 
-                for (int k=0; k<jsonArray2.length(); k++){
-                    String phoneno = jsonArray2.getString(k);
-                    phonenoes.add(phoneno);
-                }
+//                for (int k=0; k<jsonArray2.length(); k++){
+//                    int phoneno = Integer.parseInt(jsonArray2.getString(k));
+//                    Log.v(TAG, Integer.toString(phoneno));
+//                    phonenoes.add("1");
+//                }
+//
 
 
-                Log.v("here", "no"+no);
-
-                People people = new People(no, name, phones, email, relation, memo, image, favorite, emergency, useremail, phonenoes);
+                People people = new People(no, name, phones, email, relation, memo, image, favorite, emergency, useremail);
                 members.add(people);
             }
 
