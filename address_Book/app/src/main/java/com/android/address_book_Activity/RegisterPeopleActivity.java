@@ -31,12 +31,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+//import okhttp3.MediaType;
+//import okhttp3.MultipartBody;
+//import okhttp3.OkHttpClient;
+//import okhttp3.Request;
+//import okhttp3.RequestBody;
+//import okhttp3.Response;
 
 /*
 ===========================================================================================================================
@@ -140,7 +140,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     strRegisterEmail = registerEmail.getText().toString();
                     // 관계
                     strRegisterComment = registerComment.getText().toString();
-                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+sdept+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
+                   // urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+sdept+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
                     connectInsertData();
                     // 순서 3. insert 되서 생성된 peopleno 가져오기
                     connectGetData();
@@ -239,31 +239,31 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
         File f = new File(img_path);
 
-        DoActualRequest(f);
+ //       DoActualRequest(f);
     }
 
     //서버 보내기
-    private void DoActualRequest(File file) {
-        OkHttpClient client = new OkHttpClient();
-
-
-        RequestBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file.getName(),
-                        RequestBody.create(MediaType.parse("image/jpeg"), file))
-                .build();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void DoActualRequest(File file) {
+//        OkHttpClient client = new OkHttpClient();
+//
+//
+//        RequestBody body = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM)
+//                .addFormDataPart("image", file.getName(),
+//                        RequestBody.create(MediaType.parse("image/jpeg"), file))
+//                .build();
+//
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .post(body)
+//                .build();
+//
+//        try {
+//            Response response = client.newCall(request).execute();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void connectInsertData() {
         try {
