@@ -43,14 +43,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
+        android:layout_height="200dp"
+        android:gravity="center"
         >
-        <ImageView
+        <WebView
             android:id="@+id/iv_editPeopleImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#FFFFFF"
             />
     </LinearLayout>
 
