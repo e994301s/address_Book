@@ -96,7 +96,7 @@ public class AddressListActivity extends AppCompatActivity {
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
 
-        macIP = "192.168.2.2";
+        macIP = "192.168.219.154";
         email = "qkr@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
@@ -251,7 +251,6 @@ public class AddressListActivity extends AppCompatActivity {
     }
 
     //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
-
     public boolean onOptionsItemSelected(MenuItem item) {
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {

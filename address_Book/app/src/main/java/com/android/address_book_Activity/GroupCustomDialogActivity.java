@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,12 +15,18 @@ import android.widget.Toast;
 
 import com.android.Task.GroupNetworkTask;
 import com.android.Task.NetworkTask;
+import com.android.address_book.Group;
 import com.android.address_book.R;
+import com.android.address_book.User;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class GroupCustomDialogActivity{
 
     private Context context;
     private String urlAddr, macIP, email;
+    ArrayList<Group> group = null;
 
     public GroupCustomDialogActivity(Context context) {
         this.context = context;
@@ -61,11 +68,29 @@ public class GroupCustomDialogActivity{
                     Toast.makeText(context, "그룹을 입력해주세요.", Toast.LENGTH_SHORT).show();
 
                 } else {
+                    int count = 0;
                     String groupName = message.getText().toString();
-                    insertGroup(groupName);
 
-                    // 커스텀 다이얼로그를 종료한다.
-                    dlg.dismiss();
+                    String urlAddr1 = "";
+                    urlAddr1 = urlAddr + "group_query_all.jsp?email=" + email;
+
+                    ArrayList<Group> result = connectSelectData(urlAddr1);
+
+                    for(int i =0; i<result.size(); i++){
+                        if(groupName.equals(result.get(i).getGroupName())){
+                            count ++;
+                        }
+                    }
+
+                    if(count == 0) {
+                        insertGroup(groupName);
+
+                        // 커스텀 다이얼로그를 종료한다.
+                        dlg.dismiss();
+                    } else {
+                        Toast.makeText(context, "동일한 그룹이 존재합니다.", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             }
         });
@@ -82,10 +107,10 @@ public class GroupCustomDialogActivity{
 
     // group insert action
     private void insertGroup(String relationname) {
+        String urlAddr2 = "";
+        urlAddr2 = urlAddr + "&relationname=" + relationname;
 
-        urlAddr = urlAddr + "&relationname=" + relationname;
-
-        String result = connectInsertData(urlAddr);
+        String result = connectInsertData(urlAddr2);
 
         if (result.equals("1")) {
             Toast.makeText(context, "\"" +  relationname + "\" 을 입력하였습니다.", Toast.LENGTH_SHORT).show();
@@ -95,20 +120,37 @@ public class GroupCustomDialogActivity{
 
         }
     }
-        //connection Insert
-        private String connectInsertData(String urlAddr){
-            String result = null;
 
-            try{
-                GroupNetworkTask insertNetworkTask = new GroupNetworkTask(context, urlAddr, "insert");
-                Object obj = insertNetworkTask.execute().get();
-                result = (String) obj;
+    //connection Insert
+    private String connectInsertData(String urlAddr){
+        String result = null;
 
-            } catch (Exception e){
-                e.printStackTrace();
+        try{
+            GroupNetworkTask insertNetworkTask = new GroupNetworkTask(context, urlAddr, "insert");
+            Object obj = insertNetworkTask.execute().get();
+            result = (String) obj;
 
-            }
-            return result;
+        } catch (Exception e){
+            e.printStackTrace();
+
         }
+        return result;
+    }
+
+    //connection Select
+    private ArrayList<Group> connectSelectData(String urlAddr){
+        ArrayList<Group> result = null;
+
+        try{
+            GroupNetworkTask selectNetworkTask = new GroupNetworkTask(context, urlAddr, "select");
+            Object obj = selectNetworkTask.execute().get();
+            result = (ArrayList<Group>) obj;
+
+        } catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return result;
+    }
 
 }
