@@ -30,6 +30,7 @@ public class SecondFragment extends Fragment {
     PeopleAdapter adapter;
     ListView listView;
     String macIP;
+    String email;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
 
 
@@ -47,7 +48,8 @@ public class SecondFragment extends Fragment {
 
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
-        macIP = "172.20.10.7";
+        macIP = "192.168.200.182";
+        email = "qkr@naver.com";
         urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com";
 

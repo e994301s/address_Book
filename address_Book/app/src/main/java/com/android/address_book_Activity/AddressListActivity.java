@@ -58,16 +58,13 @@ public class AddressListActivity extends AppCompatActivity {
 
     final static String TAG = "SelectAllActivity";
     String urlAddr = null;
-    String urlAddr1 = null;
-    String urlAddr2 = null;
-    String urlAddr3 = null;
-    String urlAddr4 = null;
+
     ArrayList<People> searchArr;
     ArrayList<People> members;
     PeopleAdapter adapter;
     ListView listView;
     String macIP;
-    Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
+
 
     String email;
 
@@ -94,10 +91,13 @@ public class AddressListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         listView = findViewById(R.id.lv_student);
-//        macIP = intent.getStringExtra("macIP");
+
+
+
 
         macIP = "192.168.35.157";
         email = "con@naver.com";
+
 
         urlAddr = "http://" + macIP + ":8080/test/";
 
@@ -256,7 +256,6 @@ public class AddressListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.add_group:
                 // User chose the "Settings" item, show the app settings UI...
-                Toast.makeText(getApplicationContext(), "그룹 추가 버튼 클릭됨", Toast.LENGTH_LONG).show();
                 LayoutInflater inflate = getLayoutInflater();
 
                 GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
