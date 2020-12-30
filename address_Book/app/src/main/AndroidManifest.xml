@@ -25,9 +25,9 @@
         <activity android:name="com.android.address_book_Activity.MypageActivity" />
         <activity android:name="com.android.address_book_Activity.MypagePWActivity02" />
         <activity android:name="com.android.address_book_Activity.MypagePWActivity01" />
-        <activity android:name="com.android.address_book_Activity.RegisterPeopleActivity" />
+        <activity android:name="com.android.address_book_Activity.AddressListActivity" />
         <activity
-            android:name="com.android.address_book_Activity.AddressListActivity"
+            android:name="com.android.address_book_Activity.RegisterPeopleActivity"
             android:label="@string/title_activity_address_list"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.Address_Book.NoActionBar" >

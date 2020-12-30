@@ -54,10 +54,19 @@ import okhttp3.Response;
 
 public class RegisterPeopleActivity extends AppCompatActivity {
 
+    String TAG = "Register";
+
     ImageView registerImage;
     Button add_view, registerButton, registerBookMarkButton, registerEmergencyPhoneNumber;
     EditText registerName, registerMainTelNo, registerAddPhoneNumber1, registerAddPhoneNumber2, registerAddPhoneNumber3, registerAddPhoneNumber4, registerEmail, registerComment;
-    String strRegisterName, strRegisterMainTelNo, strRegisterAddPhoneNumber1, strRegisterAddPhoneNumber2, strRegisterAddPhoneNumber3, strRegisterAddPhoneNumber4, strRegisterEmail, strRegisterComment;
+    String strRegisterName=null;
+    String strRegisterMainTelNo=null;
+    String strRegisterAddPhoneNumber1=null;
+    String strRegisterAddPhoneNumber2=null;
+    String strRegisterAddPhoneNumber3=null;
+    String strRegisterAddPhoneNumber4=null;
+    String strRegisterEmail= null;
+    String strRegisterComment= null;
 
     String macIP, urlAddPeople, urlGetNumber, urlAddPhoneNumber, urlAddstatus;
 
@@ -76,7 +85,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     private String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
-    String url = "http://192.168.0.54:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
+    String url = "http://192.168.0.128:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
 
 
     @Override
@@ -100,11 +109,12 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         registerComment = findViewById(R.id.registerComment);
 
         Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
+        // macIP = intent.getStringExtra("macIP");
+        macIP = "192.168.0.128";
         urlAddPeople = "http://"+macIP+":8080/test/peopleInsert.jsp?";
         urlGetNumber = "http://"+macIP+":8080/test/getPeopleNo.jsp";
         urlAddPhoneNumber = "http://"+macIP+":8080/test/phoneInsert.jsp?";
-        urlAddstatus = "http://"+macIP+":8080/test/statusInsert.jsp?";
+        // urlAddstatus = "http://"+macIP+":8080/test/statusInsert.jsp?";
 
         add_view.setOnClickListener(mClickListener);
         registerButton.setOnClickListener(mClickListener);
@@ -122,6 +132,12 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            strRegisterName = registerName.getText().toString();
+            strRegisterEmail = registerEmail.getText().toString();
+            // 관계
+            strRegisterComment = registerComment.getText().toString();
+
+
             switch (v.getId()){
                 case R.id.addTelNoButton:
                     RegisterAddPhoneNumber n_layout = new RegisterAddPhoneNumber(getApplicationContext());
@@ -131,6 +147,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     break;
 
                 case R.id.registerButton:
+
                     // 순서 1. 네트워크 연결 및 이미지 서버에 전송, 이미지 이름 저장
                     new Thread(new Runnable() {
                         @Override
@@ -140,33 +157,36 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     });
 
                     // 순서 2. DB와 연결(NetworkTask)해서 정보 insert
-                    strRegisterName = registerName.getText().toString();
-                    strRegisterEmail = registerEmail.getText().toString();
-                    // 관계
-                    strRegisterComment = registerComment.getText().toString();
-                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplerelation="+"&peoplememo="+strRegisterComment+"&peopleimage"+imageName;
+
+                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplememo="+strRegisterComment+"&peopleimage="+imageName;
                     connectInsertData();
                     // 순서 3. insert 되서 생성된 peopleno 가져오기
                     connectGetData();
                     // 순서 4. peopleno랑 전화번호 정보 insert
-                    strRegisterMainTelNo = registerMainTelNo.getText().toString();
-                    strRegisterAddPhoneNumber1 = registerAddPhoneNumber1.getText().toString();
-                    strRegisterAddPhoneNumber2 = registerAddPhoneNumber2.getText().toString();
-                    strRegisterAddPhoneNumber3 = registerAddPhoneNumber3.getText().toString();
-                    strRegisterAddPhoneNumber4 = registerAddPhoneNumber4.getText().toString();
-                    if(strRegisterMainTelNo.length()!=0){
+
+                    if(registerMainTelNo.getText().toString().length()!=0){
+                        strRegisterMainTelNo = registerMainTelNo.getText().toString();
+
                         totalPhoneNo.add(strRegisterName);
                     }
-                    if(strRegisterAddPhoneNumber1.length()!=0){
+                    if(registerAddPhoneNumber1.getText().toString().length()!=0){
+                        strRegisterAddPhoneNumber1 = registerAddPhoneNumber1.getText().toString();
+
                         totalPhoneNo.add(strRegisterAddPhoneNumber1);
                     }
-                    if(strRegisterAddPhoneNumber2.length()!=0){
+                    if(registerAddPhoneNumber2.getText().toString().length()!=0){
+                        strRegisterAddPhoneNumber2 = registerAddPhoneNumber2.getText().toString();
+
                         totalPhoneNo.add(strRegisterAddPhoneNumber2);
                     }
-                    if(strRegisterAddPhoneNumber3.length()!=0){
+                    if(registerAddPhoneNumber3.getText().toString().length()!=0){
+                        strRegisterAddPhoneNumber3 = registerAddPhoneNumber3.getText().toString();
+
                         totalPhoneNo.add(strRegisterAddPhoneNumber3);
                     }
-                    if(strRegisterAddPhoneNumber4.length()!=0){
+                    if(registerAddPhoneNumber4.getText().toString().length()!=0){
+                        strRegisterAddPhoneNumber4 = registerAddPhoneNumber4.getText().toString();
+
                         totalPhoneNo.add(strRegisterAddPhoneNumber4);
                     }
                     for (int i = 0; i<totalPhoneNo.size();i++){
@@ -178,6 +198,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     }
                     // 순서 5. 좋아요, 긴급연락처 추가
                         // urlAddstatus = urlAddstatus+"people_peopleno="+peopleNo+"&userinfo_useremail="+"&peopleemg="+emergencyStatus+"&peoplefavorite="+bookMark;
+                    //connectInsertStatus()
 
 
                     if(peopleInsertResult.equals("1")&&phoneInsertResult==totalPhoneNo.size()&&statusInsert.equals("1")){
