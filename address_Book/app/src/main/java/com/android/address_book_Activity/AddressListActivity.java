@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -66,9 +68,14 @@ public class AddressListActivity extends AppCompatActivity {
     ListView listView;
     String macIP;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
+<<<<<<< HEAD
     Bundle bundle;
+=======
+    String email;
+>>>>>>> 5cb1c5ef9e3b0522e6f3749d7212f56fb9139d33
 
     EditText search_EdT;
+
 
     private BottomNavigationView mBottomNV;
 
@@ -92,7 +99,12 @@ public class AddressListActivity extends AppCompatActivity {
         listView = findViewById(R.id.lv_student);
 //        macIP = intent.getStringExtra("macIP");
 
+<<<<<<< HEAD
         macIP = "192.168.2.2";
+=======
+        macIP = "192.168.43.39";
+        email = "qkr@naver.com";
+>>>>>>> 5cb1c5ef9e3b0522e6f3749d7212f56fb9139d33
 
         urlAddr = "http://" + macIP + ":8080/test/";
 
@@ -121,6 +133,7 @@ public class AddressListActivity extends AppCompatActivity {
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+<<<<<<< HEAD
                 // 하단 탭 선택시 아이템 아이디 가져온다.!
                  BottomNavigate(menuItem.getItemId());
 
@@ -142,6 +155,29 @@ public class AddressListActivity extends AppCompatActivity {
 //                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=qkr@naver.com";
 //                        connectGetData(urlAddr3);
 //                }
+=======
+                // BottomNavigate(menuItem.getItemId());
+                switch (menuItem.getItemId()){
+                    case R.id.navigation_1:
+                        urlAddr2="";
+                        urlAddr2 = urlAddr + "people_query_all.jsp?email=" + email;
+                        connectGetData(urlAddr2);
+                        break;
+
+                    case R.id.navigation_2:
+                        urlAddr4="";
+                        String group1 = btnGroup1.getText().toString();
+                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
+                        connectGetData(urlAddr4);
+                        break;
+
+                    case R.id.navigation_3:
+                        urlAddr3="";
+                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=" + email;
+                        connectGetData(urlAddr3);
+                        break;
+                }
+>>>>>>> 5cb1c5ef9e3b0522e6f3749d7212f56fb9139d33
 
 
                 return true;
@@ -152,6 +188,30 @@ public class AddressListActivity extends AppCompatActivity {
         mBottomNV.setSelectedItemId(R.id.navigation_3);
 
     }
+<<<<<<< HEAD
+=======
+    @Override
+    protected void onResume() {
+        super.onResume();
+        urlAddr1 = urlAddr + "people_query_all.jsp?email=" + email;
+        connectGetData(urlAddr1);
+        searchArr = new ArrayList<People>();
+        searchArr.addAll(members);
+        Log.v(TAG, "onResume()");
+
+    }
+
+    // NetworkTask에서 값을 가져오는 메소드
+    private void connectGetData(String urlAddr) {
+        try {
+            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
+            Object obj = peopleNetworkTask.execute().get();
+            members = (ArrayList<People>) obj;
+            Log.v("here", "" + members);
+            adapter = new PeopleAdapter(AddressListActivity.this, R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
+            listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+
+>>>>>>> 5cb1c5ef9e3b0522e6f3749d7212f56fb9139d33
 
 //    @Override
 //    protected void onResume() {
@@ -233,6 +293,33 @@ public class AddressListActivity extends AppCompatActivity {
         fragmentTransaction.commitNow();
     }
 
+<<<<<<< HEAD
+=======
+    View.OnClickListener onCLickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.button1:
+                        urlAddr4 = "";
+                        String group1 = btnGroup1.getText().toString();
+
+                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
+//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
+                        connectGetData(urlAddr4);
+                        break;
+
+                case R.id.button2:
+                    urlAddr4 = "";
+                    String group2 = btnGroup2.getText().toString();
+
+                    urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email +"&group=" + group2;
+                    connectGetData(urlAddr4);
+                    break;
+
+            }
+        }
+    };
+>>>>>>> 5cb1c5ef9e3b0522e6f3749d7212f56fb9139d33
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -250,6 +337,20 @@ public class AddressListActivity extends AppCompatActivity {
             case R.id.add_group:
                 // User chose the "Settings" item, show the app settings UI...
                 Toast.makeText(getApplicationContext(), "그룹 추가 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                LayoutInflater inflate = getLayoutInflater();
+
+                GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
+                customDialog.callFunction();
+
+//                new AlertDialog.Builder(AddressListActivity.this)
+//                        .setTitle("그룹 추가")
+//                        .setMessage((CharSequence) dialogView)
+//                        .setIcon(R.mipmap.ic_launcher)
+//                        .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
+//                        .setPositiveButton("등록", null)
+//                        .setNegativeButton("닫기", null)  // 페이지 이동이 없으므로 null
+//                        .show();
+
                 return true;
             case R.id.change_passwd:
                 // User chose the "Settings" item, show the app settings UI...

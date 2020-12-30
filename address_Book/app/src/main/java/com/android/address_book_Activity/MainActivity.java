@@ -4,13 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.QuickContactBadge;
 import android.widget.Toast;
@@ -18,6 +25,7 @@ import android.widget.Toast;
 import com.android.Task.CUDNetworkTask;
 import com.android.Task.NetworkTask;
 import com.android.address_book.R;
+import com.google.android.material.button.MaterialButton;
 
 
 /*
@@ -45,22 +53,18 @@ public class MainActivity extends AppCompatActivity {
     CheckBox savechb;
     int count = 0;
     private SharedPreferences appData;
+    SharedPreferences setting;
+    SharedPreferences.Editor editor;
+    private Context mContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        savechb = findViewById(R.id.save_chb);
-        savechb.setOnClickListener(chbClickListener);
-
-        macIP = "192.168.2.14";
-
+        appData = getSharedPreferences("appData", MODE_PRIVATE);
+        load();
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
-
-
-        urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
 
         findIdBtn = findViewById(R.id.findId_btn);
         findPwBtn = findViewById(R.id.findPW_btn);
@@ -71,36 +75,24 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_btn);
         loginId = findViewById(R.id.login_id);
         loginPw = findViewById(R.id.login_pw);
+        savechb = (CheckBox) findViewById(R.id.save_chb);
 
+        if (saveLoginData) {
+            loginId.setText(useremail);
+            loginPw.setText(userpw);
+            savechb.setChecked(saveLoginData);
+        }
+
+
+        macIP = "192.168.2.14";
+        urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
 
         joinBtn.setOnClickListener(mClickListener);
         loginBtn.setOnClickListener(onClickListener);
         useremail = loginId.getText().toString();
         userpw = loginPw.getText().toString();
 
-
     }
-
-    View.OnClickListener chbClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            if (savechb.isChecked()) {
-                save();
-
-                appData = getSharedPreferences("appData", MODE_PRIVATE);
-                load();
-
-                if (saveLoginData) {
-                    loginId.setText(useremail);
-                    loginPw.setText(userpw);
-                    savechb.setChecked(saveLoginData);
-                }
-            } else {
-
-            }
-        }
-    };
 
 
     View.OnClickListener findClickListener = new View.OnClickListener() {
@@ -117,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent1);
                     break;
             }
-
         }
     };
 
@@ -127,14 +118,12 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(MainActivity.this, JoinActivity.class);
             startActivity(intent);
-
         }
     };
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
 
             useremail = loginId.getText().toString();
             userpw = loginPw.getText().toString();
@@ -145,10 +134,10 @@ public class MainActivity extends AppCompatActivity {
             count = loginCount();
 
             Log.v("여기", "" + loginCount());
-
             Log.v("아이디", "login : " + useremail + userpw);
 
             if (count == 1) {
+                save();
                 connectUpdateData();
                 Toast.makeText(MainActivity.this, "로그인 완료", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, AddressListActivity.class);
@@ -171,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
 
             count = (int) obj;
             Log.v("여기", "loginCount : " + count);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -221,11 +209,29 @@ public class MainActivity extends AppCompatActivity {
         // SharedPreferences 객체.get타입( 저장된 이름, 기본값 )
         // 저장된 이름이 존재하지 않을 시 기본값
         saveLoginData = appData.getBoolean("SAVE_LOGIN_DATA", false);
-        useremail = appData.getString("ID", "");
-        userpw = appData.getString("PWD", "");
+        useremail = appData.getString("useremail", "");
+        userpw = appData.getString("userpw", "");
 
 
     }
+
+    // 화면 touch 시 키보드 숨기
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
 
 
 }//---------------------------
