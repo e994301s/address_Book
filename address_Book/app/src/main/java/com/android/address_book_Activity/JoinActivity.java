@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -45,7 +46,7 @@ import java.util.regex.Pattern;
 ===========================================================================================================================
 */
 
-public class JoinActivity extends AppCompatActivity {
+public class JoinActivity extends Activity {
 
     final static String TAG = "JoinActivity";
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자

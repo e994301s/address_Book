@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -53,7 +54,7 @@ import java.util.regex.Pattern;
 ===========================================================================================================================
 */
 
-public class FindIDActivity extends AppCompatActivity {
+public class FindIDActivity extends Activity {
 
     final static String TAG = "FindIDActivity";
 

@@ -82,6 +82,7 @@ public class ModifyPeopleActivity extends Activity {
         btn_backToViewPeople.setImageResource(R.drawable.ic_back);
         btn_updatePeople = findViewById(R.id.btn_updatePeople);
         btn_remove = findViewById(R.id.btn_remove);
+        btn_remove.setImageResource(R.drawable.ic_remove);
 
         btn_backToViewPeople.setOnClickListener(onClickListener);
         btn_updatePeople.setOnClickListener(onClickListener);
