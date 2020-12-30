@@ -131,7 +131,7 @@ public class AddressListActivity extends AppCompatActivity {
                 // BottomNavigate(menuItem.getItemId());
                 switch (menuItem.getItemId()){
                     case R.id.navigation_1:
-                        urlAddr2 = urlAddr + "people_query_all2.jsp";
+                        urlAddr2 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
                         connectGetData(urlAddr2);
                         break;
 
@@ -143,7 +143,7 @@ public class AddressListActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_3:
-                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp";
+                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=qkr@naver.com";
                         connectGetData(urlAddr3);
                 }
 
@@ -159,7 +159,7 @@ public class AddressListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddr1 = urlAddr + "people_query_all2.jsp";
+        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
         connectGetData(urlAddr1);
         searchArr = new ArrayList<People>();
         searchArr.addAll(members);
@@ -246,7 +246,7 @@ public class AddressListActivity extends AppCompatActivity {
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragment == null) {
             if (id == R.id.navigation_1) {
-                urlAddr2 = urlAddr + "people_query_all2.jsp";
+                urlAddr2 = urlAddr + "people_query_all.jsp";
                 connectGetData(urlAddr2);
 
             } else if (id == R.id.navigation_2) {
