@@ -297,27 +297,27 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     }
 
     //서버 보내기
-    private void DoActualRequest(File file) {
-        OkHttpClient client = new OkHttpClient();
+   private void DoActualRequest(File file) {
+       OkHttpClient client = new OkHttpClient();
 
 
-        RequestBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file.getName(),
-                        RequestBody.create(MediaType.parse("image/jpeg"), file))
-                .build();
+       RequestBody body = new MultipartBody.Builder()
+               .setType(MultipartBody.FORM)
+               .addFormDataPart("image", file.getName(),
+                       RequestBody.create(MediaType.parse("image/jpeg"), file))
+               .build();
 
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
+       Request request = new Request.Builder()
+               .url(url)
+               .post(body)
+               .build();
 
-        try {
-            Response response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+       try {
+           Response response = client.newCall(request).execute();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
 
     private void connectInsertData() {
         try {
