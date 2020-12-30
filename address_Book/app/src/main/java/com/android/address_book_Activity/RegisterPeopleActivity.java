@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.Task.CUDNetworkTask;
-import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 
 import java.io.File;
@@ -163,6 +162,10 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
                     // 순서 2. DB와 연결(NetworkTask)해서 정보 insert
                     Log.v(TAG, "Start People Insert");
+                    Log.v(TAG, "strRegisterName : "+strRegisterName);
+                    Log.v(TAG, "strRegisterEmail : "+strRegisterEmail);
+                    Log.v(TAG, "strRegisterComment : "+strRegisterComment);
+                    Log.v(TAG, "imageName : "+imageName);
                     urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplememo="+strRegisterComment+"&peopleimage="+imageName;
                     connectInsertData();
                     Log.v(TAG, "End People Insert");
@@ -199,16 +202,19 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                             totalPhoneNo.add(strRegisterAddPhoneNumber4);
                         }
                     }
+                    Log.v(TAG, "Start TelNo insert");
+                    Log.v(TAG, "peopleNo : "+peopleNo);
+                    Log.v(TAG, "peopleNo : "+peopleNo);
+                    Log.v(TAG, "totalPhoneNo : "+totalPhoneNo.get(0));
                     for (int i = 0; i<totalPhoneNo.size();i++){
-                        Log.v(TAG, "Start TelNo insert");
                         Log.v(TAG, "TelNo insert : "+totalPhoneNo.get(i));
                         urlAddPhoneNumber = urlAddPhoneNumber+"people_peopleno="+peopleNo+"&totalPhoneNo="+totalPhoneNo.get(i);
                         connectInsertPhoneNo();
                         if(phoneInsert.equals("1")){
                             phoneInsertResult++;
                         }
-                        Log.v(TAG, "End TelNo insert");
                     }
+                    Log.v(TAG, "End TelNo insert");
                     // 순서 5. 좋아요, 긴급연락처 추가
                         // urlAddstatus = urlAddstatus+"people_peopleno="+peopleNo+"&userinfo_useremail="+"&peopleemg="+emergencyStatus+"&peoplefavorite="+bookMark;
                     //connectInsertStatus()

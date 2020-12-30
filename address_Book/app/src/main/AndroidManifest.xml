@@ -20,15 +20,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Address_Book">
-<<<<<<< HEAD
-        <activity android:name="com.android.address_book_Activity.ThirdFragment"></activity>
-=======
-        <activity
-            android:name="com.android.address_book_Activity.GroupCustomDialogActivity"
-            android:label="@string/title_activity_group_custom_dialog"
-            android:theme="@style/Theme.Address_Book.NoActionBar"
-            tools:ignore="Instantiatable"></activity>
->>>>>>> 5cb1c5ef9e3b0522e6f3749d7212f56fb9139d33
         <activity android:name="com.android.address_book_Activity.PhoneFindPWActivity" />
         <activity android:name="com.android.address_book_Activity.EmailFindPWActivity" />
 
@@ -36,9 +27,6 @@
         <activity android:name="com.android.address_book_Activity.MypageActivity" />
         <activity android:name="com.android.address_book_Activity.MypagePWActivity02" />
         <activity android:name="com.android.address_book_Activity.MypagePWActivity01" />
-
-<!--        <activity android:name="com.android.address_book_Activity.RegisterPeopleActivity" />-->
-
         <activity android:name="com.android.address_book_Activity.RegisterPeopleActivity" />
 
         <activity
@@ -54,17 +42,10 @@
         </activity>
         <activity android:name="com.android.address_book_Activity.FindPWActivity" />
         <activity android:name="com.android.address_book_Activity.FindIDActivity" />
-<<<<<<< HEAD
-        <activity android:name="com.android.address_book_Activity.JoinActivity" />
-        <activity android:name="com.android.address_book_Activity.MainActivity"></activity>
-=======
-
         <activity android:name="com.android.address_book_Activity.ViewPeopleActivity" />
         <activity android:name="com.android.address_book_Activity.MainActivity">
 
         </activity>
-
->>>>>>> 5cb1c5ef9e3b0522e6f3749d7212f56fb9139d33
     </application>
 
 </manifest>
