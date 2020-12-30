@@ -12,18 +12,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.Task.GroupNetworkTask;
+import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 
 public class GroupCustomDialogActivity{
 
     private Context context;
+    private String urlAddr, macIP, email;
 
     public GroupCustomDialogActivity(Context context) {
         this.context = context;
     }
 
+
+
     // 호출할 다이얼로그 함수를 정의한다.
     public void callFunction() {
+
+        email = "qkr@naver.com";
+        macIP = "192.168.43.39";
+        urlAddr = "http://" + macIP + ":8080/test/relationInsert.jsp?email=" + email;
 
         // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
         final Dialog dlg = new Dialog(context);
@@ -48,10 +57,16 @@ public class GroupCustomDialogActivity{
                 // '확인' 버튼 클릭시 메인 액티비티에서 설정한 main_label에
                 // 커스텀 다이얼로그에서 입력한 메시지를 대입한다.
 
-                Toast.makeText(context, "\"" +  message.getText().toString() + "\" 을 입력하였습니다.", Toast.LENGTH_SHORT).show();
+                if(message.getText().toString().trim().length() == 0){
+                    Toast.makeText(context, "그룹을 입력해주세요.", Toast.LENGTH_SHORT).show();
 
-                // 커스텀 다이얼로그를 종료한다.
-                dlg.dismiss();
+                } else {
+                    String groupName = message.getText().toString();
+                    insertGroup(groupName);
+
+                    // 커스텀 다이얼로그를 종료한다.
+                    dlg.dismiss();
+                }
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -64,4 +79,36 @@ public class GroupCustomDialogActivity{
             }
         });
     }
+
+    // group insert action
+    private void insertGroup(String relationname) {
+
+        urlAddr = urlAddr + "&relationname=" + relationname;
+
+        String result = connectInsertData(urlAddr);
+
+        if (result.equals("1")) {
+            Toast.makeText(context, "\"" +  relationname + "\" 을 입력하였습니다.", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(context, "\"" +  relationname + "\" 입력 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+        //connection Insert
+        private String connectInsertData(String urlAddr){
+            String result = null;
+
+            try{
+                GroupNetworkTask insertNetworkTask = new GroupNetworkTask(context, urlAddr, "insert");
+                Object obj = insertNetworkTask.execute().get();
+                result = (String) obj;
+
+            } catch (Exception e){
+                e.printStackTrace();
+
+            }
+            return result;
+        }
+
 }
