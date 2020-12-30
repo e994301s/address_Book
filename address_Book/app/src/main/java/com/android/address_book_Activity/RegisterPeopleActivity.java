@@ -85,7 +85,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
-    String url = "http://192.168.0.128:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
+    String url = "http://192.168.0.4:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
 
 
     @Override
@@ -204,8 +204,6 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     }
                     Log.v(TAG, "Start TelNo insert");
                     Log.v(TAG, "peopleNo : "+peopleNo);
-                    Log.v(TAG, "peopleNo : "+peopleNo);
-                    Log.v(TAG, "totalPhoneNo : "+totalPhoneNo.get(0));
                     for (int i = 0; i<totalPhoneNo.size();i++){
                         Log.v(TAG, "TelNo insert : "+totalPhoneNo.get(i));
                         urlAddPhoneNumber = urlAddPhoneNumber+"people_peopleno="+peopleNo+"&totalPhoneNo="+totalPhoneNo.get(i);
@@ -222,7 +220,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                     Log.v(TAG, "phoneInsertResult : "+phoneInsertResult);
                     Log.v(TAG, "statusInsert : "+statusInsert);
 
-                    if(peopleInsertResult.equals("1")&&phoneInsertResult==totalPhoneNo.size()&&statusInsert.equals("1")){
+                    if(peopleInsertResult.equals("1")&&phoneInsertResult==totalPhoneNo.size()){             //&&statusInsert.equals("1")
                         Toast.makeText(RegisterPeopleActivity.this, "입력이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(RegisterPeopleActivity.this, "관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
