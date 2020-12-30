@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.address_book_Activity.AddressListActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,18 +24,158 @@
             app:popupTheme="@style/Theme.Address_Book.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
-    <include layout="@layout/content_address_list" />
+        <EditText
+            android:id="@+id/search_ET"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:hint="검색어를 입력해주세요."
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0px"-->
+<!--        android:layout_weight="5"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <include layout="@layout/content_address_list" />-->
+
+<!--    </LinearLayout>-->
+
+    <HorizontalScrollView
+        android:id="@+id/hsv_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/right_margin"
-        app:srcCompat="@drawable/ic_plus"
-        tools:ignore="VectorDrawableCompat"
-        android:backgroundTint="#74C6C6C6"/>
+        android:layout_marginTop="5px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        >
+        <LinearLayout
+            android:id="@+id/ll_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:text="가족"
+                android:id="@+id/button1" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="친구"
+                android:id="@+id/button2" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group3"
+                android:id="@+id/button3" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group4"
+                android:id="@+id/button4" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group5"
+                android:id="@+id/button5" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group6"
+                android:id="@+id/button6" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group7"
+                android:id="@+id/button7" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#6FC5C5C5"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:text="Group8"
+                android:id="@+id/button8"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <include layout="@layout/content_address_list" />
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="#ff0000"
+        app:itemTextColor="#ffffff"
+        app:menu="@menu/bottom_nav" />
+
+<!-- 연락처 등록 플로팅 버튼 -->
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_gravity="bottom|end"-->
+<!--        android:layout_marginBottom="@dimen/fab_margin"-->
+<!--        android:layout_marginRight="@dimen/right_margin"-->
+<!--        app:srcCompat="@drawable/ic_plus"-->
+<!--        tools:ignore="VectorDrawableCompat"-->
+<!--        android:backgroundTint="#74C6C6C6"/>-->
+
+</LinearLayout>

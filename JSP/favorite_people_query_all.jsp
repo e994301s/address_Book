@@ -8,7 +8,7 @@
  	String pw_mysql = "qwer1234";
     String WhereDefault = "select peopleno, peoplename, (SELECT JSON_ARRAYAGG(phonetel) FROM phone group by people_peopleno having people_peopleno = peopleno) peoplephone, ";
     String WhereDefault1 = "peopleemail, peoplerelation, peoplememo, peopleimage, s.peoplefavorite favorite, s.peopleemg emergency from people peo, phone ph, statuspeople s ";
-    String WhereDefault2 = "where peo.peopleno = ph.people_peopleno and s.people_peopleno = peo.peopleno and s.peoplefavorite = 1 group by peo.peopleno, s.peoplefavorite, s.peopleemg";
+    String WhereDefault2 = "where peo.peopleno = ph.people_peopleno and s.people_peopleno = peo.peopleno and s.peoplefavorite = 1 group by peo.peopleno, s.peoplefavorite, s.peopleemg order by peoplename";
     int count = 0;
     
     try {

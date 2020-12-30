@@ -164,7 +164,7 @@ public class JoinActivity extends AppCompatActivity {
 
             } else {
                 if (check == false) {
-                    pw.setError("비밀번호는 특수문자 포함하여 최소 8자 이상 입력해주세요.");
+                    pw.setError("비밀번호는 영문, 특수문자 포함하여 최소 8자 이상 입력해주세요.");
                 }
             }
         }
@@ -339,7 +339,7 @@ public class JoinActivity extends AppCompatActivity {
                 Boolean check = pwdRegularExpressionChk(userPW);
 
                 if(check == false){
-                    alertCheck("비밀번호를 특수문자 포함하여 최소 8자 이상");
+                    alertCheck("비밀번호를 영문, 특수문자 포함하여 최소 8자 이상");
                 } else {
 
                     String phoneCheck =phone.getText().toString().trim();

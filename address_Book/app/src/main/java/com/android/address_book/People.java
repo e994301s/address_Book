@@ -1,15 +1,21 @@
 package com.android.address_book;
 
+import java.util.ArrayList;
+
 public class People {
     String no;
     String name;
-    String tel;
+    ArrayList<String> tel;
     String email;
     String relation;
     String memo;
     String image;
+    String favorite;
+    String emergency;
+    String useremail;
+    ArrayList<String> phone;
 
-    public People(String no, String name, String tel, String email, String relation, String memo, String image) {
+    public People(String no, String name, ArrayList<String> tel, String email, String relation, String memo, String image, String favorite, String emergency, String useremail, ArrayList<String> phone) {
         this.no = no;
         this.name = name;
         this.tel = tel;
@@ -17,6 +23,10 @@ public class People {
         this.relation = relation;
         this.memo = memo;
         this.image = image;
+        this.favorite = favorite;
+        this.emergency = emergency;
+        this.useremail = useremail;
+        this.phone = phone;
     }
 
     public String getNo() {
@@ -35,11 +45,11 @@ public class People {
         this.name = name;
     }
 
-    public String getTel() {
+    public ArrayList<String> getTel() {
         return tel;
     }
 
-    public void setTel(String tel) {
+    public void setTel(ArrayList<String> tel) {
         this.tel = tel;
     }
 
@@ -73,5 +83,37 @@ public class People {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
+    public String getEmergency() {
+        return emergency;
+    }
+
+    public void setEmergency(String emergency) {
+        this.emergency = emergency;
+    }
+
+    public String getUseremail() {
+        return useremail;
+    }
+
+    public void setUseremail(String useremail) {
+        this.useremail = useremail;
+    }
+
+    public ArrayList<String> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(ArrayList<String> phone) {
+        this.phone = phone;
     }
 }

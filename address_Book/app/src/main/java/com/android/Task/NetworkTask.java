@@ -31,7 +31,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     final static String TAG = "NetworkTask";
     Context context = null;
     String mAddr = null;
-    ProgressDialog progressDialog = null;
+//    ProgressDialog progressDialog = null;
     int loginCheck = 0;
     String where = null;
     ArrayList<User> user = null;
@@ -52,18 +52,18 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
     @Override
     protected void onPreExecute() {
         Log.v(TAG, "onPreExecute()");
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Dialogue");
-        progressDialog.setMessage("Get ....");
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setTitle("Dialogue");
+//        progressDialog.setMessage("Get ....");
+//        progressDialog.show();
     }
 
     @Override
     protected void onPostExecute(Object o) {
         Log.v(TAG, "onPostExecute()");
         super.onPostExecute(o);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     @Override
@@ -127,8 +127,10 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
         } else if (where.equals("loginCount")) {
             return loginCheck;
-        } else {
-            return null;
+
+        }else{
+            return result;
+
         }
 
     }
