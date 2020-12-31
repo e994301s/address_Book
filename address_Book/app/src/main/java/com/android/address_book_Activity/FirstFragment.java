@@ -59,13 +59,13 @@ public class FirstFragment extends Fragment {
         listView = v.findViewById(R.id.lv_people);
 
 
-        macIP = "192.168.0.81";
+        macIP = "192.168.0.76";
 
-        email = "qkr@naver.com";
+        email = "con@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
-        urlAddr2 = urlAddr + "group_query_all.jsp?email=qkr@naver.com";
+        urlAddr1 = urlAddr + "people_query_all_no.jsp?email=con@naver.com";
+        urlAddr2 = urlAddr + "group_query_all_no.jsp?email=con@naver.com";
 
 
         // 리스트 선택 리스너

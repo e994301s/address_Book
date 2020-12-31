@@ -13,8 +13,9 @@ public class People {
     String favorite;
     String emergency;
     String useremail;
+    ArrayList<Integer> phoneno;
 
-    public People(String no, String name, ArrayList<String> tel, String email, String relation, String memo, String image, String favorite, String emergency, String useremail) {
+    public People(String no, String name, ArrayList<String> tel, String email, String relation, String memo, String image, String favorite, String emergency, String useremail, ArrayList<Integer> phoneno) {
         this.no = no;
         this.name = name;
         this.tel = tel;
@@ -25,6 +26,7 @@ public class People {
         this.favorite = favorite;
         this.emergency = emergency;
         this.useremail = useremail;
+        this.phoneno = phoneno;
     }
 
     public String getNo() {
@@ -107,5 +109,11 @@ public class People {
         this.useremail = useremail;
     }
 
+    public ArrayList<Integer> getPhoneno() {
+        return phoneno;
+    }
 
+    public void setPhoneno(ArrayList<Integer> phoneno) {
+        this.phoneno = phoneno;
+    }
 }
