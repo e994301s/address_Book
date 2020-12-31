@@ -70,7 +70,7 @@ public class JoinActivity extends Activity {
 
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.219.154";
+        macIP = "192.168.2.2";
         urlAddr = "http://" + macIP + ":8080/test/";
 
         TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);

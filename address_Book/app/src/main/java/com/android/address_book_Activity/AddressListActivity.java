@@ -95,7 +95,7 @@ public class AddressListActivity extends AppCompatActivity {
 
 
 
-        macIP = "192.168.0.81";
+        macIP = "192.168.2.2";
 
         email = "qkr@naver.com";
 
