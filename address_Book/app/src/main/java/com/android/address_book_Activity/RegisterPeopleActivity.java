@@ -331,7 +331,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         // 확장자 명 저장
         f_ext = imgPath.substring(imgPath.length()-3, imgPath.length());
         Toast.makeText(RegisterPeopleActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
-        this.imageName = imgName;
+//        this.imageName = imgName;
 
         return imgPath;
     }//end of getImagePathToUri()
@@ -352,7 +352,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
        RequestBody body = new MultipartBody.Builder()
                .setType(MultipartBody.FORM)
                .addFormDataPart("image", file.getName(),
-                       RequestBody.create(MediaType.parse("image/jpeg"), file))
+                       RequestBody.create(MediaType.parse("image/*"), file))
                .build();
 
        Request request = new Request.Builder()
