@@ -80,8 +80,8 @@ public class ViewPeopleActivity extends Activity {
         useremail = intent.getStringExtra("useremail");
         phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
-        urlAddr = "http://192.168.35.157:8080/test/";
-        urlAddr2 = "http://192.168.35.157:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr = "http://192.168.200.182:8080/test/";
+        urlAddr2 = "http://192.168.200.182:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
 
 
 //        peoplename = intent.getStringExtra("peoplename");
