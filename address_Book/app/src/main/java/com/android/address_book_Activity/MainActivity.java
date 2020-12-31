@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        macIP = "192.168.0.76";
+        macIP = "192.168.200.182";
 
 
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";

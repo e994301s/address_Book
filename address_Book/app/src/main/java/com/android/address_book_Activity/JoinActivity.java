@@ -55,7 +55,7 @@ public class JoinActivity extends Activity {
     Matcher match;
 
     EditText email, name, pw, pwCheck, phone;
-    ImageButton backBtn_join;
+    Button backBtn_join;
     TextView pwCheckMsg;
     String macIP, urlAddr;
     String emailInput = null;
@@ -90,7 +90,7 @@ public class JoinActivity extends Activity {
         phone = findViewById(R.id.phone_join);
         pwCheckMsg = findViewById(R.id.tv_pwCheckMsg_join);
         backBtn_join = findViewById(R.id.backBtn_join);
-        backBtn_join.setImageResource(R.drawable.ic_back);
+//        backBtn_join.setImageResource(R.drawable.ic_back);
 
 
         findViewById(R.id.backBtn_join).setOnClickListener(mClickListener);
