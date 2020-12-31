@@ -40,6 +40,7 @@
             android:layout_gravity="center"
             android:layout_weight="5"
             android:hint="검색어를 입력해주세요."
+            android:gravity="top"
             android:padding="5dp"
             android:layout_marginLeft="10dp"
             />
@@ -48,6 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:maxHeight="40dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/ic_search"
             android:layout_gravity="center"
             />
@@ -94,7 +97,6 @@
         android:layout_height="0px"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
-        app:itemIconTint="#ff0000"
         app:itemTextColor="#ffffff"
         app:menu="@menu/bottom_nav"
         android:layout_weight="1"/>

@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +23,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.android.Task.GroupNetworkTask;
 import com.android.Task.PeopleNetworkTask;
+import com.android.address_book.Group;
+import com.android.address_book.GroupAdapter;
 import com.android.address_book.People;
 import com.android.address_book.PeopleAdapter;
 import com.android.address_book.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirstFragment extends Fragment {
@@ -32,28 +39,33 @@ public class FirstFragment extends Fragment {
     final static String TAG = "First";
     String urlAddr = null;
     String urlAddr1 = null;
+    String urlAddr2 = null;
     ArrayList<People> members;
+    ArrayList<Group> groups;
     PeopleAdapter adapter;
-    ListView listView;
+    GroupAdapter groupAdapter;
+    ListView listView, groupList;
     String macIP;
     String email;
     TextView textView;
     String peopleNum;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
-       View v = inflater.inflate(R.layout.fragment_first, container, false);
+        View v = inflater.inflate(R.layout.fragment_first, container, false);
 
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_people);
 
-        macIP = "192.168.0.76";
-        email = "con@naver.com";
+
+        macIP = "192.168.0.81";
+
+        email = "qkr@naver.com";
+
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "people_query_all.jsp?email=con@naver.com";
+        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+        urlAddr2 = urlAddr + "group_query_all.jsp?email=qkr@naver.com";
 
 
         // 리스트 선택 리스너
@@ -65,30 +77,29 @@ public class FirstFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
                 intent.putExtra("peopleno", members.get(position).getNo());
                 intent.putExtra("useremail", members.get(position).getUseremail());
-
-                intent.getIntExtra("phoneno", 0);
+                intent.putExtra("phonetel", members.get(position).getTel());
                 intent.putExtra("macIP", macIP);
 
 
                 startActivity(intent);
             }
         });
-
-
-        // 리스트 길게 선택시
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                registerForContextMenu(listView); // 롱클릭시 이벤트와 메뉴 선
-                return false;
-            }
-        });
-
-
-
         return v;
 
+
     }
+
+    //////////////////////////////////////////////////////
+    // 그룹별 horizontal 셋팅 - click 이벤트
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for (int i=0; i<groups.size(); i++) {
+
+            }
+
+        }
+    };
 
 
     @Override
@@ -96,36 +107,61 @@ public class FirstFragment extends Fragment {
     {
         MenuInflater inflater = new MenuInflater(getContext());
         inflater.inflate(R.menu.list_context_menu, menu);
+
     }
 
-    public boolean onContextItemSelected(MenuItem item)                                             // 메뉴 레이아웃에서 버튼 아이템 선택
-    {
-        String tel = "tel:" + peopleNum;
-        switch(item.getItemId())
-        {
-            case R.id.call:
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+tel));
-                startActivity(intent);
-                Toast.makeText(getActivity(), "전화 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 전화 선택시
-                return true;
-            case R.id.message:                                                                      // 문자 선택시 ( 현재 문자 안됨.. 왜지..
-                Uri smsUri = Uri.parse("sms:" + tel);
-                Intent smsIntent = new Intent(Intent.ACTION_VIEW); // 보내는 화면이 팝업됨
-                smsIntent.putExtra("sms_body", "01086730811"); // 내용
+
+        // 리스트 길게 선택시
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                registerForContextMenu(listView); // 롱클릭시 이벤트와 메뉴 선
+//                return false;
+//            }
+//        });
+//
+//
+//
+//        return v;
+
+
+
+
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) // 메뉴 레이아웃 선택
+//    {
+//        MenuInflater inflater = new MenuInflater(getContext());
+//        inflater.inflate(R.menu.list_context_menu, menu);
+//    }
+//
+//    public boolean onContextItemSelected(MenuItem item)                                             // 메뉴 레이아웃에서 버튼 아이템 선택
+//    {
+//        String tel = "tel:" + peopleNum;
+//        switch(item.getItemId())
+//        {
+//            case R.id.call:
+//                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+tel));
+//                startActivity(intent);
+//                Toast.makeText(getActivity(), "전화 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 전화 선택시
+//                return true;
+//            case R.id.message:                                                                      // 문자 선택시 ( 현재 문자 안됨.. 왜지..
+//                Uri smsUri = Uri.parse("sms:" + tel);
+//                Intent smsIntent = new Intent(Intent.ACTION_VIEW); // 보내는 화면이 팝업됨
+//                smsIntent.putExtra("sms_body", "01086730811"); // 내용
+////                smsIntent.setType("vnd.android-dir/mms-sms");
+////                Intent smsIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("sms:"+tel));
 //                smsIntent.setType("vnd.android-dir/mms-sms");
-//                Intent smsIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("sms:"+tel));
-                smsIntent.setType("vnd.android-dir/mms-sms");
-                startActivity(smsIntent);
-
-                Toast.makeText(getActivity(), "문자 버튼 클릭됨", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.kakao:
-                Toast.makeText(getActivity(), "카톡 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 카톡 선택시
-                return true;
-        }
-
-        return super.onContextItemSelected(item);
-    }
+//                startActivity(smsIntent);
+//
+//                Toast.makeText(getActivity(), "문자 버튼 클릭됨", Toast.LENGTH_LONG).show();
+//                return true;
+//            case R.id.kakao:
+//                Toast.makeText(getActivity(), "카톡 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 카톡 선택시
+//                return true;
+//        }
+//
+//        return super.onContextItemSelected(item);
+//    }
 
     @Override
     public void onResume() {
