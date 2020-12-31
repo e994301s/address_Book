@@ -3,6 +3,7 @@ package com.android.address_book_Activity;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
@@ -70,7 +71,6 @@ public class AddressListActivity extends AppCompatActivity {
 
     EditText search_EdT;
 
-
     private BottomNavigationView mBottomNV;
 
     @Override
@@ -92,6 +92,8 @@ public class AddressListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listView = findViewById(R.id.lv_student);
 
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
 
 
 
@@ -222,16 +224,26 @@ public class AddressListActivity extends AppCompatActivity {
         if (fragment == null) {
             if (id == R.id.navigation_1) {  // 메뉴 아이템 1번 선택
 
-
                 fragment = new FirstFragment();  // 프래그먼트 1번으로 이동
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
 
             } else if (id == R.id.navigation_2) {
 
                 fragment = new SecondFragment();
-
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
             } else {
 
                 fragment = new ThirdFragment();
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
             }
 
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
@@ -263,7 +275,7 @@ public class AddressListActivity extends AppCompatActivity {
                 LayoutInflater inflate = getLayoutInflater();
 
                 GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
-                customDialog.callFunction();
+                customDialog.callFunction(email, macIP);
 
 //                new AlertDialog.Builder(AddressListActivity.this)
 //                        .setTitle("그룹 추가")

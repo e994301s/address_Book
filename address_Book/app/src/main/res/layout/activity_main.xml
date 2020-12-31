@@ -19,52 +19,98 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="I  D" />-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/login_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Email을 입력하세요"/>-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="PW" />-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/login_pw"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="textPassword"-->
+<!--                    android:hint="비밀번호를 입력하세요"/>-->
+
+
+<!--            </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/InputLayoutEmail_login"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0px"
+                android:layout_weight="1.5"
+                app:errorEnabled="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@color/white"
+                >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="I  D" />
-
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_id"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Email을 입력하세요"/>
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:inputType="textEmailAddress"
+                    android:hint="이메일"
+                    android:textSize="18dp" />
 
-            <LinearLayout
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/InputLayoutPw_login"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                app:errorEnabled="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@color/white"
+                >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PW" />
-
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_pw"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="비밀번호"
+                    android:textSize="18dp"
                     android:inputType="textPassword"
-                    android:hint="비밀번호를 입력하세요"/>
+                    android:background="@color/white"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-
-            </LinearLayout>
-
-
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="로그인" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/login_btn"
-            android:layout_gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="로그인" />
+
 
     </LinearLayout>
 
@@ -74,6 +120,7 @@
     android:layout_weight="1"
     android:orientation="vertical"
     android:gravity="center_vertical">
+
     <CheckBox
         android:id="@+id/save_chb"
         android:layout_width="wrap_content"

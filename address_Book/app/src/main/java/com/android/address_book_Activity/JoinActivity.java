@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -70,7 +71,10 @@ public class JoinActivity extends Activity {
 
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.219.154";
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+
+
         urlAddr = "http://" + macIP + ":8080/test/";
 
         TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
@@ -71,6 +72,7 @@ public class FindIDActivity extends Activity {
     //String SMSContents = "1234";
     String smsCode = createSMSCode();
 
+
     /*카운트 다운 타이머에 관련된 필드*/
 
     TextView time_counter; //시간을 보여주는 TextView
@@ -107,7 +109,9 @@ public class FindIDActivity extends Activity {
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
 
-        macIP = "192.168.219.154";
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+
         urlAddr = "http://" + macIP + ":8080/test/";
 
         name = findViewById(R.id.name_findId);

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -93,7 +94,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
-    String url = "http://192.168.0.79:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
+    String url = "http://192.168.0.81:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
 
 
     @Override
@@ -114,7 +115,10 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.0.79";
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+
+        //email = sf.getString("useremail","");
         urlAddPeople = "http://"+macIP+":8080/test/peopleInsert.jsp?";
         urlGetNumber = "http://"+macIP+":8080/test/getPeopleNo.jsp";
 

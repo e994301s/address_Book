@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">address_Book</string>
+    <string name="app_name">사소한</string>
     <string name="title_activity_address_list">AddressListActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
