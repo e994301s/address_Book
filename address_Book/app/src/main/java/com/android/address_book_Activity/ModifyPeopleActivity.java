@@ -61,7 +61,7 @@ public class ModifyPeopleActivity extends Activity {
     WebView editImage;
     TextView tv_editPeopleImage;
     EditText editName,editPhone,editEmail,editMemo;
-    String no, name, email, relation, memo, IP;
+    String no, name, email, relation, memo, macIP;
     ArrayList<People> members;
     String urlImage;
 
@@ -71,18 +71,18 @@ public class ModifyPeopleActivity extends Activity {
         setContentView(R.layout.activity_modify_people);
 
         Intent intent = getIntent();
-//        IP = intent.getStringExtra("IP");
+        macIP = intent.getStringExtra("macIP");
 //        Log.v(TAG, IP);
 
        // urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp";
-        urlAddr = "http://192.168.0.76:8080/test/";
+        urlAddr = "http://"+macIP+":8080/test/";
         urlImage = urlAddr;
         Log.v(TAG, urlAddr);
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
 
-        urlAddr2 = "http://192.168.0.76:8080/test/people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr2 = "http://"+ macIP +":8080/test/people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
         // Task 연결
         members = connectSelectedData(urlAddr2);
 
