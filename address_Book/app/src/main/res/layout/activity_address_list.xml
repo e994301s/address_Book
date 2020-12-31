@@ -20,7 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#DA445AEE"
             app:popupTheme="@style/Theme.Address_Book.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -86,7 +86,7 @@
             android:layout_marginRight="@dimen/right_margin"
             app:srcCompat="@drawable/ic_floating_addpeople"
             tools:ignore="VectorDrawableCompat"
-            android:backgroundTint="#91CEEA"
+            android:backgroundTint="#DA445AEE"
             />
 
     </FrameLayout>

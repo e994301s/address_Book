@@ -5,19 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.android.address_book_Activity.MainActivity">
+    tools:context="com.android.address_book_Activity.MainActivity"
+
+    >
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="vertical"
         android:gravity="center_vertical">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ttg"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/main_bg"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/swg"/>
 
 <!--            <LinearLayout-->
 <!--                android:layout_width="match_parent"-->
@@ -60,7 +79,7 @@
                 android:id="@+id/InputLayoutEmail_login"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 app:errorEnabled="true"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -83,7 +102,7 @@
                 android:id="@+id/InputLayoutPw_login"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 app:errorEnabled="true"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -102,11 +121,20 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/save_chb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="자동 로그인" />
+            android:text="로그인 정보 기억하기" />
+
             <Button
                 android:id="@+id/login_btn"
                 android:layout_gravity="center"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/main_bg"
                 android:text="로그인" />
         </LinearLayout>
 
@@ -120,32 +148,29 @@
     android:layout_weight="1"
     android:orientation="vertical"
     android:gravity="center_vertical">
-    <CheckBox
-        android:id="@+id/save_chb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="자동 로그인" />
-        android:text="로그인 정보 기억하기" />
 
 
     <Button
         android:id="@+id/join_btn"
         android:layout_gravity="center"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:background="@drawable/main_bg"
         android:text="회원가입" />
     <Button
         android:id="@+id/findId_btn"
         android:layout_gravity="center"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="ID  찾기" />
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:background="@drawable/main_bg"
+        android:layout_margin="10dp"
+        android:text="ID 찾기" />
     <Button
         android:id="@+id/findPW_btn"
         android:layout_gravity="center"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:background="@drawable/main_bg"
         android:text="PW 찾기" />
 
 </LinearLayout>

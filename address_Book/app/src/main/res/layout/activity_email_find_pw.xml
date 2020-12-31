@@ -15,9 +15,10 @@
         <Button
             android:id="@+id/backBtn_emailfindPw"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="left|center"
             android:layout_margin="20dp"
+            android:background="@drawable/main_bg"
             android:text="back" />
 
         <TextView
@@ -29,6 +30,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginRight="50dp"
+
             />
     </LinearLayout>
 
@@ -85,10 +87,12 @@
     <Button
         android:id="@+id/btnFindPw_emailfindPw"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="left|center"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:background="@drawable/main_bg"
+        android:textStyle="bold"
         android:text="확인" />
 </LinearLayout>

@@ -23,6 +23,7 @@
             android:hint="그룹명"
             android:maxLength="10"
             android:textSize="18dp"
+
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,23 +39,25 @@
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="0px"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="취소"
-            android:textColor="#000000"
+            android:textStyle="bold"
             android:textSize="16dp"
             android:layout_marginRight="30dp"
+            android:background="@drawable/main_bg"
             />
         <Button
             android:id="@+id/okButton"
             android:layout_width="0px"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="확인"
-            android:textColor="#000000"
             android:textSize="16dp"
+            android:background="@drawable/main_bg"
             />
 
     </LinearLayout>
