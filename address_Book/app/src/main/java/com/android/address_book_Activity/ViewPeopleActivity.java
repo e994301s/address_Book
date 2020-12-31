@@ -372,7 +372,7 @@ public class ViewPeopleActivity extends Activity {
             iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
         }
     }
-    static class WebViewClientClass extends WebViewClient {//페이지 이동
+    public static class WebViewClientClass extends WebViewClient {//페이지 이동
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);

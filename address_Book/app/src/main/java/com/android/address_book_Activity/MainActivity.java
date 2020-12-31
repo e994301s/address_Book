@@ -87,9 +87,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-        //macIP = "192.168.0.81";
-
         macIP = "192.168.0.76";
 
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
@@ -206,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("SAVE_LOGIN_DATA", savechb.isChecked());
         editor.putString("useremail", loginId.getText().toString().trim());
         editor.putString("userpw", loginPw.getText().toString().trim());
-        editor.putString("macIP", "192.168.0.81");
+        editor.putString("macIP", macIP);
 
 
 

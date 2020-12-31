@@ -94,7 +94,10 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
-    String url = "http://192.168.0.81:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
+
+
+
+    String url;
 
 
     @Override
@@ -117,7 +120,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         // macIP = intent.getStringExtra("macIP");
         SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
-
+        url = "http://"+macIP+":8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
         //email = sf.getString("useremail","");
         urlAddPeople = "http://"+macIP+":8080/test/peopleInsert.jsp?";
         urlGetNumber = "http://"+macIP+":8080/test/getPeopleNo.jsp";
