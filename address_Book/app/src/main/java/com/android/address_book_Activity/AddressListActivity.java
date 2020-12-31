@@ -57,7 +57,7 @@ import java.util.ArrayList;
 
 public class AddressListActivity extends AppCompatActivity {
 
-    final static String TAG = "SelectAllActivity";
+    final static String TAG = "AddressListActivity";
     String urlAddr = null;
 
     ArrayList<People> searchArr;
@@ -70,7 +70,6 @@ public class AddressListActivity extends AppCompatActivity {
     String email;
 
     EditText search_EdT;
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
 
     private BottomNavigationView mBottomNV;
 
@@ -93,14 +92,13 @@ public class AddressListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listView = findViewById(R.id.lv_student);
 
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
-
-
         email = sf.getString("useremail","");
 
-        urlAddr = "http://" + macIP + ":8080/test/";
-
-
+        urlAddr = "http://" + macIP + ":8080/test/people_query_all_no.jsp?email=" + email;
+//        connectGetData(urlAddr);
+        Log.v(TAG, urlAddr);
         search_EdT = findViewById(R.id.search_ET);
 
 

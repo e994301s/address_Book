@@ -42,7 +42,6 @@ public class MypagePWActivity01 extends AppCompatActivity {
     String macIP, urlAddr;
     TextView field;
 
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class MypagePWActivity01 extends AppCompatActivity {
         TextInputLayout inputLayoutPW = findViewById(R.id.currentLayoutPw_mypagePW);
         inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
 
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
         urlAddr = "http://" + macIP + ":8080/test/user_query_all.jsp";
 
@@ -83,6 +83,7 @@ public class MypagePWActivity01 extends AppCompatActivity {
     // 비밀번호 일치 여부 확인
     private void checkPW(){
         // 로그인 시 아이디값 받아오기
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         String email = sf.getString("useremail","");
         String pw = currentPW.getText().toString().trim();
         int count = 0 ;

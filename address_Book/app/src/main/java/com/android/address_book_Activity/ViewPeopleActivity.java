@@ -48,7 +48,7 @@ public class ViewPeopleActivity extends Activity {
 
     final static String TAG = "ViewPeopleActivity";
     String urlAddr, urlAddr2 = null;
-    String IP; // MainActivity에서 넘겨줌
+    String macIP; // MainActivity에서 넘겨줌
     String useremail;
     String peoplename;
     String peopleemail;
@@ -57,7 +57,7 @@ public class ViewPeopleActivity extends Activity {
     String peopleimage;
     ArrayList<String> phonetel;
     String peopleno;
-    int phoneno;
+    ArrayList<Integer> phoneno;
     String peoplefavorite;
     String peopleemg;
     ArrayList<People> data = null;
@@ -77,16 +77,27 @@ public class ViewPeopleActivity extends Activity {
         setContentView(R.layout.activity_view_people);
 
         Intent intent = getIntent();
-        IP = intent.getStringExtra("IP");
-        urlAddr = "http://192.168.0.76:8080/test/";
+        macIP = intent.getStringExtra("macIP");
+        urlAddr = "http://" + macIP + ":8080/test/";
+
         urlImage = urlAddr;
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
-        phoneno = intent.getIntExtra("phoneno", 0);
+
+
+        urlAddr2 = urlAddr + "people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+        // Task 연결
+        members = connectSelectedData(urlAddr2);
+
+
+        // get Data // set Text
+        phoneno = members.get(0).getPhoneno();
+
+        //phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
 
-        urlAddr2 = "http://192.168.0.76:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
+
 
 
 
@@ -128,11 +139,8 @@ public class ViewPeopleActivity extends Activity {
         webSettings.setSupportZoom(false);
 
 
-        // Task 연결
-        members = connectSelectedData(urlAddr2);
 
 
-        // get Data // set Text
         peoplename = members.get(0).getName();
         view_name = findViewById(R.id.view_name);
         view_name.setText(peoplename);
@@ -201,7 +209,7 @@ public class ViewPeopleActivity extends Activity {
                     break;
                 case R.id.btn_edit_addressView: // 연락처 수정/삭제 페이지로 이동
                     intent = new Intent(ViewPeopleActivity.this, ModifyPeopleActivity.class); //화면 이동시켜주기
-                    intent.putExtra("IP", IP); //값 넘겨주기
+                    intent.putExtra("macIP", macIP); //값 넘겨주기
 
                     // List에서 받아온 파라미터 넘겨주기!!!!!!!!!!!!!!!
                     // peopleno & phoneno
@@ -271,7 +279,6 @@ public class ViewPeopleActivity extends Activity {
         //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
 
          String urlAddr1 = "";
-         //urlAddr1 = urlAddr + "people_query_SelectFavorite.jsp?usremail=" + useremail + "&peopleno=" + peopleno;
 
         if (peoplefavorite.equals("0")) { // 0이라면 1로 세팅
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=1&peopleno=" + peopleno;

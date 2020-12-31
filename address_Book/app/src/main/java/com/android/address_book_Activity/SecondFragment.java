@@ -48,12 +48,12 @@ public class SecondFragment extends Fragment {
     private LinearLayout ll;
     private Button[] tvs;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        connectGetData(urlAddr1);
-
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        //connectGetData(urlAddr1);
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,8 +63,10 @@ public class SecondFragment extends Fragment {
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
 
+
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
+
         groupName = "가족";
 
         urlAddr = "http://" + macIP + ":8080/test/";
@@ -85,6 +87,7 @@ public class SecondFragment extends Fragment {
         //////////////////////////////////////////////////////
         // 그룹별 horizontal 셋팅
         connectGetData(urlAddr1);
+        connectGroupGetData(urlAddr2);
         groups = connectGroupGetData(urlAddr2);
 
         ll = v.findViewById(R.id.ll_01_group);

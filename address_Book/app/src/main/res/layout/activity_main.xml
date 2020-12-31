@@ -148,6 +148,17 @@
     android:layout_weight="1"
     android:orientation="vertical"
     android:gravity="center_vertical">
+<<<<<<< HEAD
+=======
+
+    <CheckBox
+        android:id="@+id/save_chb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="자동 로그인" />
+        android:text="로그인 정보 기억하기" />
+>>>>>>> e5eb6367cfa7ae439cfb02df2014099332214f78
 
 
     <Button

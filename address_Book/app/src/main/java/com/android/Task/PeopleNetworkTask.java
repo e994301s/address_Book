@@ -139,11 +139,9 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 ArrayList<String> phones = new ArrayList<String>();
                 JSONArray jsonArray1 = jsonObject1.getJSONArray("tel");
-
                 for (int j=0; j<jsonArray1.length(); j++){
                     String phone = jsonArray1.getString(j);
                     phones.add(phone);
-
                 }
 
                 String email = jsonObject1.getString("email");
@@ -153,6 +151,13 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
                 String favorite = jsonObject1.getString("favorite");
                 String emergency = jsonObject1.getString("emergency");
                 String useremail = jsonObject1.getString("useremail");
+
+                ArrayList<Integer> phonenum = new ArrayList<Integer>();
+                JSONArray jsonArray2 = jsonObject1.getJSONArray("phoneno");
+                for (int k=0; k<jsonArray2.length(); k++){
+                    int phone = jsonArray2.getInt(k);
+                    phonenum.add(phone);
+                }
 
 //                ArrayList<String> phonenoes = new ArrayList<String>();
 //                String phoneno = jsonObject1.getString("phoneno");
@@ -166,7 +171,8 @@ public class PeopleNetworkTask extends AsyncTask<Integer, String, Object> {
 //
 
 
-                People people = new People(no, name, phones, email, relation, memo, image, favorite, emergency, useremail);
+                People people = new People(no, name, phones, email, relation, memo, image, favorite, emergency, useremail, phonenum);
+//                People people = new People(no, name, phones, email, relation, memo, image, favorite, emergency, useremail, phoneno);
                 members.add(people);
             }
 

@@ -72,7 +72,6 @@ public class FindIDActivity extends Activity {
     //String SMSContents = "1234";
     String smsCode = createSMSCode();
 
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
 
     /*카운트 다운 타이머에 관련된 필드*/
 
@@ -110,6 +109,7 @@ public class FindIDActivity extends Activity {
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
 
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
 
         urlAddr = "http://" + macIP + ":8080/test/";

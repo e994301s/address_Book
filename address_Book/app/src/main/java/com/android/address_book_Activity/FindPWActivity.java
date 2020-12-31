@@ -58,8 +58,6 @@ public class FindPWActivity extends Activity {
     String macIP, urlAddr, pw, phone;
     ArrayList<User> users;
 
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +68,7 @@ public class FindPWActivity extends Activity {
                 .permitDiskWrites()
                 .permitNetwork().build());
 
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
 
         urlAddr = "http://" + macIP + ":8080/test/";

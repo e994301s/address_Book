@@ -53,7 +53,6 @@ public class JoinActivity extends Activity {
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
     public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
     Matcher match;
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
 
     EditText email, name, pw, pwCheck, phone;
     ImageButton backBtn_join;
@@ -72,7 +71,7 @@ public class JoinActivity extends Activity {
 
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
-
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
 
 
