@@ -50,10 +50,12 @@ public class FirstFragment extends Fragment {
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_people);
 
+
         macIP = "192.168.2.2";
         email = "qkr@naver.com";
+
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+        urlAddr1 = urlAddr + "people_query_all.jsp?email=con@naver.com";
 
 
         // 리스트 선택 리스너
