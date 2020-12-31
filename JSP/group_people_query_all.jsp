@@ -22,7 +22,7 @@
         Statement stmt_mysql = conn_mysql.createStatement();
 
         String WhereDefault = "select peopleno, peoplename, (SELECT JSON_ARRAYAGG(phonetel) FROM phone group by people_peopleno having people_peopleno = peopleno) peoplephone, ";
-        String WhereDefault1 = "peopleemail, peoplerelation, peoplememo, peopleimage, s.peoplefavorite favorite, s.peopleemg emergency, r.userinfo_useremail useremail ";
+        String WhereDefault1 = "peopleemail, peoplerelation, peoplememo, peopleimage, s.peoplefavorite favorite, s.peopleemg emergency, r.userinfo_useremail useremail, (SELECT JSON_ARRAYAGG(phoneno) FROM phone group by people_peopleno having people_peopleno = peopleno) phoneno ";
         String WhereDefault2 = "from people peo, phone ph, statuspeople s, register r where peo.peopleno = ph.people_peopleno and s.people_peopleno = peo.peopleno and r.people_peopleno = peo.peopleno ";
         String WhereDefault3 = "and r.userinfo_useremail = ? and peoplerelation = ? group by peo.peopleno, s.peoplefavorite, s.peopleemg, r.userinfo_useremail order by peoplename";
 
@@ -55,6 +55,7 @@
             "favorite" : "<%=rs.getString(8) %>",
             "emergency" : "<%=rs.getString(9) %>",
             "useremail" : "<%=rs.getString(10) %>"
+	"phoneno" : "<%=rs.getString(11) %>"
 			}
 
 <%		
