@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +23,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.android.Task.GroupNetworkTask;
 import com.android.Task.PeopleNetworkTask;
+import com.android.address_book.Group;
+import com.android.address_book.GroupAdapter;
 import com.android.address_book.People;
 import com.android.address_book.PeopleAdapter;
 import com.android.address_book.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirstFragment extends Fragment {
@@ -32,15 +39,16 @@ public class FirstFragment extends Fragment {
     final static String TAG = "First";
     String urlAddr = null;
     String urlAddr1 = null;
+    String urlAddr2 = null;
     ArrayList<People> members;
+    ArrayList<Group> groups;
     PeopleAdapter adapter;
-    ListView listView;
+    GroupAdapter groupAdapter;
+    ListView listView, groupList;
     String macIP;
     String email;
     TextView textView;
     String peopleNum;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,11 +59,13 @@ public class FirstFragment extends Fragment {
         listView = v.findViewById(R.id.lv_people);
 
 
-        macIP = "192.168.2.2";
+        macIP = "192.168.0.81";
+
         email = "qkr@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+        urlAddr2 = urlAddr + "group_query_all.jsp?email=qkr@naver.com";
 
 
         // 리스트 선택 리스너
@@ -75,6 +85,29 @@ public class FirstFragment extends Fragment {
             }
         });
         return v;
+
+
+    }
+
+    //////////////////////////////////////////////////////
+    // 그룹별 horizontal 셋팅 - click 이벤트
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for (int i=0; i<groups.size(); i++) {
+
+            }
+
+        }
+    };
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) // 메뉴 레이아웃 선택
+    {
+        MenuInflater inflater = new MenuInflater(getContext());
+        inflater.inflate(R.menu.list_context_menu, menu);
+
     }
 
 
