@@ -17,15 +17,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.QuickContactBadge;
 import android.widget.Toast;
 
-import com.android.Task.CUDNetworkTask;
 import com.android.Task.NetworkTask;
 import com.android.address_book.R;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -44,6 +40,9 @@ import com.google.android.material.textfield.TextInputLayout;
 */
 
 public class MainActivity extends AppCompatActivity {
+
+    final static String TAG = "MainActivity";
+
     private boolean saveLoginData;
     String urlAddr = null;
     EditText loginId;
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         //macIP = "192.168.0.81";
 
-        macIP = "192.168.2.2";
+        macIP = "192.168.0.81";
 
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
 
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (count == 1) {
                 save();
-                connectUpdateData();
+                //connectUpdateData();
                 Toast.makeText(MainActivity.this, "로그인 완료", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, AddressListActivity.class);
                 startActivity(intent);
@@ -175,39 +174,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private String connectUpdateData() {
-
-        String result = null;
-        try {
-            CUDNetworkTask updnetworkTask = new CUDNetworkTask(MainActivity.this, urlAddr);
-            ///////////////////////////////////////////////////////////////////////////////////////
-            // Date : 2020.12.24
-            //
-            // Description:
-            // - 수정 결과 값을 받기 위해 Object로 return후에 String으로 변환 하여 사용
-            //
-            ///////////////////////////////////////////////////////////////////////////////////////
-
-            Object obj = updnetworkTask.execute().get();
-            result = (String) obj;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+//    private String connectUpdateData() {
+//
+//        String result = null;
+//        try {
+//            NetworkTask updnetworkTask = new NetworkTask(MainActivity.this, urlAddr, "select");
+//            ///////////////////////////////////////////////////////////////////////////////////////
+//            // Date : 2020.12.24
+//            //
+//            // Description:
+//            // - 수정 결과 값을 받기 위해 Object로 return후에 String으로 변환 하여 사용
+//            //
+//            ///////////////////////////////////////////////////////////////////////////////////////
+//
+//            Object obj = updnetworkTask.execute().get();
+//            result = (String) obj;
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
 
     // 설정값을 저장하는 함수
     private void save() {
         // SharedPreferences 객체만으론 저장 불가능 Editor 사용
         SharedPreferences.Editor editor = appData.edit();
-
+        Log.v(TAG, loginId.getText().toString().trim());
         // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
         // 저장시킬 이름이 이미 존재하면 덮어씌움
         editor.putBoolean("SAVE_LOGIN_DATA", savechb.isChecked());
         editor.putString("useremail", loginId.getText().toString().trim());
         editor.putString("userpw", loginPw.getText().toString().trim());
         editor.putString("macIP", "192.168.0.81");
+
+
 
         // apply, commit 을 안하면 변경된 내용이 저장되지 않음
         editor.apply();

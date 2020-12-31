@@ -41,7 +41,6 @@ import java.util.regex.Pattern;
 public class MypagePWActivity02 extends AppCompatActivity {
     final static String TAG = "MypagePWActivity02";
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
 
     EditText pw, pwCheck;
     TextView pwCheckMsg;
@@ -61,6 +60,7 @@ public class MypagePWActivity02 extends AppCompatActivity {
         Intent intent = getIntent();
         currentPW = intent.getStringExtra("pw");
 //        macIP = intent.getStringExtra("macIP");
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         email = sf.getString("useremail","");
         macIP = sf.getString("macIP","");
         urlAddr = "http://" + macIP + ":8080/test/userInfoUpdate.jsp?email=" + email;

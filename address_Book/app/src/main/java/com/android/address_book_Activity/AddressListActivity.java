@@ -70,7 +70,6 @@ public class AddressListActivity extends AppCompatActivity {
     String email;
 
     EditText search_EdT;
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
 
     private BottomNavigationView mBottomNV;
 
@@ -93,6 +92,7 @@ public class AddressListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listView = findViewById(R.id.lv_student);
 
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
 
 

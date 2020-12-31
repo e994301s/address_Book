@@ -80,7 +80,6 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> spinnerAdapter = null;
     Spinner spinner = null;
 
-    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
     int bookMark = 0;
     int emergencyStatus = 0;
     int phoneInsertResult = 0;
@@ -95,7 +94,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     String imageName = null;
     private String f_ext = null;
     File tempSelectFile;
-    String url = "http://192.168.0.79:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
+    String url = "http://192.168.0.81:8080/test/multipartRequest.jsp"; // URL 꼭 바꿔주기!!!!!!!!!!!!!!!!
 
 
     @Override
@@ -116,6 +115,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // macIP = intent.getStringExtra("macIP");
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
 
         //email = sf.getString("useremail","");
