@@ -64,17 +64,17 @@ public class PeopleAdapter extends BaseAdapter {
         tv_name.setText(data.get(position).getName());
 
         if(Integer.parseInt(data.get(position).getFavorite()) == 1 ) { // 즐겨찾기 적용되었을 때
-            img_favoirteImg.setImageResource(R.drawable.ic_call);
+            img_favoirteImg.setImageResource(R.drawable.ic_favorite);
 
         } else {
-            img_favoirteImg.setImageResource(R.drawable.ic_plus);
+            img_favoirteImg.setImageResource(R.drawable.ic_nonfavorite);
         }
 
         if(Integer.parseInt(data.get(position).getEmergency()) == 1) { // 긴급연락처 적용되었을 때
-            img_emgImg.setImageResource(R.drawable.ic_people);
+            img_emgImg.setImageResource(R.drawable.ic_nonemg2);
 
         } else{
-            img_emgImg.setImageResource(R.drawable.ic_search);
+            img_emgImg.setImageResource(R.drawable.ic_emg2);
         }
 
 

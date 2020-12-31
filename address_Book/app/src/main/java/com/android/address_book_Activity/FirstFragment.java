@@ -65,8 +65,10 @@ public class FirstFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
                 intent.putExtra("peopleno", members.get(position).getNo());
                 intent.putExtra("useremail", members.get(position).getUseremail());
+
                 intent.getIntExtra("phoneno", 0);
                 intent.putExtra("macIP", macIP);
+
 
                 startActivity(intent);
             }

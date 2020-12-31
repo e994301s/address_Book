@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.address_book.Group;
+import com.android.address_book.People;
 import com.android.address_book.User;
 
 import org.json.JSONArray;
@@ -24,6 +25,7 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
     String mAddr = null;
     String where = null;
     ArrayList<Group> group;
+
 
     public GroupNetworkTask(Context context, String mAddr, String where) {
         this.context = context;

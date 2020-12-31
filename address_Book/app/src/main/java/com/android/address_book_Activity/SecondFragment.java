@@ -6,14 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.android.Task.GroupNetworkTask;
 import com.android.Task.PeopleNetworkTask;
+import com.android.address_book.Group;
 import com.android.address_book.People;
 import com.android.address_book.PeopleAdapter;
 import com.android.address_book.R;
@@ -33,6 +37,10 @@ public class SecondFragment extends Fragment {
     String email;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
 
+    private ArrayList<Group> groups = null;
+    private LinearLayout ll;
+    private TextView[] tvs;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,20 +56,34 @@ public class SecondFragment extends Fragment {
 
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
-        macIP = "192.168.200.182";
+        macIP = "192.168.219.154";
         email = "qkr@naver.com";
         urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com";
 
 
         // 그룹에 관한 버튼 액션
-        btnGroup1 = v.findViewById(R.id.button1);
-        btnGroup2 = v.findViewById(R.id.button2);
-        btnGroup3 = v.findViewById(R.id.button3);
+//        btnGroup1 = v.findViewById(R.id.button1);
+//        btnGroup2 = v.findViewById(R.id.button2);
+//        btnGroup3 = v.findViewById(R.id.button3);
+//
+//        btnGroup1.setOnClickListener(onCLickListener);
+//        btnGroup2.setOnClickListener(onCLickListener);
+//        btnGroup3.setOnClickListener(onCLickListener);
 
-        btnGroup1.setOnClickListener(onCLickListener);
-        btnGroup2.setOnClickListener(onCLickListener);
-        btnGroup3.setOnClickListener(onCLickListener);
+        groups = connectSelectData(urlAddr1);
+
+        ll = v.findViewById(R.id.ll_01_group);
+        tvs = new TextView[groups.size()];
+
+        for (int i=0; i<groups.size(); i++){
+            // main에 보여주기 위해 기본 셋팅
+            tvs[i] = new TextView(v.getContext());
+            tvs[i].setText(groups.get(i).getGroupName());
+            tvs[i].setId(i);
+            ll.addView(tvs[i]);
+
+        }
 
 
         return v;
@@ -90,31 +112,44 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    // 그룹에 대한 선택 ( 친구 , 가족 , 등등드으드응)
-    View.OnClickListener onCLickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
+    // group NetworkTask에서 값을 가져오는 메소드
+    private ArrayList<Group> connectSelectData(String urlAddr) {
+        try {
+            GroupNetworkTask selectNetworkTask = new GroupNetworkTask(getContext(), urlAddr, "select");
+            Object obj = selectNetworkTask.execute().get();
+            groups = (ArrayList<Group>) obj;
 
-                case R.id.button1:
-                        urlAddr4 = "";
-                        String group1 = btnGroup1.getText().toString();
-
-                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
-//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
-                        connectGetData(urlAddr4);
-                        break;
-
-                case R.id.button2:
-                    urlAddr4 = "";
-                    String group2 = btnGroup2.getText().toString();
-
-                    urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group2;
-                    connectGetData(urlAddr4);
-                    break;
-
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    };
+        return groups;
+    }
+
+//    // 그룹에 대한 선택 ( 친구 , 가족 , 등등드으드응)
+//    View.OnClickListener onCLickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            switch (v.getId()){
+//
+//                case R.id.button1:
+//                        urlAddr4 = "";
+//                        String group1 = btnGroup1.getText().toString();
+//
+//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+////                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + group1;
+//                        connectGetData(urlAddr4);
+//                        break;
+//
+//                case R.id.button2:
+//                    urlAddr4 = "";
+//                    String group2 = btnGroup2.getText().toString();
+//
+//                    urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group2;
+//                    connectGetData(urlAddr4);
+//                    break;
+//
+//            }
+//        }
+//    };
 
 }
