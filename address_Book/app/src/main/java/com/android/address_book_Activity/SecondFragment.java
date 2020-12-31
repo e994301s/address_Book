@@ -34,14 +34,14 @@ public class SecondFragment extends Fragment {
     String urlAddr = null;
     String urlAddr1 = null;
     String urlAddr2 = null;
-    String urlAddr4 = null;
+    String urlAddr3 = null;
     ArrayList<People> members;
     ArrayList<Group> groups;
     PeopleAdapter adapter;
     GroupAdapter groupAdapter;
     ListView listView, groupList;
     String macIP;
-    String email;
+    String email, groupName;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
     HorizontalScrollView horizontalScrollView;
 
@@ -63,12 +63,13 @@ public class SecondFragment extends Fragment {
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
 
-        macIP = "192.168.2.2";
+        macIP = "192.168.0.81";
         email = "qkr@naver.com";
+        groupName = "가족";
 
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com";
-        urlAddr2 = urlAddr + "group_query_all.jsp?email=qkr@naver.com";
+        urlAddr1 = urlAddr + "group_people_query_all.jsp?email="+email + "&group=" + groupName;
+        urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
 //        groupList = v.findViewById(R.id.lv_group_frg);
         horizontalScrollView = v.findViewById(R.id.hsv_01_group);
 
@@ -138,8 +139,15 @@ public class SecondFragment extends Fragment {
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (int i=0; i<groups.size(); i++) {
-
+            for (int i=0; i<(groups.size()+3); i++) {
+                if(v.getId() == tvs[i].getId()){
+                    Log.v("here", Integer.toString(tvs[i].getId()));
+                    String groupName = tvs[i].getText().toString();
+                    Log.v("here", groupName);
+                    urlAddr3 = urlAddr + "group_people_query_all.jsp?email=" +email + "&group=" + groupName;;
+                    Log.v("here", urlAddr3);
+                    connectGetData(urlAddr3);
+                }
             }
 
         }
@@ -149,6 +157,7 @@ public class SecondFragment extends Fragment {
     public void onResume() {
         super.onResume();
         connectGetData(urlAddr1);
+        connectGroupGetData(urlAddr2);
         Log.v(TAG, "onResume()");
 
     }
@@ -169,18 +178,18 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    // group NetworkTask에서 값을 가져오는 메소드
-    private ArrayList<Group> connectSelectData(String urlAddr) {
-        try {
-            GroupNetworkTask selectNetworkTask = new GroupNetworkTask(getContext(), urlAddr, "select");
-            Object obj = selectNetworkTask.execute().get();
-            groups = (ArrayList<Group>) obj;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return groups;
-    }
+//    // group NetworkTask에서 값을 가져오는 메소드
+//    private ArrayList<Group> connectSelectData(String urlAddr) {
+//        try {
+//            GroupNetworkTask selectNetworkTask = new GroupNetworkTask(getContext(), urlAddr, "select");
+//            Object obj = selectNetworkTask.execute().get();
+//            groups = (ArrayList<Group>) obj;
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return groups;
+//    }
 
     // NetworkTask에서 값을 가져오는 메소드
     private ArrayList<Group> connectGroupGetData(String urlAddr) {
@@ -189,9 +198,9 @@ public class SecondFragment extends Fragment {
             Object obj = groupNetworkTask.execute().get();
             groups = (ArrayList<Group>) obj;
             Log.v("here", "" + groups);
-            groupAdapter = new GroupAdapter(getContext(), R.layout.group_custom_layout, groups); // 아댑터에 값을 넣어준다.
 //            groupAdapter = new GroupAdapter(getContext(), R.layout.group_custom_layout, groups); // 아댑터에 값을 넣어준다.
-            groupList.setAdapter(groupAdapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+//            groupAdapter = new GroupAdapter(getContext(), R.layout.group_custom_layout, groups); // 아댑터에 값을 넣어준다.
+//            groupList.setAdapter(groupAdapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
 
 
         } catch (Exception e) {

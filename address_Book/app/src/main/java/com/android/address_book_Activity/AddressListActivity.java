@@ -99,7 +99,7 @@ public class AddressListActivity extends AppCompatActivity {
 
 
       
-        email = "con@naver.com";
+        email = "qkr@naver.com";
 
 
         urlAddr = "http://" + macIP + ":8080/test/";
@@ -221,8 +221,7 @@ public class AddressListActivity extends AppCompatActivity {
 
         if (fragment == null) {
             if (id == R.id.navigation_1) {  // 메뉴 아이템 1번 선택
-                Intent intent = new Intent(AddressListActivity.this, FirstFragment.class);
-                intent.putExtra("macIP", macIP);
+
 
                 fragment = new FirstFragment();  // 프래그먼트 1번으로 이동
 
