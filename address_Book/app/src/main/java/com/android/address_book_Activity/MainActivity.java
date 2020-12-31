@@ -26,6 +26,7 @@ import com.android.Task.CUDNetworkTask;
 import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 /*
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         loginId = findViewById(R.id.login_id);
         loginPw = findViewById(R.id.login_pw);
         savechb = (CheckBox) findViewById(R.id.save_chb);
+
+        TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_login);
+        inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
 
         if (saveLoginData) {
             loginId.setText(useremail);
