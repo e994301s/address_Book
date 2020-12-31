@@ -1,10 +1,12 @@
 package com.android.address_book_Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -60,8 +62,10 @@ public class SecondFragment extends Fragment {
 
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
-        macIP = "192.168.219.154";
+
+        macIP = "192.168.2.2";
         email = "qkr@naver.com";
+
         urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com";
         urlAddr2 = urlAddr + "group_query_all.jsp?email=qkr@naver.com";
@@ -112,9 +116,19 @@ public class SecondFragment extends Fragment {
 
         }
 
-        //////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
+                intent.putExtra("peopleno", members.get(position).getNo());
+                intent.putExtra("useremail", members.get(position).getUseremail());
+                intent.putExtra("phonetel", members.get(position).getTel());
+                intent.putExtra("macIP", macIP);
 
+
+                startActivity(intent);
+            }
+        });
 
         return v;
     }

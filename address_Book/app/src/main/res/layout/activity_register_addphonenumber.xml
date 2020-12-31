@@ -18,6 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="9"
             android:hint="전화번호 입력"
+            android:inputType="phone"
+            android:gravity="right"
             />
         <TextView
             android:layout_width="0dp"
@@ -38,6 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="9"
             android:hint="전화번호 입력"
+            android:inputType="phone"
+            android:gravity="right"
             />
         <TextView
             android:layout_width="0dp"
@@ -53,11 +57,12 @@
 
         <EditText
             android:id="@+id/registerAddPhoneNumber3"
-
+            android:gravity="right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
             android:hint="전화번호 입력"
+            android:inputType="phone"
             />
         <TextView
             android:layout_width="0dp"
@@ -77,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="9"
             android:hint="전화번호 입력"
+            android:inputType="phone"
+            android:gravity="right"
             />
         <TextView
             android:layout_width="0dp"

@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
             android:text="편집"
+            android:textColor="#FFFFFF"
             android:backgroundTint="#42BCFD"
             android:textStyle="bold"
             />
@@ -120,50 +121,54 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-            <TextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/view_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:text="test 22dp 입니다"
                 android:textSize="22dp"
                 android:gravity="center"
-                />
-            <TextView
+                android:enabled="false"
+                 />
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/view_phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:text="test 20dp 입니다"
-                android:textSize="20dp"
+                android:text="test 입니다"
+                android:textSize="22dp"
                 android:gravity="center"
+                android:enabled="false"
                 />
-            <TextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/view_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:text="test 25dp 입니다"
-                android:textSize="25dp"
+                android:text="test 입니다"
+                android:textSize="22dp"
                 android:gravity="center"
+                android:enabled="false"
                 />
-            <TextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/view_relation"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:text="testtesttesttesttest"
-                android:textSize="20dp"
+                android:textSize="22dp"
                 android:gravity="center"
+                android:enabled="false"
                 />
-            <TextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/view_memo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:text="testtesttesttesttest"
-                android:textSize="20dp"
+                android:textSize="22dp"
                 android:gravity="center"
+                android:enabled="false"
                 />
             <!--<Spinner
                 android:id="@+id/spinner_relation"

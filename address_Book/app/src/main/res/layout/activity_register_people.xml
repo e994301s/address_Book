@@ -35,17 +35,29 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             >
-            <Button
+            <ImageButton
                 android:id="@+id/registerBookMarkButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:maxHeight="70dp"
+                android:maxWidth="70dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:backgroundTint="#FFFFFF"
+                android:src="@drawable/ic_nonfavorite"
                 />
-            <Button
+            <ImageButton
                 android:id="@+id/registerEmergencyPhoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:maxHeight="70dp"
+                android:maxWidth="70dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:backgroundTint="#FFFFFF"
+                android:src="@drawable/ic_nonemg2"
                 />
         </LinearLayout>
         <EditText
@@ -67,6 +79,8 @@
                 android:layout_weight="9"
                 android:hint="대표 전화번호"
                 android:layout_margin="10dp"
+                android:inputType="phone"
+                android:gravity="right"
                 />
 
             <Button
@@ -94,6 +108,7 @@
             android:layout_height="wrap_content"
             android:hint="이메일"
             android:layout_margin="10dp"
+            android:inputType="textEmailAddress"
             />
         <Spinner
             android:id="@+id/group_spiner"
