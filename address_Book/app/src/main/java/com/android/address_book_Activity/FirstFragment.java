@@ -92,15 +92,7 @@ public class FirstFragment extends Fragment {
 
     //////////////////////////////////////////////////////
     // 그룹별 horizontal 셋팅 - click 이벤트
-    View.OnClickListener mClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            for (int i=0; i<groups.size(); i++) {
-
-            }
-
-        }
-    };
+ 
 
 
     @Override
