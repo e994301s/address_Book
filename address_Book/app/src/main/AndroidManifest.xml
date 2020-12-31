@@ -36,17 +36,19 @@
             android:label="@string/title_activity_address_list"
             android:theme="@style/Theme.Address_Book.NoActionBar"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.android.address_book_Activity.FindPWActivity" />
         <activity android:name="com.android.address_book_Activity.FindIDActivity" />
         <activity android:name="com.android.address_book_Activity.ViewPeopleActivity" />
         <activity android:name="com.android.address_book_Activity.MainActivity">
 
+        </activity>
+        <activity android:name="com.android.address_book_Activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

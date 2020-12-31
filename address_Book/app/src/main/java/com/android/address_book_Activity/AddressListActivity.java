@@ -98,7 +98,7 @@ public class AddressListActivity extends AppCompatActivity {
 
         macIP = "192.168.2.2";
 
-        email = "con@naver.com";
+        email = "qkr@naver.com";
 
 
         urlAddr = "http://" + macIP + ":8080/test/";
