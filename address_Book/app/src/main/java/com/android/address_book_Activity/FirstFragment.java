@@ -55,7 +55,7 @@ public class FirstFragment extends Fragment {
         email = "qkr@naver.com";
 
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "people_query_all.jsp?email=con@naver.com";
+        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
 
 
         // 리스트 선택 리스너
@@ -67,8 +67,7 @@ public class FirstFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
                 intent.putExtra("peopleno", members.get(position).getNo());
                 intent.putExtra("useremail", members.get(position).getUseremail());
-
-                intent.getIntExtra("phoneno", 0);
+                intent.putExtra("phonetel", members.get(position).getTel());
                 intent.putExtra("macIP", macIP);
 
 

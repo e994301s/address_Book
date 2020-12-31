@@ -1,10 +1,12 @@
 package com.android.address_book_Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -86,7 +88,19 @@ public class SecondFragment extends Fragment {
             ll.addView(tvs[i]);
 
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
+                intent.putExtra("peopleno", members.get(position).getNo());
+                intent.putExtra("useremail", members.get(position).getUseremail());
+                intent.putExtra("phonetel", members.get(position).getTel());
+                intent.putExtra("macIP", macIP);
 
+
+                startActivity(intent);
+            }
+        });
 
         return v;
     }
