@@ -107,9 +107,10 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
 //                if(where.equals("deletePeople")){
 //                    parserDeletePeople(stringBuffer.toString());
 //                }
-//                if(where.equals("favoriteCount")){
-//                    parserfavoriteCheck(stringBuffer.toString());
-//                }else{
+                if(where.equals("favoriteCount")){
+                    parserfavoriteCheck(stringBuffer.toString());
+                }
+//                else{
 //                    result = parserAction(stringBuffer.toString());
 //                }
 
@@ -182,9 +183,9 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
         return returnResult;
     }
 
-    private void favoriteCheck(String s){
+    private void parserfavoriteCheck(String s){
         try {
-
+            JSONObject jsonObject = new JSONObject(s);
 
         }catch (Exception e){
             e.printStackTrace();

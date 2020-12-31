@@ -90,9 +90,9 @@ public class ModifyPeopleActivity extends Activity {
         editName = findViewById(R.id.edit_peopleName);
         editName.setText(peoplename);
 
-//        phonetel = members.get(0).getTel();
-//        editPhone = findViewById(R.id.edit_peoplePhone);
-//        editPhone.setText((CharSequence) phonetel);
+        phonetel = members.get(0).getTel();
+        editPhone = findViewById(R.id.edit_peoplePhone);
+        editPhone.setText(phonetel.get(0));
 
         peopleemail = members.get(0).getEmail();
         editEmail = findViewById(R.id.edit_peopleEmail);
@@ -110,8 +110,8 @@ public class ModifyPeopleActivity extends Activity {
         editImage = findViewById(R.id.iv_editPeopleImage);
         editImage.getSettings().setJavaScriptEnabled(true);
         imageCheck();
-
         WebSettings webSettings = editImage.getSettings();
+
         // 화면 비율
         webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
         webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
