@@ -88,7 +88,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        macIP = "192.168.0.81";
+
+        //macIP = "192.168.0.81";
+
+        macIP = "192.168.2.2";
+
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
 
         joinBtn.setOnClickListener(mClickListener);

@@ -95,8 +95,8 @@ public class AddressListActivity extends AppCompatActivity {
 
         macIP = sf.getString("macIP","");
 
-        email = sf.getString("useremail","");
 
+        email = sf.getString("useremail","");
 
         urlAddr = "http://" + macIP + ":8080/test/";
 

@@ -72,7 +72,9 @@ public class JoinActivity extends Activity {
 
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
+
         macIP = sf.getString("macIP","");
+
 
         urlAddr = "http://" + macIP + ":8080/test/";
 
