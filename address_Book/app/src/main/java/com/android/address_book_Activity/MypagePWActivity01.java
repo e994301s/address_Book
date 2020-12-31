@@ -3,6 +3,7 @@ package com.android.address_book_Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,6 +42,8 @@ public class MypagePWActivity01 extends AppCompatActivity {
     String macIP, urlAddr;
     TextView field;
 
+    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +55,7 @@ public class MypagePWActivity01 extends AppCompatActivity {
         TextInputLayout inputLayoutPW = findViewById(R.id.currentLayoutPw_mypagePW);
         inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
 
-        macIP = "192.168.219.154";
+        macIP = sf.getString("macIP","");
         urlAddr = "http://" + macIP + ":8080/test/user_query_all.jsp";
 
         findViewById(R.id.backBtn_changePW).setOnClickListener(mClickListener);
@@ -80,7 +83,7 @@ public class MypagePWActivity01 extends AppCompatActivity {
     // 비밀번호 일치 여부 확인
     private void checkPW(){
         // 로그인 시 아이디값 받아오기
-        String email = "qkr@naver.com";
+        String email = sf.getString("useremail","");
         String pw = currentPW.getText().toString().trim();
         int count = 0 ;
 

@@ -2,6 +2,7 @@ package com.android.address_book_Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,7 +67,6 @@ public class ViewPeopleActivity extends Activity {
     PeopleAdapter adapter;
     ArrayList<People> members;
     String urlImage;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package com.android.address_book_Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class FirstFragment extends Fragment {
     TextView textView;
     String peopleNum;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
@@ -59,13 +61,12 @@ public class FirstFragment extends Fragment {
         listView = v.findViewById(R.id.lv_people);
 
 
-        macIP = "192.168.0.81";
-
-        email = "qkr@naver.com";
+        email = getArguments().getString("useremail");
+        macIP = getArguments().getString("macIP");
 
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
-        urlAddr2 = urlAddr + "group_query_all.jsp?email=qkr@naver.com";
+        urlAddr1 = urlAddr + "people_query_all.jsp?email=" + email;
+        urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
 
 
         // 리스트 선택 리스너

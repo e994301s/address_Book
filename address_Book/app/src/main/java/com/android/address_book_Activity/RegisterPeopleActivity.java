@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -79,6 +80,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> spinnerAdapter = null;
     Spinner spinner = null;
 
+    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
     int bookMark = 0;
     int emergencyStatus = 0;
     int phoneInsertResult = 0;
@@ -114,7 +116,9 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.0.79";
+        macIP = sf.getString("macIP","");
+
+        //email = sf.getString("useremail","");
         urlAddPeople = "http://"+macIP+":8080/test/peopleInsert.jsp?";
         urlGetNumber = "http://"+macIP+":8080/test/getPeopleNo.jsp";
 

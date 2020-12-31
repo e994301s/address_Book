@@ -28,6 +28,7 @@ public class GroupCustomDialogActivity{
     private String urlAddr, macIP, email;
     ArrayList<Group> group = null;
 
+
     public GroupCustomDialogActivity(Context context) {
         this.context = context;
     }
@@ -35,10 +36,10 @@ public class GroupCustomDialogActivity{
 
 
     // 호출할 다이얼로그 함수를 정의한다.
-    public void callFunction() {
+    public void callFunction(String email, String macIP) {
 
-        email = "qkr@naver.com";
-        macIP = "192.168.219.154";
+//        email = "qkr@naver.com";
+//        macIP = "192.168.219.154";
         urlAddr = "http://" + macIP + ":8080/test/";
 
         // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.

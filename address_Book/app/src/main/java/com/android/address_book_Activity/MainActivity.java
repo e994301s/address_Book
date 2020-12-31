@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        macIP = "192.168.2.14";
+        macIP = "192.168.0.81";
         urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
 
         joinBtn.setOnClickListener(mClickListener);
@@ -203,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("SAVE_LOGIN_DATA", savechb.isChecked());
         editor.putString("useremail", loginId.getText().toString().trim());
         editor.putString("userpw", loginPw.getText().toString().trim());
+        editor.putString("macIP", "192.168.0.81");
 
         // apply, commit 을 안하면 변경된 내용이 저장되지 않음
         editor.apply();

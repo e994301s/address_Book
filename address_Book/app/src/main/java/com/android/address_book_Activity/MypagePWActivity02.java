@@ -3,6 +3,7 @@ package com.android.address_book_Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
@@ -40,15 +41,17 @@ import java.util.regex.Pattern;
 public class MypagePWActivity02 extends AppCompatActivity {
     final static String TAG = "MypagePWActivity02";
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
+    SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
 
     EditText pw, pwCheck;
     TextView pwCheckMsg;
     String macIP, urlAddr, currentPW;
-    String email = "qkr@naver.com";
+    String email;
     Matcher match;
 
     private int _beforeLenght = 0;
     private int _afterLenght = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,8 @@ public class MypagePWActivity02 extends AppCompatActivity {
         Intent intent = getIntent();
         currentPW = intent.getStringExtra("pw");
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.219.154";
+        email = sf.getString("useremail","");
+        macIP = sf.getString("macIP","");
         urlAddr = "http://" + macIP + ":8080/test/userInfoUpdate.jsp?email=" + email;
 
         TextInputLayout inputLayoutPW = findViewById(R.id.LayoutnewPw_mypagePW2);

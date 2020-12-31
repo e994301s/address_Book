@@ -63,12 +63,12 @@ public class SecondFragment extends Fragment {
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
 
-        macIP = "192.168.0.81";
-        email = "qkr@naver.com";
+        email = getArguments().getString("useremail");
+        macIP = getArguments().getString("macIP");
         groupName = "가족";
 
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "group_people_query_all.jsp?email="+email + "&group=" + groupName;
+        urlAddr1 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + groupName;
         urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
 //        groupList = v.findViewById(R.id.lv_group_frg);
         horizontalScrollView = v.findViewById(R.id.hsv_01_group);
@@ -144,7 +144,7 @@ public class SecondFragment extends Fragment {
                     Log.v("here", Integer.toString(tvs[i].getId()));
                     String groupName = tvs[i].getText().toString();
                     Log.v("here", groupName);
-                    urlAddr3 = urlAddr + "group_people_query_all.jsp?email=" +email + "&group=" + groupName;;
+                    urlAddr3 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + groupName;;
                     Log.v("here", urlAddr3);
                     connectGetData(urlAddr3);
                 }
