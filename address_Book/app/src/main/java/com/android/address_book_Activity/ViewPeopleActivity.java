@@ -48,7 +48,7 @@ public class ViewPeopleActivity extends Activity {
 
     final static String TAG = "ViewPeopleActivity";
     String urlAddr, urlAddr2 = null;
-    String IP; // MainActivity에서 넘겨줌
+    String macIP; // MainActivity에서 넘겨줌
     String useremail;
     String peoplename;
     String peopleemail;
@@ -77,15 +77,16 @@ public class ViewPeopleActivity extends Activity {
         setContentView(R.layout.activity_view_people);
 
         Intent intent = getIntent();
-        IP = intent.getStringExtra("IP");
-        urlAddr = "http://192.168.0.76:8080/test/";
+        macIP = intent.getStringExtra("macIP");
+        urlAddr = "http://" + macIP + ":8080/test/";
+
         urlImage = urlAddr;
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
 
 
-        urlAddr2 = "http://192.168.0.76:8080/test/people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr2 = urlAddr + "people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
         // Task 연결
         members = connectSelectedData(urlAddr2);
 
@@ -208,7 +209,7 @@ public class ViewPeopleActivity extends Activity {
                     break;
                 case R.id.btn_edit_addressView: // 연락처 수정/삭제 페이지로 이동
                     intent = new Intent(ViewPeopleActivity.this, ModifyPeopleActivity.class); //화면 이동시켜주기
-                    intent.putExtra("IP", IP); //값 넘겨주기
+                    intent.putExtra("macIP", macIP); //값 넘겨주기
 
                     // List에서 받아온 파라미터 넘겨주기!!!!!!!!!!!!!!!
                     // peopleno & phoneno

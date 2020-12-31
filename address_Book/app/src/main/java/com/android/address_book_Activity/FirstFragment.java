@@ -66,7 +66,7 @@ public class FirstFragment extends Fragment {
         macIP = getArguments().getString("macIP");
 
         urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "people_query_all.jsp_no?email=" + email;
+        urlAddr1 = urlAddr + "people_query_all_no.jsp?email=" + email;
         urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
 
 
