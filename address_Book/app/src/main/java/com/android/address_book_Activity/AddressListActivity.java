@@ -57,7 +57,7 @@ import java.util.ArrayList;
 
 public class AddressListActivity extends AppCompatActivity {
 
-    final static String TAG = "SelectAllActivity";
+    final static String TAG = "AddressListActivity";
     String urlAddr = null;
 
     ArrayList<People> searchArr;
@@ -98,7 +98,7 @@ public class AddressListActivity extends AppCompatActivity {
 
         urlAddr = "http://" + macIP + ":8080/test/";
 
-
+        Log.v(TAG, urlAddr);
         search_EdT = findViewById(R.id.search_ET);
 
 
