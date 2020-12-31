@@ -48,12 +48,12 @@ public class SecondFragment extends Fragment {
     private LinearLayout ll;
     private Button[] tvs;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        connectGetData(urlAddr1);
-
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        //connectGetData(urlAddr1);
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +87,7 @@ public class SecondFragment extends Fragment {
         //////////////////////////////////////////////////////
         // 그룹별 horizontal 셋팅
         connectGetData(urlAddr1);
+        connectGroupGetData(urlAddr2);
         groups = connectGroupGetData(urlAddr2);
 
         ll = v.findViewById(R.id.ll_01_group);
