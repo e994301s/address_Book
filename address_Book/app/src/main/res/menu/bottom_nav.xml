@@ -3,7 +3,8 @@
 
     <item
         android:id="@+id/navigation_1"
-        android:icon="@drawable/ic_defaultpeople"
+        android:icon="@drawable/ic_all"
+        android:checked="true"
         android:title="" />
 
     <item

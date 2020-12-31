@@ -152,8 +152,8 @@ public class AddressListActivity extends AppCompatActivity {
             }
         });
         mBottomNV.setSelectedItemId(R.id.navigation_1);
-        mBottomNV.setSelectedItemId(R.id.navigation_2);
-        mBottomNV.setSelectedItemId(R.id.navigation_3);
+//        mBottomNV.setSelectedItemId(R.id.navigation_2);
+//        mBottomNV.setSelectedItemId(R.id.navigation_3);
 
     }
 

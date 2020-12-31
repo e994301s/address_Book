@@ -13,7 +13,6 @@
 
         <EditText
             android:id="@+id/registerAddPhoneNumber1"
-
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="9"

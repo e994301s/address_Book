@@ -113,10 +113,10 @@ public class PeopleAdapter extends BaseAdapter {
         }
 
         if(Integer.parseInt(data.get(position).getEmergency()) == 1) { // 긴급연락처 적용되었을 때
-            img_emgImg.setImageResource(R.drawable.ic_nonemg2);
+            img_emgImg.setImageResource(R.drawable.ic_emg2);
 
         } else{
-            img_emgImg.setImageResource(R.drawable.ic_emg2);
+            img_emgImg.setImageResource(R.drawable.ic_nonemg2);
         }
 
 
