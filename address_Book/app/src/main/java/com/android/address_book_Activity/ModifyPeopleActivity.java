@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -71,14 +72,14 @@ public class ModifyPeopleActivity extends Activity {
 //        Log.v(TAG, IP);
 
        // urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp";
-        urlAddr = "http://192.168.0.96:8080/test/";
+        urlAddr = "http://192.168.0.76:8080/test/";
         urlImage = urlAddr;
         Log.v(TAG, urlAddr);
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
         phoneno = intent.getIntExtra("phoneno", 0);
-        urlAddr2 = "http://192.168.0.96:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr2 = "http://192.168.0.76:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
 
         // Task 연결
         members = connectSelectedData(urlAddr2);
@@ -89,9 +90,9 @@ public class ModifyPeopleActivity extends Activity {
         editName = findViewById(R.id.edit_peopleName);
         editName.setText(peoplename);
 
-        phonetel = members.get(0).getTel();
-        editPhone = findViewById(R.id.edit_peoplePhone);
-        editPhone.setText((CharSequence) phonetel);
+//        phonetel = members.get(0).getTel();
+//        editPhone = findViewById(R.id.edit_peoplePhone);
+//        editPhone.setText((CharSequence) phonetel);
 
         peopleemail = members.get(0).getEmail();
         editEmail = findViewById(R.id.edit_peopleEmail);
@@ -109,6 +110,25 @@ public class ModifyPeopleActivity extends Activity {
         editImage = findViewById(R.id.iv_editPeopleImage);
         editImage.getSettings().setJavaScriptEnabled(true);
         imageCheck();
+
+        WebSettings webSettings = editImage.getSettings();
+        // 화면 비율
+        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        editImage.setBackgroundColor(0); //배경색
+
+        editImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
+        editImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
+
+        editImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+        editImage.setScrollbarFadingEnabled(false);
+
+        // 웹뷰 멀티 터치 가능하게 (줌기능)
+        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+        webSettings.setSupportZoom(false);
+
 
 
         tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
@@ -229,7 +249,7 @@ public class ModifyPeopleActivity extends Activity {
         if (peopleimage == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            urlImage = urlImage+"ic_defaultpeople.png";
+            urlImage = urlImage+"ic_defaultpeople.jpg";
             editImage.loadUrl(urlImage);
             editImage.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             editImage.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용

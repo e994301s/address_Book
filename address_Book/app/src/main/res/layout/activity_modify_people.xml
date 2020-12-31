@@ -37,6 +37,7 @@
             android:layout_gravity="right|center"
             android:backgroundTint="#42BCFD"
             android:text="수정"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
             />
     </LinearLayout>
@@ -48,8 +49,8 @@
         >
         <WebView
             android:id="@+id/iv_editPeopleImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
             />
@@ -70,7 +71,6 @@
             />
     </LinearLayout>
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_peopleName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -90,7 +90,7 @@
                 android:textSize="22dp"
                 android:gravity="center"
                 />
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_peoplePhone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -100,7 +100,7 @@
                 android:textSize="22dp"
                 android:gravity="center"
                 />
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_peopleEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -119,7 +119,7 @@
                 android:spinnerMode="dialog"
 
                 />
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_peopleMemo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -136,21 +136,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
+        
         <ImageButton
             android:id="@+id/btn_remove"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxHeight="70dp"
-            android:maxWidth="70dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="30dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
-
-            />
+            android:maxWidth="70dp"
+            android:maxHeight="70dp"
+            android:scaleType="fitCenter" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
 
 
 </LinearLayout>

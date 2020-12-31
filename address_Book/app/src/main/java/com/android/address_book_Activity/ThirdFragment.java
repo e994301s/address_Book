@@ -40,8 +40,8 @@ public class ThirdFragment extends Fragment {
 
         listView = v.findViewById(R.id.lv_favorite);
 //        adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members);
-        macIP = "192.168.200.182";
-        email = "qkr@naver.com";
+        macIP = "192.168.0.76";
+        email = "con@naver.com";
         urlAddr = "http://" + macIP + ":8080/test/";
 //        listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
         urlAddr1 = urlAddr + "favorite_people_query_all.jsp?email=qkr@naver.com";
