@@ -65,6 +65,11 @@ public class FirstFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
                 intent.putExtra("peopleno", members.get(position).getNo());
                 intent.putExtra("useremail", members.get(position).getUseremail());
+
+                intent.getIntExtra("phoneno", 0);
+                intent.putExtra("macIP", macIP);
+
+
                 startActivity(intent);
             }
         });
@@ -99,19 +104,20 @@ public class FirstFragment extends Fragment {
         switch(item.getItemId())
         {
             case R.id.call:
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+peopleNum));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+tel));
                 startActivity(intent);
                 Toast.makeText(getActivity(), "전화 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 전화 선택시
                 return true;
-            case R.id.message:
-                Uri smsUri = Uri.parse("tel:" + "010");
+            case R.id.message:                                                                      // 문자 선택시 ( 현재 문자 안됨.. 왜지..
+                Uri smsUri = Uri.parse("sms:" + tel);
                 Intent smsIntent = new Intent(Intent.ACTION_VIEW); // 보내는 화면이 팝업됨
-
-                smsIntent.putExtra("sms_body", "01086730811"); // 받는 번호
+                smsIntent.putExtra("sms_body", "01086730811"); // 내용
+//                smsIntent.setType("vnd.android-dir/mms-sms");
+//                Intent smsIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("sms:"+tel));
                 smsIntent.setType("vnd.android-dir/mms-sms");
                 startActivity(smsIntent);
 
-                Toast.makeText(getActivity(), "문자 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 문자 선택시
+                Toast.makeText(getActivity(), "문자 버튼 클릭됨", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.kakao:
                 Toast.makeText(getActivity(), "카톡 버튼 클릭됨", Toast.LENGTH_LONG).show();       // 카톡 선택시
