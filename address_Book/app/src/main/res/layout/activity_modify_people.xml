@@ -110,15 +110,15 @@
                 android:textSize="22dp"
                 android:gravity="center"
                 />
-            <Spinner
-                android:id="@+id/edit_spinner_relation"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:spinnerMode="dialog"
+<!--            <Spinner-->
+<!--                android:id="@+id/edit_spinner_relation"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:gravity="center"-->
+<!--                android:spinnerMode="dialog"-->
 
-                />
+<!--                />-->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_peopleMemo"
                 android:layout_width="match_parent"

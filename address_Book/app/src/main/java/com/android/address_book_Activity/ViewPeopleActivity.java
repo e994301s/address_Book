@@ -273,7 +273,7 @@ public class ViewPeopleActivity extends Activity {
 
         if (peoplefavorite.equals("0")) { // 0이라면 1로 세팅
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=1&peopleno=" + peopleno;
-            String result = connectCheckData(urlAddr1);
+            connectCheckData(urlAddr1);
             peoplefavorite = "1";
             btn_view_favorite.setImageResource(R.drawable.ic_favorite);
 
@@ -282,7 +282,7 @@ public class ViewPeopleActivity extends Activity {
 
         } else if(peoplefavorite.equals("1")) { // 이미 있다면 0으로 세팅
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=0&peopleno=" + peopleno;
-            String result = connectCheckData(urlAddr1);
+            connectCheckData(urlAddr1);
             peoplefavorite = "0";
             btn_view_favorite.setImageResource(R.drawable.ic_nonfavorite);
 
@@ -292,16 +292,15 @@ public class ViewPeopleActivity extends Activity {
     }
 
         //connection FavoriteCheck Data
-        private String connectCheckData (String urlAddr1){
+        private void connectCheckData (String urlAddr1){
             String result = null;
             try {
-                CUDNetworkTask insertNetworkTask = new CUDNetworkTask(ViewPeopleActivity.this, urlAddr, "favoriteCount");
-                Object obj = insertNetworkTask.execute().get();
-                result = (String) obj;
+                CUDNetworkTask insertNetworkTask = new CUDNetworkTask(ViewPeopleActivity.this, urlAddr1, "favoriteCount");
+                insertNetworkTask.execute().get();
+//                result = (String) obj;
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
         }
 
 
@@ -317,14 +316,13 @@ public class ViewPeopleActivity extends Activity {
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=1&peopleno=" + peopleno;
             peopleemg = "1";
             btn_view_emergency.setImageResource(R.drawable.ic_emg2);
-
-            String result = connectCheckData(urlAddr1);
+            connectCheckData(urlAddr1);
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "이 긴급연락처에 등록되었습니다.", Toast.LENGTH_SHORT).show();
 
         } else if(peopleemg.equals("1")) { // 이미 있다면 0으로 세팅
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=0&peopleno=" + peopleno;
-            String result = connectCheckData(urlAddr1);
+            connectCheckData(urlAddr1);
             peopleemg = "0";
             btn_view_emergency.setImageResource(R.drawable.ic_nonemg2);
 

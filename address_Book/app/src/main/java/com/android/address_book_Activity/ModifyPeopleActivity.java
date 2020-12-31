@@ -159,9 +159,11 @@ public class ModifyPeopleActivity extends Activity {
 //                    startActivity(intent); //이동시킨 화면 시작
                     break;
                 case R.id.btn_updatePeople: // update
-//                    urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp?";
-//                    urlAddr = urlAddr +"no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo"+peoplememo+"&phoneno"+phoneno+"&phonetel"+phonetel;
-//                    connectUpdateData(urlAddr);
+                    peoplename=editName.getText().toString();
+                    peopleemail=editEmail.getText().toString();
+                    peoplememo=editMemo.getText().toString();
+                    phonetel.set(0, editPhone.getText().toString());
+
                     updatePeople(peopleno, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phoneno, phonetel);
                     break;
                 case R.id.btn_remove: // delete
@@ -178,30 +180,30 @@ public class ModifyPeopleActivity extends Activity {
     // people Update data 송부
     private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, int phoneno, ArrayList<String> phonetel){
         String urlAddr1 = "";
-        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo"+peoplememo+"&phoneno"+phoneno+"&phonetel"+phonetel;
+        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno=1&phonetel="+phonetel.get(0);
+        connectUpdateData(urlAddr1);
 
-        String result = connectUpdateData(urlAddr1);
 
-        if(result.equals("1")){
-            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
-
-        } else{
-            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보 수정이 실패했습니다. \n같은 문제가 지속적으로 발생하면 고객센터에 문의주세요.", Toast.LENGTH_SHORT).show();
-        }
+//        if(result.equals("1")){
+//            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+//
+//        } else{
+//            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보 수정이 실패했습니다. \n같은 문제가 지속적으로 발생하면 고객센터에 문의주세요.", Toast.LENGTH_SHORT).show();
+//        }
         //finish();
 
     } // people Delete data 송부
     private void deletePeople(String peopleno, int phoneno){
         String urlAddr1 = "";
-        urlAddr1 = urlAddr + "people_query_Delete.jsp?" + "no=" + peopleno+ "&phoneno=" + phoneno;
+        urlAddr1 = urlAddr + "people_query_Delete.jsp?" + "peopleno=" + peopleno+ "&phoneno=" + phoneno;
 
         String result = connectDeleteData(urlAddr1);
 
         if(result.equals("1")){
-            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
 
         } else{
-            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보 수정이 실패했습니다. \n같은 문제가 지속적으로 발생하면 고객센터에 문의주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보 삭제가 실패했습니다. \n같은 문제가 지속적으로 발생하면 고객센터에 문의주세요.", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -210,17 +212,17 @@ public class ModifyPeopleActivity extends Activity {
     }
 
     // connection Update people
-    private String connectUpdateData(String urlAddr){
-        String result = null;
+    private void connectUpdateData(String urlAddr){
+
 
         try {
             CUDNetworkTask updateNetworkTask = new CUDNetworkTask(ModifyPeopleActivity.this,urlAddr, "modifyPeople");
-            Object obj =  updateNetworkTask.execute().get();
-            result = (String) obj;
+            updateNetworkTask.execute().get();
+
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+
     }
 
     // connection Delete people
