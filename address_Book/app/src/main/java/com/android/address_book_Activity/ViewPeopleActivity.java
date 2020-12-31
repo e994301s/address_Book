@@ -78,14 +78,18 @@ public class ViewPeopleActivity extends Activity {
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
-        urlAddr = "http://"+macIP+":8080/test/";
+
+        urlAddr = "http://" + macIP + ":8080/test/";
+
+
         urlImage = urlAddr;
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
 
 
-        urlAddr2 = "http://"+ macIP +":8080/test/people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr2 = urlAddr + "people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+
         // Task 연결
         members = connectSelectedData(urlAddr2);
 

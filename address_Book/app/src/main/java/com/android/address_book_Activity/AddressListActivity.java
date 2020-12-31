@@ -96,7 +96,7 @@ public class AddressListActivity extends AppCompatActivity {
         macIP = sf.getString("macIP","");
         email = sf.getString("useremail","");
 
-        urlAddr = "http://" + macIP + ":8080/test/";
+        urlAddr = "http://" + macIP + ":8080/test/people_query_all_no.jsp?email=" + email;
 
         Log.v(TAG, urlAddr);
         search_EdT = findViewById(R.id.search_ET);
@@ -168,21 +168,21 @@ public class AddressListActivity extends AppCompatActivity {
 //
 //    }
 //
-//    // NetworkTask에서 값을 가져오는 메소드
-//    private void connectGetData(String urlAddr) {
-//        try {
-//            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
-//            Object obj = peopleNetworkTask.execute().get();
-//            members = (ArrayList<People>) obj;
-//            Log.v("here", "" + members);
-//            adapter = new PeopleAdapter(AddressListActivity.this, R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
-//            listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    // NetworkTask에서 값을 가져오는 메소드
+    private void connectGetData(String urlAddr) {
+        try {
+            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
+            Object obj = peopleNetworkTask.execute().get();
+            members = (ArrayList<People>) obj;
+            Log.v("here", "" + members);
+            adapter = new PeopleAdapter(AddressListActivity.this, R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
+            listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     // 검색을 해주는 메소드
     public void search(String charText) {
