@@ -63,7 +63,7 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
     protected void onPostExecute(Object o) {
         Log.v(TAG, "onPostExecute()");
         super.onPostExecute(o);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     @Override
@@ -110,7 +110,7 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
                 if(where.equals("favoriteCount")){
                     parserfavoriteCheck(stringBuffer.toString());
                 }
-                if(where.equals("deletepeople")){
+                if(where.equals("deletePeople")){
                     parserDeletePeople(stringBuffer.toString());
                 }
 //                else{
@@ -137,6 +137,9 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
 
         }
         if(where.equals("modifyPeople")){
+            return null;}
+
+        if(where.equals("deletePeople")){
             return null;}
 
         if(where.equals("favoriteCount")) {
@@ -170,20 +173,20 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
     }
 
     // delete action
-    private String parserDeletePeople(String s){
-        Log.v(TAG,"parserDeletePeople()");
-        String returnResult = null;
+    private void parserDeletePeople(String s){
+//        Log.v(TAG,"parserDeletePeople()");
+//        String returnResult = null;
 
         try{
-            JSONObject jsonObject = new JSONObject(s);
-            returnResult = jsonObject.getString("result");
-            Log.v(TAG, returnResult);
+//            JSONObject jsonObject = new JSONObject(s);
+//            returnResult = jsonObject.getString("result");
+//            Log.v(TAG, returnResult);
 
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        return returnResult;
+//        return returnResult;
     }
 
     private void parserfavoriteCheck(String s){
@@ -194,6 +197,7 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+
     private void parserModifyPeople(String s){
         try {
 

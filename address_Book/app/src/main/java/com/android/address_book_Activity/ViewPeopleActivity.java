@@ -57,7 +57,7 @@ public class ViewPeopleActivity extends Activity {
     String peopleimage;
     ArrayList<String> phonetel;
     String peopleno;
-    int phoneno;
+    ArrayList<Integer> phoneno;
     String peoplefavorite;
     String peopleemg;
     ArrayList<People> data = null;
@@ -83,10 +83,20 @@ public class ViewPeopleActivity extends Activity {
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
-        phoneno = intent.getIntExtra("phoneno", 0);
+
+
+        urlAddr2 = "http://192.168.0.76:8080/test/people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+        // Task 연결
+        members = connectSelectedData(urlAddr2);
+
+
+        // get Data // set Text
+        phoneno = members.get(0).getPhoneno();
+
+        //phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
 
-        urlAddr2 = "http://192.168.0.76:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
+
 
 
 
@@ -128,11 +138,8 @@ public class ViewPeopleActivity extends Activity {
         webSettings.setSupportZoom(false);
 
 
-        // Task 연결
-        members = connectSelectedData(urlAddr2);
 
 
-        // get Data // set Text
         peoplename = members.get(0).getName();
         view_name = findViewById(R.id.view_name);
         view_name.setText(peoplename);
@@ -271,7 +278,6 @@ public class ViewPeopleActivity extends Activity {
         //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
 
          String urlAddr1 = "";
-         //urlAddr1 = urlAddr + "people_query_SelectFavorite.jsp?usremail=" + useremail + "&peopleno=" + peopleno;
 
         if (peoplefavorite.equals("0")) { // 0이라면 1로 세팅
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=1&peopleno=" + peopleno;

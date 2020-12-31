@@ -1,6 +1,8 @@
 package com.android.address_book_Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,7 +53,8 @@ public class ModifyPeopleActivity extends Activity {
     String peoplememo;
     String peopleimage;
     ArrayList<String> phonetel;
-    int phoneno;
+    ArrayList<Integer> phoneno;
+//    int phoneno;
     Spinner edit_spinner_relation;
     Button btn_updatePeople;
     ImageButton btn_backToViewPeople, btn_remove;
@@ -78,11 +81,16 @@ public class ModifyPeopleActivity extends Activity {
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
-        phoneno = intent.getIntExtra("phoneno", 0);
-        urlAddr2 = "http://192.168.0.76:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
 
+        urlAddr2 = "http://192.168.0.76:8080/test/people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
         // Task 연결
         members = connectSelectedData(urlAddr2);
+
+        // get Data // set Text
+        phoneno = members.get(0).getPhoneno();
+
+
+
 
 
         // get Data // set Text
@@ -167,7 +175,13 @@ public class ModifyPeopleActivity extends Activity {
                     updatePeople(peopleno, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phoneno, phonetel);
                     break;
                 case R.id.btn_remove: // delete
-                    deletePeople(peopleno, phoneno);
+                             new AlertDialog.Builder(ModifyPeopleActivity.this)
+                            .setIcon(R.drawable.ic_launcher_background)
+                            .setMessage("정말 삭제하시겠습니까?\n삭제한 정보는 복구가 불가능합니다.")
+                            .setPositiveButton("취소", null)
+                            .setNegativeButton("삭제", mclick)
+                            .show();
+                    //deletePeople(peopleno, phoneno);
 //                    urlAddr = "http://" + IP + ":8080/address/people_query_Delete.jsp?";
 //                    urlAddr = urlAddr + "no=" + peopleno+ "&phoneno" + phoneno;
 //                    connectDeleteData(urlAddr);
@@ -176,11 +190,17 @@ public class ModifyPeopleActivity extends Activity {
         }
     };
 
+    DialogInterface.OnClickListener mclick = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            deletePeople(peopleno, phoneno);
+        }
+    };
 
     // people Update data 송부
-    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, int phoneno, ArrayList<String> phonetel){
+    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, ArrayList<Integer> phoneno, ArrayList<String> phonetel){
         String urlAddr1 = "";
-        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno=1&phonetel="+phonetel.get(0);
+        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
         connectUpdateData(urlAddr1);
 
 
@@ -193,30 +213,31 @@ public class ModifyPeopleActivity extends Activity {
         //finish();
 
     } // people Delete data 송부
-    private void deletePeople(String peopleno, int phoneno){
+    private void deletePeople(String peopleno, ArrayList<Integer> phoneno){
+
         String urlAddr1 = "";
-        urlAddr1 = urlAddr + "people_query_Delete.jsp?" + "peopleno=" + peopleno+ "&phoneno=" + phoneno;
+        String urlAddr3 = "";
+        urlAddr1 = urlAddr + "people_query_Delete1.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
+        connectDeleteData(urlAddr1);
+        urlAddr3 = urlAddr + "people_query_Delete2.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
+        connectDeleteData(urlAddr3);
 
-        String result = connectDeleteData(urlAddr1);
+//        if(result.equals("1")){
+//            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+//
+//        } else{
+//            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보 삭제가 실패했습니다. \n같은 문제가 지속적으로 발생하면 고객센터에 문의주세요.", Toast.LENGTH_SHORT).show();
+//
+//        }
 
-        if(result.equals("1")){
-            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-
-        } else{
-            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보 삭제가 실패했습니다. \n같은 문제가 지속적으로 발생하면 고객센터에 문의주세요.", Toast.LENGTH_SHORT).show();
-
-        }
-
-        //finish();
+        finish();
 
     }
 
     // connection Update people
     private void connectUpdateData(String urlAddr){
-
-
         try {
-            CUDNetworkTask updateNetworkTask = new CUDNetworkTask(ModifyPeopleActivity.this,urlAddr, "modifyPeople");
+            PeopleNetworkTask updateNetworkTask = new PeopleNetworkTask(ModifyPeopleActivity.this,urlAddr);
             updateNetworkTask.execute().get();
 
         }catch (Exception e) {
@@ -226,17 +247,17 @@ public class ModifyPeopleActivity extends Activity {
     }
 
     // connection Delete people
-    private String connectDeleteData(String urlAddr) {
-        String result = null;
+    private void connectDeleteData(String urlAddr) {
+//        String result = null;
 
         try {
-            CUDNetworkTask delNetworkTask = new CUDNetworkTask(ModifyPeopleActivity.this, urlAddr);
-            Object obj =  delNetworkTask.execute().get();
-            result = (String) obj;
+            PeopleNetworkTask delNetworkTask = new PeopleNetworkTask(ModifyPeopleActivity.this, urlAddr);
+            delNetworkTask.execute().get();
+           // result = (String) obj;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+      //  return result;
     }
 
     public void imageCheck() {

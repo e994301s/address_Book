@@ -61,12 +61,14 @@ public class FirstFragment extends Fragment {
         listView = v.findViewById(R.id.lv_people);
 
 
+
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
 
         urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "people_query_all.jsp?email=" + email;
         urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
+
 
 
         // 리스트 선택 리스너

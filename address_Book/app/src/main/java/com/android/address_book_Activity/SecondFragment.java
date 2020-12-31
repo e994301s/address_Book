@@ -63,8 +63,10 @@ public class SecondFragment extends Fragment {
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
 
+
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
+
         groupName = "가족";
 
         urlAddr = "http://" + macIP + ":8080/test/";

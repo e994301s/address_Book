@@ -96,7 +96,13 @@ public class AddressListActivity extends AppCompatActivity {
         macIP = sf.getString("macIP","");
 
 
-        email = sf.getString("useremail","");
+
+        macIP = "192.168.0.76";
+
+
+      
+        email = "con@naver.com";
+
 
         urlAddr = "http://" + macIP + ":8080/test/";
 
