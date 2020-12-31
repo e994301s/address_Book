@@ -32,6 +32,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/main_bg"
+
                 />
             <ImageView
                 android:layout_width="match_parent"
@@ -135,6 +136,7 @@
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:background="@drawable/main_bg"
+                android:textStyle="bold"
                 android:text="로그인" />
         </LinearLayout>
 
@@ -150,6 +152,7 @@
     android:gravity="center_vertical">
 
 
+
 <!--    <CheckBox-->
 <!--        android:id="@+id/save_chb"-->
 <!--        android:layout_width="wrap_content"-->
@@ -159,12 +162,14 @@
 <!--        android:text="로그인 정보 기억하기" />-->
 
 
+
     <Button
         android:id="@+id/join_btn"
         android:layout_gravity="center"
         android:layout_width="170dp"
         android:layout_height="40dp"
         android:background="@drawable/main_bg"
+        android:textStyle="bold"
         android:text="회원가입" />
     <Button
         android:id="@+id/findId_btn"
@@ -173,6 +178,7 @@
         android:layout_height="40dp"
         android:background="@drawable/main_bg"
         android:layout_margin="10dp"
+        android:textStyle="bold"
         android:text="ID 찾기" />
     <Button
         android:id="@+id/findPW_btn"
@@ -180,6 +186,7 @@
         android:layout_width="170dp"
         android:layout_height="40dp"
         android:background="@drawable/main_bg"
+        android:textStyle="bold"
         android:text="PW 찾기" />
 
 </LinearLayout>
