@@ -73,13 +73,13 @@ public class ModifyPeopleActivity extends Activity {
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
 
-        Log.v(TAG, macIP);
+
 
        // urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp";
         urlAddr = "http://" + macIP + ":8080/test/";
 
         urlImage = urlAddr;
-        Log.v(TAG, urlAddr);
+
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");

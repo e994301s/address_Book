@@ -7,6 +7,37 @@
     android:layout_height="match_parent"
     tools:context="com.android.address_book_Activity.FirstFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        >
+
+        <EditText
+            android:id="@+id/search_ET_First"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:hint="검색어를 입력해주세요."
+            android:gravity="top"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:maxHeight="40dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_sum_first"
@@ -23,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:orientation="vertical"
-        android:layout_weight="9"
+        android:layout_weight="8"
         >
         <ListView
             android:id="@+id/lv_people"

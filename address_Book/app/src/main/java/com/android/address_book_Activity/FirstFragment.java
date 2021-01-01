@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,7 +41,7 @@ import java.util.ArrayList;
 public class FirstFragment extends Fragment {
 
     final static String TAG = "First";
-    String urlAddr = null;
+    String urlAddrBase = null;
     String urlAddr1 = null;
     String urlAddr2 = null;
     ArrayList<People> members;
@@ -50,6 +53,8 @@ public class FirstFragment extends Fragment {
     String email;
     TextView textView;
     String peopleNum;
+    ArrayList<People> searchArr;
+    EditText search_EdT;
 
 
     @Override
@@ -65,15 +70,32 @@ public class FirstFragment extends Fragment {
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
 
-        urlAddr = "http://" + macIP + ":8080/test/";
 
-        urlAddr1 = urlAddr + "people_query_all_no.jsp?email=" + email;
 
-        urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
+
 
         connectGetData(urlAddr1);
         int addressSum = members.size();
         textView.setText("총 " + addressSum + "개 연락처");
+        searchArr = new ArrayList<People>();
+        search_EdT = v.findViewById(R.id.search_ET_First);
+        search_EdT.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = search_EdT.getText().toString();
+                search(text);
+            }
+        });
 
         // 리스트 선택 리스너
 
@@ -92,7 +114,6 @@ public class FirstFragment extends Fragment {
             }
         });
         return v;
-
 
     }
 
@@ -165,20 +186,23 @@ public class FirstFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        urlAddr1 = urlAddrBase + "people_query_all_no.jsp?email=" + email;
         connectGetData(urlAddr1);
         Log.v(TAG, "onResume()");
         Log.v(TAG, urlAddr1);
+        searchArr.addAll(members);
 
     }
 
     // NetworkTask에서 값을 가져오는 메소드
     private void connectGetData(String urlAddr) {
         try {
+            urlAddrBase = "http://" + macIP + ":8080/test/";
             PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(getContext(), urlAddr);
             Object obj = peopleNetworkTask.execute().get();
             members = (ArrayList<People>) obj;
             Log.v("here", "" + members);
-            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
+            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddrBase); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
 
 
@@ -187,7 +211,20 @@ public class FirstFragment extends Fragment {
         }
     }
 
-
+    public void search(String charText) {
+        members.clear();
+        if (charText.length() == 0) {
+            members.addAll(searchArr);
+        }
+        else {
+            for (int i = 0; i < searchArr.size(); i++) {
+                if (searchArr.get(i).getName().contains(charText)) {
+                    members.add(searchArr.get(i));
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
 
 
 }
