@@ -2,6 +2,7 @@ package com.android.address_book_Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.Activity;
@@ -22,7 +23,10 @@ import android.widget.Toast;
 
 import com.android.Task.NetworkTask;
 import com.android.address_book.R;
+import com.android.address_book.SectionPageAdapter;
 import com.google.android.material.textfield.TextInputLayout;
+
+import me.relex.circleindicator.CircleIndicator;
 
 
 /*
@@ -56,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences setting;
     SharedPreferences.Editor editor;
     private Context mContext;
-
+    private ViewPager mViewPager;
+    SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         appData = getSharedPreferences("appData", MODE_PRIVATE);
         load();
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
+
+
+
 
         findIdBtn = findViewById(R.id.findId_btn);
         findPwBtn = findViewById(R.id.findPW_btn);
@@ -98,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
         userpw = loginPw.getText().toString();
 
     }
+
+
 
 
     View.OnClickListener findClickListener = new View.OnClickListener() {

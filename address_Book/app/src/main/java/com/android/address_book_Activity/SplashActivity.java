@@ -74,7 +74,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {   // 스플래시는 바로 메인으로 넘어가기위해 온 크리에이트 안에서 바로 스타트 인텐트 해준다
 
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),IntroViewStart.class);
                 startActivity(intent);
                 finish();
             }
