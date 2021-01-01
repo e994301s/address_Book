@@ -7,22 +7,35 @@
     android:layout_height="match_parent"
     tools:context="com.android.address_book_Activity.FirstFragment">
 
-<<<<<<< HEAD
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="horizontal"
-    android:background="@drawable/navy_bg"
-    android:gravity="center"
-    >
-=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/lightbrown_bg"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체보기 "
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_sum_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         >
 
         <EditText
@@ -48,26 +61,6 @@
             />
     </LinearLayout>
 
->>>>>>> bbfbad9f42349b4dc5c1a1ffb37a3f43c2d7d47c
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="전체보기 "
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        />
-
-    <TextView
-        android:id="@+id/tv_sum_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        />
-
-
-
-</LinearLayout>
 
 
 
