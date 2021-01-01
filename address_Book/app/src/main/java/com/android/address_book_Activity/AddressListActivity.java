@@ -96,8 +96,8 @@ public class AddressListActivity extends AppCompatActivity {
         macIP = sf.getString("macIP","");
         email = sf.getString("useremail","");
 
-        urlAddr = "http://" + macIP + ":8080/test/people_query_all_no.jsp?email=" + email;
-//        connectGetData(urlAddr);
+        urlAddr = "http://" + macIP + ":8080/test/";
+        connectGetData(urlAddr);
         Log.v(TAG, urlAddr);
         search_EdT = findViewById(R.id.search_ET);
 
@@ -127,24 +127,24 @@ public class AddressListActivity extends AppCompatActivity {
                  BottomNavigate(menuItem.getItemId());
 
 
-//                switch (menuItem.getItemId()){
-//                    case R.id.navigation_1:
-//                        urlAddr2 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
-//                        connectGetData(urlAddr2);
-//                        break;
-//
+                switch (menuItem.getItemId()){
+                    case R.id.navigation_1:
+                        urlAddr = urlAddr + "people_query_all.jsp?email="+email;
+                        connectGetData(urlAddr);
+                        break;
+
 //                    case R.id.navigation_2:
 //                        urlAddr4="";
 //                        String group1 = btnGroup1.getText().toString();
-//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email="+email+"&group=" + group1;
 //                        connectGetData(urlAddr4);
 //                        break;
 //
 //                    case R.id.navigation_3:
-//                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email=qkr@naver.com";
+//                        urlAddr3 = urlAddr + "favorite_people_query_all.jsp?email="+email;
 //                        connectGetData(urlAddr3);
-//                }
-                // BottomNavigate(menuItem.getItemId());
+                }
+                 BottomNavigate(menuItem.getItemId());
 
 
 
@@ -152,8 +152,8 @@ public class AddressListActivity extends AppCompatActivity {
             }
         });
         mBottomNV.setSelectedItemId(R.id.navigation_1);
-//        mBottomNV.setSelectedItemId(R.id.navigation_2);
-//        mBottomNV.setSelectedItemId(R.id.navigation_3);
+        mBottomNV.setSelectedItemId(R.id.navigation_2);
+        mBottomNV.setSelectedItemId(R.id.navigation_3);
 
     }
 
@@ -167,22 +167,22 @@ public class AddressListActivity extends AppCompatActivity {
 //        Log.v(TAG, "onResume()");
 //
 //    }
-//
-//    // NetworkTask에서 값을 가져오는 메소드
-//    private void connectGetData(String urlAddr) {
-//        try {
-//            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
-//            Object obj = peopleNetworkTask.execute().get();
-//            members = (ArrayList<People>) obj;
-//            Log.v("here", "" + members);
-//            adapter = new PeopleAdapter(AddressListActivity.this, R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
-//            listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+
+    // NetworkTask에서 값을 가져오는 메소드
+    private void connectGetData(String urlAddr) {
+        try {
+            PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(AddressListActivity.this, urlAddr);
+            Object obj = peopleNetworkTask.execute().get();
+            members = (ArrayList<People>) obj;
+            Log.v("here", "" + members);
+            adapter = new PeopleAdapter(AddressListActivity.this, R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
+            listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     // 검색을 해주는 메소드
     public void search(String charText) {
@@ -259,16 +259,16 @@ public class AddressListActivity extends AppCompatActivity {
     }
 
     //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //return super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case R.id.add_group:
-                // User chose the "Settings" item, show the app settings UI...
-                LayoutInflater inflate = getLayoutInflater();
-
-                GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
-                customDialog.callFunction(email, macIP);
-
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        //return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()) {
+//            case R.id.add_group:
+//                // User chose the "Settings" item, show the app settings UI...
+//                LayoutInflater inflate = getLayoutInflater();
+//
+//                GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
+//                customDialog.callFunction(email, macIP);
+//
 //                new AlertDialog.Builder(AddressListActivity.this)
 //                        .setTitle("그룹 추가")
 //                        .setMessage((CharSequence) dialogView)
@@ -277,24 +277,24 @@ public class AddressListActivity extends AppCompatActivity {
 //                        .setPositiveButton("등록", null)
 //                        .setNegativeButton("닫기", null)  // 페이지 이동이 없으므로 null
 //                        .show();
-
-                return true;
-            case R.id.change_passwd:
-                // User chose the "Settings" item, show the app settings UI...
-                Intent intent = new Intent(AddressListActivity.this, MypagePWActivity01.class);
-                startActivity(intent);
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                Intent intent2 = new Intent(AddressListActivity.this, MainActivity.class);
-
-                startActivity(intent2);
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
+//
+//                return true;
+//            case R.id.change_passwd:
+//                // User chose the "Settings" item, show the app settings UI...
+//                Intent intent = new Intent(AddressListActivity.this, MypagePWActivity01.class);
+//                startActivity(intent);
+//                return true;
+//
+//            default:
+//                // If we got here, the user's action was not recognized.
+//                // Invoke the superclass to handle it.
+//                Intent intent2 = new Intent(AddressListActivity.this, MainActivity.class);
+//
+//                startActivity(intent2);
+//                return super.onOptionsItemSelected(item);
+//
+//        }
+//    }
 
     AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
         @Override

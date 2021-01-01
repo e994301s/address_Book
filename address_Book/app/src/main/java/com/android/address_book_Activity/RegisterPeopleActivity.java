@@ -246,11 +246,12 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
                     if(peopleInsertResult.equals("1")&&phoneInsertResult==totalPhoneNo.size()){             //&&statusInsert.equals("1")
                         Toast.makeText(RegisterPeopleActivity.this, "입력이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterPeopleActivity.this, AddressListActivity.class);
-                        finish();
                     }else{
                         Toast.makeText(RegisterPeopleActivity.this, "입력에 실패하였습니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
                     }
+                    Intent intent = new Intent(RegisterPeopleActivity.this, AddressListActivity.class);
+                    startActivity(intent);
+                    finish();
                     break;
                     }
                 case R.id.registerImage:
