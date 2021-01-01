@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@drawable/navy_bg"
+        android:background="@drawable/gray2_bg"
         android:gravity="center"
         >
         <TextView
@@ -20,7 +20,6 @@
             android:text="즐겨찾기"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:textColor="@color/white"
             android:gravity="center"
             />
     </LinearLayout>

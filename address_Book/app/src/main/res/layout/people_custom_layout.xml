@@ -22,9 +22,9 @@
             android:maxHeight="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_defaultpeople"
+
             />
 
         <TextView
@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:maxWidth="30px"
             android:maxHeight="70px"
-            android:layout_marginRight="5dp"
             android:adjustViewBounds="true"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_nonfavorite"

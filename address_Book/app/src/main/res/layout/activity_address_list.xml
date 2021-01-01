@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_gravity="bottom"
-        android:background="#ECEAEA"
+        android:background="#ffffff"
         app:itemTextColor="#202020"
         app:menu="@menu/bottom_nav"
         android:layout_weight="1"/>
