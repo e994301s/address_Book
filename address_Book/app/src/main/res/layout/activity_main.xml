@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.android.address_book_Activity.MainActivity"
 
     >
@@ -91,10 +92,11 @@
                     android:id="@+id/login_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="@drawable/gray_bg"
                     android:inputType="textEmailAddress"
-                    android:hint="이메일"
-                    android:textSize="18dp" />
+                    android:hint="  Email"
+                    android:textSize="18dp"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,10 +116,10 @@
                     android:id="@+id/login_pw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="비밀번호"
+                    android:hint="  Password"
                     android:textSize="18dp"
                     android:inputType="textPassword"
-                    android:background="@color/white"
+                    android:background="@drawable/gray_bg"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,7 +138,9 @@
                 android:layout_height="40dp"
                 android:background="@drawable/main_bg"
                 android:textStyle="bold"
-                android:text="로그인" />
+                android:text="로그인"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
 
@@ -169,6 +173,7 @@
         android:layout_height="40dp"
         android:background="@drawable/main_bg"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="회원가입" />
     <Button
         android:id="@+id/findId_btn"
@@ -178,6 +183,7 @@
         android:background="@drawable/main_bg"
         android:layout_margin="10dp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="ID 찾기" />
     <Button
         android:id="@+id/findPW_btn"
@@ -186,6 +192,7 @@
         android:layout_height="40dp"
         android:background="@drawable/main_bg"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="PW 찾기" />
 
 </LinearLayout>

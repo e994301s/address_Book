@@ -73,7 +73,7 @@ public class FirstFragment extends Fragment {
 
         connectGetData(urlAddr1);
         int addressSum = members.size();
-        textView.setText("총 " + addressSum + "개 연락처");
+        textView.setText("(총 " + addressSum + "개의 연락처)");
 
         // 리스트 선택 리스너
 

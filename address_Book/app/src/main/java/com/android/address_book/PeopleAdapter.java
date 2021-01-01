@@ -136,11 +136,11 @@ public class PeopleAdapter extends BaseAdapter {
 //        tv_memo.setText("메모 : " + data.get(position).getMemo());
 //        tv_image.setText("이미지 : " + data.get(position).getImage());
 
-        if ((position % 2) == 1) {
-            convertView.setBackgroundColor(0x50000000);
-        } else {
-            convertView.setBackgroundColor(0x50dddddd);
-        }
+//        if ((position % 2) == 1) {
+//            convertView.setBackgroundColor(0x50000000);
+//        } else {
+//            convertView.setBackgroundColor(0x50dddddd);
+//        }
 
         return convertView;
     }
