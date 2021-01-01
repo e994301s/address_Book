@@ -25,14 +25,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        >
 
+<<<<<<< HEAD
         <EditText
             android:id="@+id/search_ET"
             android:layout_width="0px"
@@ -56,6 +50,8 @@
             android:layout_gravity="center"
             />
     </LinearLayout>
+=======
+>>>>>>> bbfbad9f42349b4dc5c1a1ffb37a3f43c2d7d47c
 
 <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,6 +45,8 @@ public class SecondFragment extends Fragment {
     String email, groupName;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
     HorizontalScrollView horizontalScrollView;
+    ArrayList<People> searchArr;
+    EditText search_EdT;
 
     private LinearLayout ll;
     private Button[] tvs;

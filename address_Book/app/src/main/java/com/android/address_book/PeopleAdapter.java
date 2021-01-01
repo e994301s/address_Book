@@ -1,6 +1,7 @@
 package com.android.address_book;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,16 @@ public class PeopleAdapter extends BaseAdapter {
     int layout = 0;
     ArrayList<People> data = null;
     LayoutInflater inflater = null;
+    String urlImageReal;
     String urlImage;
 
+    public PeopleAdapter(Context mContext, int layout, ArrayList<People> data, String urlImage) {
+        this.mContext = mContext;
+        this.layout = layout;
+        this.data = data;
+        this.urlImage = urlImage;
+        this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
     public PeopleAdapter(Context mContext, int layout, ArrayList<People> data) {
         this.mContext = mContext;
@@ -62,31 +71,12 @@ public class PeopleAdapter extends BaseAdapter {
         TextView tv_name = convertView.findViewById(R.id.tv_name_custom);
         ImageView img_favoirteImg = convertView.findViewById(R.id.imgFavorite_custom);
         ImageView img_emgImg = convertView.findViewById(R.id.imgEmg_custom);
-        ImageView iv_viewPeople = convertView.findViewById(R.id.iv_viewPeople);
-
-        WebSettings webSettings = img_peopleImg.getSettings();
-//
-        // 화면 비율
-        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-        img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
-//        iv_viewPeople.setBackgroundColor(0); //배경색
-//
-//        iv_viewPeople.setHorizontalScrollBarEnabled(false); //가로 스크롤
-//        iv_viewPeople.setVerticalScrollBarEnabled(false);   //세로 스크롤
-//
-//        iv_viewPeople.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-//        iv_viewPeople.setScrollbarFadingEnabled(false);
-//
-//        // 웹뷰 멀티 터치 가능하게 (줌기능)
-//        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
-//        webSettings.setSupportZoom(false);
 
 
+        img_peopleImg.getSettings().setJavaScriptEnabled(true);
         if(data.get(position).getImage().equals("null")){
-            urlImage = urlImage+"ic_defaultpeople.jpg";
-            img_peopleImg.loadUrl(urlImage);
+            urlImageReal = urlImage+"ic_defaultpeople.jpg";
+            img_peopleImg.loadUrl(urlImageReal);
             img_peopleImg.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             img_peopleImg.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
 
@@ -95,13 +85,19 @@ public class PeopleAdapter extends BaseAdapter {
         } else {
 //            img_peopleImg.setImageResource(Integer.parseInt(data.get(position).getImage()));
 
-            urlImage = urlImage + data.get(position).getImage();
-            img_peopleImg.loadUrl(urlImage);
+            urlImageReal = urlImage + data.get(position).getImage();
+
+            img_peopleImg.loadUrl(urlImageReal);
             img_peopleImg.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             img_peopleImg.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
         }
         tv_name.setText(data.get(position).getName());
-
+        WebSettings webSettings = img_peopleImg.getSettings();
+//
+        // 화면 비율
+        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+        img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
 
 
