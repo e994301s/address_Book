@@ -70,8 +70,8 @@ public class FirstFragment extends Fragment {
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
 
-
-
+        urlAddrBase = "http://" + macIP + ":8080/test/";
+        urlAddr1 = urlAddrBase + "people_query_all_no.jsp?email=" + email;
 
 
         connectGetData(urlAddr1);
