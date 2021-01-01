@@ -59,7 +59,7 @@ public class FirstFragment extends Fragment {
 
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_people);
-
+        textView = v.findViewById(R.id.tv_sum_first);
 
 
         email = getArguments().getString("useremail");
@@ -71,8 +71,9 @@ public class FirstFragment extends Fragment {
 
         urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
 
-
-
+        connectGetData(urlAddr1);
+        int addressSum = members.size();
+        textView.setText("총 " + addressSum + "개 연락처");
 
         // 리스트 선택 리스너
 
@@ -97,7 +98,7 @@ public class FirstFragment extends Fragment {
 
     //////////////////////////////////////////////////////
     // 그룹별 horizontal 셋팅 - click 이벤트
- 
+
 
 
     @Override

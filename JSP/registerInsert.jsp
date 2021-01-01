@@ -5,8 +5,7 @@
 	request.setCharacterEncoding("utf-8");
 	String userinfo_useremail = request.getParameter("userinfo_useremail");
 	String people_peopleno = request.getParameter("people_peopleno");
-	String peopleemg = request.getParameter("peopleemg");
-	String peoplefavorite = request.getParameter("peoplefavorite");	
+
 		
 //------
 	String url_mysql = "jdbc:mysql://localhost/address?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
@@ -21,14 +20,12 @@
 	    Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 		Statement stmt_mysql = conn_mysql.createStatement();
 	
-	    String A = "insert into status (userinfo_useremail, people_peopleno, peopleemg, peoplefavorite";
-	    String B = ") values (?,?,?,?)";
+	    String A = "insert into register (people_peopleno, userinfo_useremail";
+	    String B = ") values (?,?)";
 	
 	    ps = conn_mysql.prepareStatement(A+B);
-	    ps.setString(1, userinfo_useremail);
-	    ps.setString(2, people_peopleno);
-	    ps.setString(3, peopleemg);
-		ps.setString(4, peoplefavorite);
+	    ps.setString(1, people_peopleno);
+	    ps.setString(2, userinfo_useremail);
 		
 		result = ps.executeUpdate();
 %>

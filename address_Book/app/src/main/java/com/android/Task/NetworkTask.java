@@ -100,8 +100,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if (where.equals("select")) {
                     parserSelect(stringBuffer.toString());
-                }
-                if (where.equals("loginCount")) {
+                } else if (where.equals("loginCount")) {
                     parserLoginCheck(stringBuffer.toString());
                 } else {
                     result = parserAction(stringBuffer.toString());
