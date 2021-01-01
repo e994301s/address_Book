@@ -88,11 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        macIP = "192.168.219.154";
+        macIP = "192.168.0.4";
 
 
 
-        urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
+
 
         joinBtn.setOnClickListener(mClickListener);
         loginBtn.setOnClickListener(onClickListener);
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            urlAddr = "http://" + macIP + ":8080/test/logincheck.jsp?";
             useremail = loginId.getText().toString();
             userpw = loginPw.getText().toString();
 
