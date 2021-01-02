@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        macIP = "192.168.200.182";
+        macIP = "192.168.0.4";
 
 
 

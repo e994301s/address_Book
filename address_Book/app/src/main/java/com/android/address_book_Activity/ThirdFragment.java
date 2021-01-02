@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.android.Task.PeopleNetworkTask;
@@ -23,15 +26,13 @@ public class ThirdFragment extends Fragment {
     final static String TAG = "SelectAllActivity";
     String urlAddr = null;
     String urlAddr1 = null;
-    String urlAddr2 = null;
-    String urlAddr3 = null;
-    String urlAddr4 = null;
     ArrayList<People> searchArr;
     ArrayList<People> members;
     PeopleAdapter adapter;
     ListView listView;
     String macIP;
     String email;
+    EditText search_EdT;
 
 
 
@@ -41,16 +42,37 @@ public class ThirdFragment extends Fragment {
         // Inflate the layout for this fragment
 
         listView = v.findViewById(R.id.lv_favorite);
+        search_EdT = v.findViewById(R.id.search_ET_Third);
 //        adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members);
 
 
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
 
-        urlAddr = "http://" + macIP + ":8080/test/";
-//        listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
-        urlAddr1 = urlAddr + "favorite_people_query_all.jsp?email=" + email;
 
+//        listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+
+        connectGetData(urlAddr1);
+        searchArr = new ArrayList<People>();
+        searchArr.addAll(members);
+        search_EdT = v.findViewById(R.id.search_ET_Third);
+        search_EdT.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = search_EdT.getText().toString();
+                search(text);
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,9 +92,11 @@ public class ThirdFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        urlAddr = "http://" + macIP + ":8080/test/";
+        urlAddr1 = urlAddr + "favorite_people_query_all.jsp?email=" + email;
         connectGetData(urlAddr1);
         Log.v(TAG, "onResume()");
-
+        searchArr.addAll(members);
     }
 
     // NetworkTask에서 값을 가져오는 메소드
@@ -82,13 +106,28 @@ public class ThirdFragment extends Fragment {
             Object obj = peopleNetworkTask.execute().get();
             members = (ArrayList<People>) obj;
             Log.v("here", "" + members);
-            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
+            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddr); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void search(String charText) {
+        members.clear();
+        if (charText.length() == 0) {
+            members.addAll(searchArr);
+        }
+        else {
+            for (int i = 0; i < searchArr.size(); i++) {
+                if (searchArr.get(i).getName().contains(charText)) {
+                    members.add(searchArr.get(i));
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
 }

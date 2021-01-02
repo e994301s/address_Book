@@ -10,7 +10,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@drawable/title_layout"
@@ -21,25 +22,17 @@
             android:text="전체보기 "
             android:textStyle="bold"
             android:textSize="20dp"
-
             />
 
-        <TextView
-            android:id="@+id/tv_sum_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="0.5"
+        android:layout_margin="10dp"
+        android:layout_weight="0.7"
         android:background="@drawable/search_layout"
         >
 
@@ -57,7 +50,7 @@
             />
         <ImageView
             android:layout_width="0px"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:maxHeight="40dp"
@@ -67,7 +60,14 @@
             />
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/tv_sum_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        />
 
 
     <LinearLayout
