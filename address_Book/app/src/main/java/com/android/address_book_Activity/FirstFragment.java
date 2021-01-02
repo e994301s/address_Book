@@ -83,11 +83,7 @@ public class FirstFragment extends Fragment {
         urlAddrBase = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddrBase + "people_query_all_no.jsp?email=" + email;
 
-<<<<<<< HEAD
-=======
-        connectGetData(urlAddr1);
 
->>>>>>> 672179e8633a6cb820bb33ce13247dfe18723dd0
         // 리스트 일반 클릭시
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
