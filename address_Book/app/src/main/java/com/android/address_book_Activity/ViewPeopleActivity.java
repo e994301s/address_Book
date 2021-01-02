@@ -213,6 +213,12 @@ public class ViewPeopleActivity extends Activity {
                     // peopleno & phoneno
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
                     intent.putExtra("useremail", useremail); //값 넘겨주기
+                    intent.putExtra("phoneno", phoneno); //값 넘겨주기
+                    intent.putExtra("peoplename", peoplename); //값 넘겨주기
+                    intent.putExtra("peopleemail", peopleemail); //값 넘겨주기
+                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
+                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
+
 
                     startActivity(intent);
                     break;
