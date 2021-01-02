@@ -47,9 +47,9 @@ public class ThirdFragment extends Fragment {
 
         macIP = "192.168.35.157";
         email = "con@naver.com";
-        urlAddr = "http://" + macIP + ":8080/test/";
+        String urlAddr = "http://" + macIP + ":8080/test/";
 //        listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
-        urlAddr1 = urlAddr + "favorite_people_query_all.jsp?email=con@naver.com";
+        urlAddr1 = urlAddr + "favorite_people_query_all_no.jsp?email=con@naver.com";
 
 
 
