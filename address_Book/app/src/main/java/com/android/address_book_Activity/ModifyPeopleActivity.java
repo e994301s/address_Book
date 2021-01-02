@@ -226,6 +226,12 @@ public class ModifyPeopleActivity extends Activity {
         urlAddr3 = urlAddr + "people_query_Delete2.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
         connectDeleteData(urlAddr3);
 
+        Intent intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
+                    intent.putExtra("macIP", macIP); //값 넘겨주기
+                    intent.putExtra("peopleno", peopleno); //값 넘겨주기
+                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
+                    startActivity(intent); //이동시킨 화면 시작
+
 //        if(result.equals("1")){
 //            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
 //
@@ -233,8 +239,6 @@ public class ModifyPeopleActivity extends Activity {
 //            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보 삭제가 실패했습니다. \n같은 문제가 지속적으로 발생하면 고객센터에 문의주세요.", Toast.LENGTH_SHORT).show();
 //
 //        }
-
-        finish();
 
     }
 
