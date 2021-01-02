@@ -2,11 +2,13 @@ package com.android.address_book_Activity;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
+import com.android.Task.NetworkTask;
 import com.android.Task.PeopleNetworkTask;
 import com.android.address_book.People;
 import com.android.address_book.PeopleAdapter;
@@ -61,7 +63,7 @@ public class AddressListActivity extends AppCompatActivity {
 
     String macIP;
 
-    String email;
+    String email, urlAddr;
 
     private BottomNavigationView mBottomNV;
 
@@ -84,6 +86,8 @@ public class AddressListActivity extends AppCompatActivity {
         SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
         email = sf.getString("useremail","");
+
+        urlAddr = "http://" + macIP + ":8080/test/";
 
         mBottomNV = findViewById(R.id.nav_view);
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
@@ -237,18 +241,76 @@ public class AddressListActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
 
+            case R.id.userDelete:
+                new AlertDialog.Builder(AddressListActivity.this)
+                        .setTitle("알림")
+                        .setMessage("정말 탈퇴하시겠습니까?")
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
+                        .setPositiveButton("탈퇴", clickListener)
+                        .setNegativeButton("닫기", null)  // 페이지 이동이 없으므로 null
+                        .show();
+
+                return true;
+
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
-                Intent intent2 = new Intent(AddressListActivity.this, MainActivity.class);
+                Intent intent3 = new Intent(AddressListActivity.this, MainActivity.class);
 
-                startActivity(intent2);
+                startActivity(intent3);
                 return super.onOptionsItemSelected(item);
+
+        }
+
+
+    }
+        // 탈퇴하기 다이얼로그 이벤트
+        DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    userDelete();
+
+                }
+
+
+            }
+        };
+
+    private void userDelete() {
+        String urlAddr1 = "";
+        urlAddr1 = urlAddr + "userInfoDelete.jsp?email=" + email;
+
+        String result = connectDeleteData(urlAddr1);
+
+        if (result.equals("1")) {
+            Toast.makeText(AddressListActivity.this, "탈퇴하였습니다.", Toast.LENGTH_SHORT).show();
+            Intent intent2 = new Intent(AddressListActivity.this, MainActivity.class);
+
+            startActivity(intent2);
+
+        } else {
+            Toast.makeText(AddressListActivity.this, "탈퇴 실패하였습니다.", Toast.LENGTH_SHORT).show();
 
         }
     }
 
+        //connection Insert
+        private String connectDeleteData(String urlAddr){
+            String result = null;
 
+            try{
+                NetworkTask deleteNetworkTask = new NetworkTask(AddressListActivity.this, urlAddr, "delete");
+                Object obj = deleteNetworkTask.execute().get();
+                result = (String) obj;
 
+            } catch (Exception e){
+                e.printStackTrace();
+
+            }
+            return result;
+        }
 
 }

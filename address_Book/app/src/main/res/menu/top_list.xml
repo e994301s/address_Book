@@ -17,4 +17,9 @@
         android:title="로그아웃"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/userDelete"
+        android:title="탈퇴하기"
+        app:showAsAction="never"/>
+
+
 </menu>
