@@ -6,6 +6,8 @@ import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.ColorStateListDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +52,7 @@ public class SecondFragment extends Fragment {
     String email, groupName;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
     HorizontalScrollView horizontalScrollView;
-    ArrayList<People> searchArrG;
+    ArrayList<People> searchArr;
     EditText search_EdT;
 
     private LinearLayout ll;
@@ -65,6 +67,8 @@ public class SecondFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        searchArr = new ArrayList<People>();
+
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
         View v = inflater.inflate(R.layout.fragment_second, container, false);
 
@@ -105,7 +109,7 @@ public class SecondFragment extends Fragment {
 
         //////////////////////////////////////////////////////
         // 그룹별 horizontal 셋팅
-        connectGetData(urlAddr1);
+
         connectGroupGetData(urlAddr2);
 
         ll = v.findViewById(R.id.ll_01_group);
@@ -141,6 +145,27 @@ public class SecondFragment extends Fragment {
 
         }
 
+
+
+        search_EdT = v.findViewById(R.id.search_ET_Second);
+        search_EdT.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = search_EdT.getText().toString();
+                search(text);
+            }
+        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -163,6 +188,7 @@ public class SecondFragment extends Fragment {
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            searchArr.clear();
             for (int i=0; i<(groups.size()+3); i++) {
                 if(v.getId() == tvs[i].getId()){
                     Log.v("here", Integer.toString(tvs[i].getId()));
@@ -195,6 +221,7 @@ public class SecondFragment extends Fragment {
             Log.v("here", "" + members);
             adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddrBase); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+            searchArr.addAll(members);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -229,6 +256,21 @@ public class SecondFragment extends Fragment {
             e.printStackTrace();
         }
         return groups;
+    }
+
+    public void search(String charText) {
+        members.clear();
+        if (charText.length() == 0) {
+            members.addAll(searchArr);
+        }
+        else {
+            for (int i = 0; i < searchArr.size(); i++) {
+                if (searchArr.get(i).getName().contains(charText)) {
+                    members.add(searchArr.get(i));
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
 
