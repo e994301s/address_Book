@@ -5,13 +5,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,8 +23,6 @@ import com.android.Task.NetworkTask;
 import com.android.address_book.R;
 import com.android.address_book.SectionPageAdapter;
 import com.google.android.material.textfield.TextInputLayout;
-
-import me.relex.circleindicator.CircleIndicator;
 
 
 /*
@@ -96,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         macIP = "192.168.200.182";
+
+
 
 
 

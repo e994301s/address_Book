@@ -67,11 +67,31 @@ public class FirstFragment extends Fragment {
         textView = v.findViewById(R.id.tv_sum_first);
 
 
+        macIP = "192.168.35.157";
+        email = "con@naver.com";
+        String urlAddr = "http://" + macIP + ":8080/test/";
+        urlAddr1 = urlAddr + "people_query_all_no.jsp?email=con@naver.com";
+
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
 
         urlAddrBase = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddrBase + "people_query_all_no.jsp?email=" + email;
+
+        // 리스트 일반 클릭시
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
+                intent.putExtra("peopleno", members.get(position).getNo());
+                intent.putExtra("useremail", members.get(position).getUseremail());
+                intent.putExtra("phonetel", members.get(position).getTel());
+                intent.putExtra("macIP", macIP);
+
+
+                startActivity(intent);
+            }
+        });
 
 
         connectGetData(urlAddr1);
@@ -102,20 +122,6 @@ public class FirstFragment extends Fragment {
 
         // 리스트 선택 리스너
 
-        // 리스트 일반 클릭시
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), ViewPeopleActivity.class);  // 원래는 회원정보로 가야한다 잠시 되는 곳 아무곳이나 보내놓음
-                intent.putExtra("peopleno", members.get(position).getNo());
-                intent.putExtra("useremail", members.get(position).getUseremail());
-                intent.putExtra("phonetel", members.get(position).getTel());
-                intent.putExtra("macIP", macIP);
-
-
-                startActivity(intent);
-            }
-        });
         return v;
 
     }
