@@ -5,14 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.address_book_Activity.FirstFragment">
+    tools:context="com.android.address_book_Activity.FirstFragment"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:background="@drawable/gray2_bg"
+        android:background="@drawable/title_layout"
         android:gravity="center"
         >
         <TextView
@@ -30,7 +31,7 @@
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_margin="10dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.6"
         android:background="@drawable/search_layout"
         >
 
@@ -68,7 +69,7 @@
             android:id="@+id/lv_favorite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="4dp"
+            android:background="#ffffff"
             android:divider="#ffffff"
             />
 

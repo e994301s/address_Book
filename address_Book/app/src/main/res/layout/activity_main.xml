@@ -94,8 +94,9 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/gray_bg"
                     android:inputType="textEmailAddress"
-                    android:hint="  Email"
+                    android:hint="Email"
                     android:textSize="18dp"
+                    android:paddingLeft="15dp"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -116,10 +117,11 @@
                     android:id="@+id/login_pw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="  Password"
+                    android:hint="Password"
                     android:textSize="18dp"
                     android:inputType="textPassword"
                     android:background="@drawable/gray_bg"
+                    android:paddingLeft="15dp"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,7 +130,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="로그인정보 기억하기" />
+                android:buttonTint="#000000"
+                android:text="로그인정보 기억하기"
+                android:layout_marginBottom="10dp"/>
 
 
             <Button

@@ -31,9 +31,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:layout_weight="0.7"
+        android:layout_margin="5dp"
+        android:layout_weight="0.6"
         android:background="@drawable/search_layout"
+
         >
 
         <EditText
@@ -43,16 +44,17 @@
             android:layout_gravity="center"
             android:layout_weight="5"
             android:hint="검색어를 입력해주세요."
-            android:gravity="top"
+            android:gravity="center|left"
             android:padding="5dp"
             android:layout_marginLeft="10dp"
             android:background="@null"
+
             />
         <ImageView
             android:layout_width="0px"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_weight="1"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:maxHeight="40dp"
             android:adjustViewBounds="true"
             android:src="@drawable/ic_search"
@@ -64,8 +66,8 @@
         android:id="@+id/tv_sum_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:layout_margin="10dp"
+        android:layout_weight="0.1"
+        android:layout_margin="5dp"
         android:gravity="center"
         />
 

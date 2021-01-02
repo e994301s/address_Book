@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.address_book_Activity.FirstFragment">
+    tools:context="com.android.address_book_Activity.FirstFragment"
+    android:background="#ffffff">
 
 <!--    <HorizontalScrollView-->
 <!--        android:id="@+id/hsv_01"-->
@@ -94,6 +95,7 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center"
+        android:background="@drawable/title_layout"
         >
         <TextView
             android:layout_width="match_parent"
@@ -110,7 +112,7 @@
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_margin="10dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.6"
         android:background="@drawable/search_layout"
         >
 
@@ -141,16 +143,17 @@
     <HorizontalScrollView
         android:id="@+id/hsv_01_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="0px"
         android:layout_marginBottom="5dp"
+        android:layout_weight="0.6"
         >
 
         <LinearLayout
             android:id="@+id/ll_01_group"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            />
 
     </HorizontalScrollView>
 
@@ -164,7 +167,7 @@
             android:id="@+id/lv_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="4dp"
+            android:background="#ffffff"
             android:divider="#ffffff"
             />
 
