@@ -55,7 +55,7 @@
             "favorite" : "<%=rs.getString(8) %>",
             "emergency" : "<%=rs.getString(9) %>",
             "useremail" : "<%=rs.getString(10) %>",
-	"phoneno" : <%=rs.getString(11) %>
+            "phoneno" : <%= rs.getString(11) %>
 			}
 
 <%		
