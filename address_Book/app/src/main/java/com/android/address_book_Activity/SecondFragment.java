@@ -189,6 +189,7 @@ public class SecondFragment extends Fragment {
         @Override
         public void onClick(View v) {
             searchArr.clear();
+            search_EdT.setText("");
             for (int i=0; i<(groups.size()+3); i++) {
                 if(v.getId() == tvs[i].getId()){
                     Log.v("here", Integer.toString(tvs[i].getId()));
