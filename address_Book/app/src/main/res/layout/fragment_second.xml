@@ -146,6 +146,7 @@
         android:layout_height="0px"
         android:layout_weight="0.6"
         android:layout_margin="5dp"
+        android:scrollbars="none"
         >
 
         <LinearLayout

@@ -72,8 +72,10 @@ public class FirstFragment extends Fragment {
         listView = v.findViewById(R.id.lv_people);
         textView = v.findViewById(R.id.tv_sum_first);
 
+
         String urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "people_query_all_no.jsp?email="+email;
+
 
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
@@ -81,7 +83,6 @@ public class FirstFragment extends Fragment {
         urlAddrBase = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddrBase + "people_query_all_no.jsp?email=" + email;
 
-        connectGetData(urlAddr1);
 
         // 리스트 일반 클릭시
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,7 +101,7 @@ public class FirstFragment extends Fragment {
         });
 
 
-       // connectGetData(urlAddr1);
+        connectGetData(urlAddr1);
         int addressSum = members.size();
 
         textView.setText("(총 " + addressSum + "개의 연락처)");
@@ -217,7 +218,7 @@ public class FirstFragment extends Fragment {
             PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(getContext(), urlAddr);
             Object obj = peopleNetworkTask.execute().get();
             members = (ArrayList<People>) obj;
-            Log.v("here", "" + members);
+            Log.v(TAG, "" + members);
             adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddrBase); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
 
