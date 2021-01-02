@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.address_book_Activity.ModifyPeopleActivity">
@@ -10,20 +9,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:orientation="vertical"
         >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/btn_backToViewPeople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center"
-            android:textStyle="bold"
-            android:maxHeight="70dp"
-            android:maxWidth="70dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
-            />
+            android:maxWidth="70dp"
+            android:maxHeight="70dp"
+            android:scaleType="fitCenter"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="0dp"
@@ -38,14 +42,14 @@
             android:background="@drawable/main_bg"
             android:text="수정"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
+        android:orientation="vertical"
         >
         <WebView
             android:id="@+id/iv_editPeopleImage"
@@ -59,6 +63,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         >
         <TextView
             android:id="@+id/tv_editPeopleImage"
@@ -71,78 +76,75 @@
             />
     </LinearLayout>
 
-    <ScrollView
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_peopleName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="test 입니다 test"
+            android:textSize="22dp"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_peopleName"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:text="test 입니다 test"
-                android:textSize="22dp"
-                android:gravity="center"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_peoplePhone"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:text="전화번호 입력 창입니다"
-                android:inputType="phone"
-                android:textSize="22dp"
-                android:gravity="center"
-                />
-                <Button
-                    android:id="@+id/addUpdateTelNoButton"
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"
-                    android:text="+"
-                    android:gravity="center"
-                    android:textSize="20dp"
-                    android:background="@drawable/main_bg"
-                    />
-        </LinearLayout>
-            <LinearLayout
-                android:id="@+id/update_phonenum_layout"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/add_layout"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_peoplePhone"
+            android:layout_width="0px"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="9"
+            android:text="전화번호 입력 창입니다"
+            android:inputType="phone"
+            android:textSize="22dp"
+            android:gravity="right"
+            />
+            <Button
+                android:id="@+id/addUpdateTelNoButton"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
                 android:layout_margin="10dp"
-                >
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_peopleEmail"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:text="email 수정창입니다."
-                android:inputType="textEmailAddress"
-                android:textSize="22dp"
+                android:text="+"
                 android:gravity="center"
+                android:textSize="20dp"
+                android:background="@drawable/main_bg"
                 />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/update_phonenum_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_layout"
+        android:layout_margin="10dp"
+        >
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_peopleEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="email 수정창입니다."
+        android:inputType="textEmailAddress"
+        android:textSize="22dp"
+        android:gravity="center"
+        />
 <!--            <Spinner-->
 <!--                android:id="@+id/edit_spinner_relation"-->
 <!--                android:layout_width="match_parent"-->
@@ -152,18 +154,16 @@
 <!--                android:spinnerMode="dialog"-->
 
 <!--                />-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_peopleMemo"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:text="testtesttesttesttest"
-                android:textSize="22dp"
-                android:gravity="center"
-                />
-            </LinearLayout>
-
-    </ScrollView>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_peopleMemo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="testtesttesttesttest"
+        android:textSize="22dp"
+        android:gravity="center"
+        />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -183,21 +183,5 @@
             android:scaleType="fitCenter" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

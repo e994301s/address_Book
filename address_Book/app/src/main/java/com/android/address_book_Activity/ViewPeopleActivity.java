@@ -95,7 +95,7 @@ public class ViewPeopleActivity extends Activity {
 
 
         // get Data // set Text
-        phoneno = members.get(0).getPhoneno();
+
 
         //phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
@@ -183,6 +183,7 @@ public class ViewPeopleActivity extends Activity {
         btn_view_emergency.setOnClickListener(OnclickListener);
 
 
+        phoneno = members.get(0).getPhoneno();
         peoplefavorite = members.get(0).getFavorite();
         peopleemg = members.get(0).getEmergency();
         onCreateFavoriteCheck();

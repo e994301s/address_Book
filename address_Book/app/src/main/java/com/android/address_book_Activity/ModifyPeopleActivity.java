@@ -13,13 +13,11 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -73,7 +71,7 @@ public class ModifyPeopleActivity extends Activity {
     String peoplerelation;
     String peoplememo;
     String peopleimage;
-    ArrayList<String> phonetel;
+    ArrayList<String> phonetel, phonetel1, phonetel2, phonetel3, phonetel4;
     ArrayList<Integer> phoneno;
 //    int phoneno;
     Spinner edit_spinner_relation;
@@ -81,11 +79,20 @@ public class ModifyPeopleActivity extends Activity {
     ImageButton btn_backToViewPeople, btn_remove;
     WebView editImage;
     TextView tv_editPeopleImage;
-    EditText editName,editPhone, editPhone2, editPhone3, editPhone4,editEmail,editMemo;
+  //  ArrayList<String> editPhoneMain;
+    EditText editName;
+    EditText editPhoneMain;
+    EditText editPhone;
+    EditText editPhone2;
+    EditText editPhone3;
+    EditText editPhone4;
+    EditText editEmail;
+    EditText editMemo;
     String phoneUpdate, urlUpdatePhonenumber, macIP;
     ArrayList<People> members;
     String urlImage;
     int imageCheck=0;
+    String strUpdatePhone=null;
     String strUpdatePhone1=null;
     String strUpdatePhone2=null;
     String strUpdatePhone3=null;
@@ -160,9 +167,22 @@ public class ModifyPeopleActivity extends Activity {
         editName = findViewById(R.id.edit_peopleName);
         editName.setText(peoplename);
 //
+        editPhoneMain = findViewById(R.id.edit_peoplePhone);
+        editPhone = findViewById(R.id.editPhone);
+        editPhone2 = findViewById(R.id.editPhone2);
+        editPhone3 = findViewById(R.id.editPhone3);
+        editPhone4 = findViewById(R.id.editPhone4);
+
         phonetel = members.get(0).getTel();
-        editPhone = findViewById(R.id.edit_peoplePhone);
-        editPhone.setText(phonetel.get(0));
+        editPhoneMain.setText(phonetel.get(0));
+//        phonetel1 = members.get(1).getTel();
+//        editPhone.setText(phonetel.get(1));
+//        phonetel2 = members.get(2).getTel();
+//        editPhone2.setText(phonetel.get(2));
+//        phonetel3 = members.get(3).getTel();
+//        editPhone3.setText(phonetel.get(3));
+//        phonetel4 = members.get(4).getTel();
+//        editPhone4.setText(phonetel.get(4));
 //        editPhone.setText(phonetel);
 //
         peopleemail = members.get(0).getEmail();
@@ -242,7 +262,8 @@ public class ModifyPeopleActivity extends Activity {
                     startActivity(intent); //이동시킨 화면 시작
                     break;
                 case R.id.btn_updatePeople: // update
-                    // 순서 1. 네트워크 연결 및 이미지 서버에 전송, 이미지 이름 저장
+
+                    // 1. 네트워크 연결 및 이미지 서버에 전송, 이미지 이름 저장
                     if(imageCheck==1){
                         new Thread(new Runnable() {
                             @Override
@@ -254,7 +275,7 @@ public class ModifyPeopleActivity extends Activity {
                         Log.v(TAG, "image Name : "+ imageName);
 
                         // DB와 연결(NetworkTask)해서 정보 update
-                    updatePeople(peopleno, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phoneno, phonetel);
+                    updatePeople(peopleno, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phoneno, phonetel.get(0));
 
 
 
@@ -293,44 +314,60 @@ public class ModifyPeopleActivity extends Activity {
     };
 
     // people Update data 송부
-    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, ArrayList<Integer> phoneno, ArrayList<String> phonetel){
+    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, ArrayList<Integer> phoneno, String phonetel){
         String urlAddr1 = "";
-      //  urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
+        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
        peoplename = editName.getText().toString();
        peopleemail = editEmail.getText().toString();
        peoplememo = editMemo.getText().toString();
-        // 순서 4. peopleno랑 전화번호 정보 insert
-        strUpdatePhoneMain = editPhone.getText().toString();
-        totalPhoneNo.add(strUpdatePhoneMain);
+       phonetel = editPhoneMain.getText().toString();
 
-        if(addPhoneCheck == 1) {
-            if (editPhone.getText().toString().length() != 0) {
-                strUpdatePhone1 = editPhone.getText().toString();
-                totalPhoneNo.add(strUpdatePhone1);
-            }
-            if (editPhone2.getText().toString().length() != 0) {
-                strUpdatePhone2 = editPhone2.getText().toString();
-                totalPhoneNo.add(strUpdatePhone2);
-            }
-            if (editPhone3.getText().toString().length() != 0) {
-                strUpdatePhone3 = editPhone3.getText().toString();
-                totalPhoneNo.add(strUpdatePhone3);
-            }
-            if (editPhone4.getText().toString().length() != 0) {
-                strUpdatePhone4 = editPhone4.getText().toString();
-                totalPhoneNo.add(strUpdatePhone4);
-            }
-        }
+        connectUpdateData(urlAddr1);
 
-        for (int i = 0; i<totalPhoneNo.size();i++){
-            urlUpdatePhonenumber = "http://"+macIP+":8080/test/people_query_Update.jsp?";
-            Log.v(TAG, "TelNo insert : "+totalPhoneNo.get(i));
-            urlUpdatePhonenumber = urlUpdatePhonenumber+"people_peopleno="+peopleno+"&totalPhoneNo="+totalPhoneNo.get(i);
-            connectUpdateData(urlUpdatePhonenumber);
-            if(phoneUpdate.equals("1")){
-                phoneUpdateResult++;
-            }
-        }
+
+        // peopleno랑 전화번호 정보 update
+//        strUpdatePhoneMain = editPhone.getText().toString();
+//        totalPhoneNo.add(strUpdatePhoneMain);
+//
+//        if(addPhoneCheck == 1) {
+//            if (editPhoneMain.getText().toString().length() != 0) {
+//                strUpdatePhone = editPhoneMain.getText().toString();
+//                totalPhoneNo.add(strUpdatePhone);
+//            }
+//            if (editPhone.getText().toString().length() != 0) {
+//                strUpdatePhone1 = editPhone.getText().toString();
+//                totalPhoneNo.add(strUpdatePhone1);
+//            }
+//            if (editPhone2.getText().toString().length() != 0) {
+//                strUpdatePhone2 = editPhone2.getText().toString();
+//                totalPhoneNo.add(strUpdatePhone2);
+//            }
+//            if (editPhone3.getText().toString().length() != 0) {
+//                strUpdatePhone3 = editPhone3.getText().toString();
+//                totalPhoneNo.add(strUpdatePhone3);
+//            }
+//            if (editPhone4.getText().toString().length() != 0) {
+//                strUpdatePhone4 = editPhone4.getText().toString();
+//                totalPhoneNo.add(strUpdatePhone4);
+//            }
+//        }
+//
+//        for (int i = 0; i<totalPhoneNo.size();i++){
+//            urlUpdatePhonenumber = "http://"+macIP+":8080/test/people_query_Update.jsp?";
+//            Log.v(TAG, "TelNo insert : "+totalPhoneNo.get(i));
+//            urlUpdatePhonenumber = urlUpdatePhonenumber+"people_peopleno="+peopleno+"&totalPhoneNo="+totalPhoneNo.get(i);
+//            connectUpdatePhoneNo();
+//            if(!phoneUpdate.equals(totalPhoneNo.size())){
+//                phoneUpdateResult++;
+//            }
+//        }
+
+
+        Intent intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
+        intent.putExtra("macIP", macIP); //값 넘겨주기
+        intent.putExtra("peopleno", peopleno); //값 넘겨주기
+        intent.putExtra("phonetel", phonetel); //값 넘겨주기
+        startActivity(intent); //이동시킨 화면 시작
 
        // urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
 
@@ -529,6 +566,17 @@ public class ModifyPeopleActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String connectUpdatePhoneNo() {
+        try {
+            CUDNetworkTask insTelNonetworkTask = new CUDNetworkTask(ModifyPeopleActivity.this, urlUpdatePhonenumber, "Register");
+            Object object = insTelNonetworkTask.execute().get();
+            phoneUpdate =(String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return phoneUpdate;
     }
 
 
