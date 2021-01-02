@@ -404,7 +404,7 @@ public class JoinActivity extends Activity {
 
         }
 
-        //finish();
+        finish();
 
     }
 

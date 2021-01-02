@@ -24,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.Task.CUDNetworkTask;
+import com.android.Task.GroupNetworkTask;
+import com.android.address_book.Group;
 import com.android.address_book.R;
 
 import java.io.File;
@@ -73,11 +75,13 @@ public class RegisterPeopleActivity extends AppCompatActivity {
     String strRelation = null;
     String strRegisterComment= null;
 
-    String macIP, email, urlAddPeople, urlGetNumber, urlAddPhoneNumber, urlAddstatus, urlAddRegister;
+    String macIP, email, urlAddPeople, urlGetNumber, urlAddPhoneNumber, urlAddstatus, urlAddRegister, urlGetGroup;
 
     String peopleNo, peopleInsertResult, phoneInsert, statusInsert, registerInsert;
     ArrayList<String> totalPhoneNo = new ArrayList<String>();
-    ArrayAdapter<CharSequence> spinnerAdapter = null;
+    ArrayList<Group> totalGroup;
+    ArrayList<String> groupName;
+    ArrayAdapter<String> spinnerAdapter = null;
     Spinner spinner = null;
 
     int bookMark = 0;
@@ -114,8 +118,6 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         registerEmail = findViewById(R.id.registerEmail);
         registerComment = findViewById(R.id.registerComment);
 
-        Intent intent = getIntent();
-        // macIP = intent.getStringExtra("macIP");
         SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
         url = "http://"+macIP+":8080/test/multipartRequest.jsp";
@@ -124,6 +126,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         urlGetNumber = "http://"+macIP+":8080/test/getPeopleNo.jsp";
         urlAddstatus = "http://"+macIP+":8080/test/statusInsert.jsp?";
         urlAddRegister = "http://"+macIP+":8080/test/registerInsert.jsp?";
+        urlGetGroup = "http://"+macIP+":8080/test/group_query_all.jsp?email="+email;
 
 
         add_view.setOnClickListener(mClickListener);
@@ -137,11 +140,21 @@ public class RegisterPeopleActivity extends AppCompatActivity {
                 .permitDiskWrites()
                 .permitNetwork().build());
 
-        // spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.groupSpinner, ansdroid.R.layout.simple_spinner_item);
-//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-//        spinner = findViewById(R.id.group_spiner);
-//        spinner.setAdapter(spinnerAdapter);
+        totalGroup = new ArrayList<Group>();
+        connectGroupGetData();
+        groupName = new ArrayList<String>();
+        groupName.add("가족");
+        groupName.add("친구");
+        groupName.add("회사");
+        for(int i = 0 ; i < totalGroup.size();i++){
+            groupName.add(totalGroup.get(i).getGroupName());
+        }
+        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, groupName);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner = findViewById(R.id.group_spiner);
+        spinner.setAdapter(spinnerAdapter);
     }
 
     View.OnClickListener mClickListener = new View.OnClickListener() {
@@ -149,9 +162,8 @@ public class RegisterPeopleActivity extends AppCompatActivity {
         public void onClick(View v) {
             strRegisterName = registerName.getText().toString();
             strRegisterEmail = registerEmail.getText().toString();
-//            strRelation = spinner.getSelectedItem().toString();
+            strRelation = spinner.getSelectedItem().toString();
             strRegisterComment = registerComment.getText().toString();
-
 
             switch (v.getId()){
                 case R.id.addTelNoButton:
@@ -190,7 +202,7 @@ public class RegisterPeopleActivity extends AppCompatActivity {
 
                     // 순서 2. DB와 연결(NetworkTask)해서 정보 insert
 
-                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplememo="+strRegisterComment+"&peopleimage="+imageName;
+                    urlAddPeople = urlAddPeople+"peoplename="+strRegisterName+"&peopleemail="+strRegisterEmail+"&peoplememo="+strRegisterComment+"&peopleimage="+imageName+"&peoplerelation="+strRelation;
                     connectInsertData();
                     Log.v(TAG, "End People Insert");
                     // 순서 3. insert 되서 생성된 peopleno 가져오기
@@ -420,5 +432,16 @@ public class RegisterPeopleActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return registerInsert;
+    }
+
+    private ArrayList<Group> connectGroupGetData() {
+        try {
+            GroupNetworkTask groupNetworkTask = new GroupNetworkTask(RegisterPeopleActivity.this, urlGetGroup, "select");
+            Object obj = groupNetworkTask.execute().get();
+            totalGroup = (ArrayList<Group>) obj;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalGroup;
     }
 }
