@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class ThirdFragment extends Fragment {
     final static String TAG = "SelectAllActivity";
-    String urlAddr = null;
+    String urlAddrBase = null;
     String urlAddr1 = null;
     ArrayList<People> searchArr;
     ArrayList<People> members;
@@ -92,8 +92,8 @@ public class ThirdFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "favorite_people_query_all.jsp?email=" + email;
+        urlAddrBase = "http://" + macIP + ":8080/test/";
+        urlAddr1 = urlAddrBase + "favorite_people_query_all.jsp?email=" + email;
         connectGetData(urlAddr1);
         Log.v(TAG, "onResume()");
         searchArr.addAll(members);
@@ -105,8 +105,11 @@ public class ThirdFragment extends Fragment {
             PeopleNetworkTask peopleNetworkTask = new PeopleNetworkTask(getContext(), urlAddr);
             Object obj = peopleNetworkTask.execute().get();
             members = (ArrayList<People>) obj;
-            Log.v("here", "" + members);
-            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddr); // 아댑터에 값을 넣어준다.
+            for(int i=0 ; i<members.size();i++){
+
+                Log.v("here", "" + members.get(i).getImage());
+            }
+            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddrBase); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
 
 
