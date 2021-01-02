@@ -75,25 +75,6 @@ public class PeopleAdapter extends BaseAdapter {
 
 
 
-        WebSettings wsetting = img_peopleImg.getSettings();
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-//        {// https 이미지.
-//            wsetting.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-//        }
-//        img_peopleImg.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        img_peopleImg.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-        img_peopleImg.setWebViewClient(new WebViewClient());
-        img_peopleImg.setWebChromeClient(new WebChromeClient());
-        img_peopleImg.setNetworkAvailable(true);
-
-        //// Sets whether the DOM storage API is enabled.
-        img_peopleImg.getSettings().setDomStorageEnabled(true);
-
-
-
-        img_peopleImg.getSettings().setJavaScriptEnabled(true);
-     
-
         if(data.get(position).getImage().equals("null")){
             urlImageReal = urlImage+"ic_defaultpeople.jpg";
             img_peopleImg.loadUrl(urlImageReal);
@@ -124,15 +105,38 @@ public class PeopleAdapter extends BaseAdapter {
         tv_name.setText(data.get(position).getName());
         WebSettings webSettings = img_peopleImg.getSettings();
 //
-        // 화면 비율
-        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-        img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        img_peopleImg.setHorizontalScrollBarEnabled(false); //가로 스크롤
-        img_peopleImg.setVerticalScrollBarEnabled(false);   //세로 스크롤
+//        // 화면 비율
+//        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+//        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+//        img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        img_peopleImg.setHorizontalScrollBarEnabled(false); //가로 스크롤
+//        img_peopleImg.setVerticalScrollBarEnabled(false);   //세로 스크롤
+//
+//        img_peopleImg.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+//        img_peopleImg.setScrollbarFadingEnabled(false);
+//
+//
+//        WebSettings wsetting = img_peopleImg.getSettings();
+////        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+////        {// https 이미지.
+////            wsetting.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+////        }
+////        img_peopleImg.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//        img_peopleImg.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+//        img_peopleImg.setWebViewClient(new WebViewClient());
+//        img_peopleImg.setWebChromeClient(new WebChromeClient());
+//        img_peopleImg.setNetworkAvailable(true);
+//
+//        //// Sets whether the DOM storage API is enabled.
+//        img_peopleImg.getSettings().setDomStorageEnabled(true);
+//
+//
+//
+//        img_peopleImg.getSettings().setJavaScriptEnabled(true);
+//
+//        img_peopleImg.clearView();
+//        img_peopleImg.requestLayout();
 
-        img_peopleImg.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-        img_peopleImg.setScrollbarFadingEnabled(false);
 
 
 

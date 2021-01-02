@@ -17,6 +17,8 @@
         android:icon="@mipmap/ic_launcher"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
+        android:descendantFocusability="blocksDescendants"
         android:label="사소한"
         android:supportsRtl="true"
         android:theme="@style/Theme.Address_Book">
