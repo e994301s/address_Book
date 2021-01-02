@@ -2,6 +2,9 @@ package com.android.address_book_Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.XmlResourceParser;
+import android.graphics.drawable.ColorStateListDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -87,6 +90,8 @@ public class SecondFragment extends Fragment {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(10,0,10,0);  // 왼쪽, 위, 오른쪽, 아래 순서입니다.
+
+
 
 
         // 그룹에 관한 버튼 액션

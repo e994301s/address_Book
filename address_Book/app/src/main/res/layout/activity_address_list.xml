@@ -71,6 +71,6 @@
         android:background="#ffffff"
         app:itemTextColor="#202020"
         app:menu="@menu/bottom_nav"
-        android:layout_weight="1"/>
+        android:layout_weight="0.7"/>
 
 </LinearLayout>
