@@ -88,7 +88,7 @@ public class ViewPeopleActivity extends Activity {
         useremail = intent.getStringExtra("useremail");
 
 
-        urlAddr2 = urlAddr + "people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr2 = urlAddr + "people_query_selectModify.jsp?email="+useremail+"&peopleno=" + peopleno;
 
         // Task 연결
         members = connectSelectedData(urlAddr2);
@@ -213,11 +213,11 @@ public class ViewPeopleActivity extends Activity {
                     // peopleno & phoneno
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
                     intent.putExtra("useremail", useremail); //값 넘겨주기
-                    intent.putExtra("phoneno", phoneno); //값 넘겨주기
-                    intent.putExtra("peoplename", peoplename); //값 넘겨주기
-                    intent.putExtra("peopleemail", peopleemail); //값 넘겨주기
-                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
-                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
+                  //  intent.putExtra("phoneno", phoneno); //값 넘겨주기
+//                    intent.putExtra("peoplename", peoplename); //값 넘겨주기
+//                    intent.putExtra("peopleemail", peopleemail); //값 넘겨주기
+//                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
+//                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
 
 
                     startActivity(intent);

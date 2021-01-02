@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,19 +73,27 @@ public class ModifyPeopleActivity extends Activity {
     String peoplerelation;
     String peoplememo;
     String peopleimage;
-    String phonetel;
-    String phoneno;
+    ArrayList<String> phonetel;
+    ArrayList<Integer> phoneno;
 //    int phoneno;
     Spinner edit_spinner_relation;
-    Button btn_updatePeople;
+    Button btn_updatePeople, add_view;
     ImageButton btn_backToViewPeople, btn_remove;
     WebView editImage;
     TextView tv_editPeopleImage;
-    EditText editName,editPhone,editEmail,editMemo;
-    String no, name, email, relation, memo, macIP;
+    EditText editName,editPhone, editPhone2, editPhone3, editPhone4,editEmail,editMemo;
+    String phoneUpdate, urlUpdatePhonenumber, macIP;
     ArrayList<People> members;
     String urlImage;
     int imageCheck=0;
+    String strUpdatePhone1=null;
+    String strUpdatePhone2=null;
+    String strUpdatePhone3=null;
+    String strUpdatePhone4=null;
+    String strUpdatePhoneMain=null;
+    ArrayList<String> totalPhoneNo = new ArrayList<String>();
+    int addPhoneCheck = 0;
+    int phoneUpdateResult = 0;
 
     // 사진 올리고 내리기 위한 변수들
     private final int REQ_CODE_SELECT_IMAGE = 100;
@@ -107,29 +116,27 @@ public class ModifyPeopleActivity extends Activity {
         macIP = intent.getStringExtra("macIP");
 
 
-
        // urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp";
         urlAddr = "http://" + macIP + ":8080/test/";
 
         urlImage = urlAddr;
 
-
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
-        phoneno = intent.getStringExtra("phoneno");
-        peoplename = intent.getStringExtra("peoplename");
-        peopleemail = intent.getStringExtra("peopleemail");
-        phonetel = intent.getStringExtra("phonetel");
-        peoplememo= intent.getStringExtra("peoplememo");
+//        phoneno = intent.getStringExtra("phoneno");
+//        peoplename = intent.getStringExtra("peoplename");
+//        peopleemail = intent.getStringExtra("peopleemail");
+//        phonetel = intent.getStringExtra("phonetel");
+//        peoplememo= intent.getStringExtra("peoplememo");
 
 
-        urlAddr2 = urlAddr + "people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+        urlAddr2 = urlAddr + "people_query_selectModify.jsp?email="+useremail+"&peopleno=" + peopleno;
 
         // Task 연결
         members = connectSelectedData(urlAddr2);
 
         // get Data // set Text
-        //phoneno = members.get(0).getPhoneno();
+        phoneno = members.get(0).getPhoneno();
 
 
         // 사진 연결
@@ -147,25 +154,27 @@ public class ModifyPeopleActivity extends Activity {
 
 
 //        // get Data // set Text
-//        peoplename = members.get(0).getName();
-//        editName = findViewById(R.id.edit_peopleName);
+        add_view = findViewById(R.id.addUpdateTelNoButton);
+
+        peoplename = members.get(0).getName();
+        editName = findViewById(R.id.edit_peopleName);
         editName.setText(peoplename);
 //
-//        phonetel = members.get(0).getTel();
-//        editPhone = findViewById(R.id.edit_peoplePhone);
-//        editPhone.setText(phonetel.get(0));
-        editPhone.setText(phonetel);
+        phonetel = members.get(0).getTel();
+        editPhone = findViewById(R.id.edit_peoplePhone);
+        editPhone.setText(phonetel.get(0));
+//        editPhone.setText(phonetel);
 //
-//        peopleemail = members.get(0).getEmail();
-//        editEmail = findViewById(R.id.edit_peopleEmail);
+        peopleemail = members.get(0).getEmail();
+        editEmail = findViewById(R.id.edit_peopleEmail);
         editEmail.setText(peopleemail);
 //
 ////        peoplerelation = members.get(0).getRelation();
 ////        view_relation = findViewById(R.id.view_relation);
 ////        view_relation.setText(peoplerelation);
 //
-//        peoplememo = members.get(0).getMemo();
-//        editMemo = findViewById(R.id.edit_peopleMemo);
+        peoplememo = members.get(0).getMemo();
+        editMemo = findViewById(R.id.edit_peopleMemo);
         editMemo.setText(peoplememo);
 //
 //        // Web View에 이미지 띄움
@@ -204,6 +213,7 @@ public class ModifyPeopleActivity extends Activity {
         btn_backToViewPeople.setOnClickListener(onClickListener);
         btn_updatePeople.setOnClickListener(onClickListener);
         btn_remove.setOnClickListener(onClickListener);
+        add_view.setOnClickListener(onClickListener);
 
     } // onCreate end -------------------------------------------------------------------
 
@@ -212,6 +222,17 @@ public class ModifyPeopleActivity extends Activity {
         public void onClick(View v) {
             Intent intent;
             switch (v.getId()){
+                case R.id.addUpdateTelNoButton:
+                    RegisterAddPhoneNumber n_layout = new RegisterAddPhoneNumber(getApplicationContext());
+                    LinearLayout con = (LinearLayout)findViewById(R.id.update_phonenum_layout);
+                    con.addView(n_layout);
+                    add_view.setVisibility(View.INVISIBLE);
+                    editPhone = findViewById(R.id.editPhone);
+                    editPhone2 = findViewById(R.id.editPhone2);
+                    editPhone3 = findViewById(R.id.editPhone3);
+                    editPhone4 = findViewById(R.id.editPhone4);
+                    addPhoneCheck =1;
+                    break;
                 case R.id.btn_backToViewPeople: // view로 돌아가기
                     //finish();
                     intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
@@ -272,11 +293,47 @@ public class ModifyPeopleActivity extends Activity {
     };
 
     // people Update data 송부
-    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, String phoneno, String phonetel){
+    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, ArrayList<Integer> phoneno, ArrayList<String> phonetel){
         String urlAddr1 = "";
-//        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
-        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
-        connectUpdateData(urlAddr1);
+      //  urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
+       peoplename = editName.getText().toString();
+       peopleemail = editEmail.getText().toString();
+       peoplememo = editMemo.getText().toString();
+        // 순서 4. peopleno랑 전화번호 정보 insert
+        strUpdatePhoneMain = editPhone.getText().toString();
+        totalPhoneNo.add(strUpdatePhoneMain);
+
+        if(addPhoneCheck == 1) {
+            if (editPhone.getText().toString().length() != 0) {
+                strUpdatePhone1 = editPhone.getText().toString();
+                totalPhoneNo.add(strUpdatePhone1);
+            }
+            if (editPhone2.getText().toString().length() != 0) {
+                strUpdatePhone2 = editPhone2.getText().toString();
+                totalPhoneNo.add(strUpdatePhone2);
+            }
+            if (editPhone3.getText().toString().length() != 0) {
+                strUpdatePhone3 = editPhone3.getText().toString();
+                totalPhoneNo.add(strUpdatePhone3);
+            }
+            if (editPhone4.getText().toString().length() != 0) {
+                strUpdatePhone4 = editPhone4.getText().toString();
+                totalPhoneNo.add(strUpdatePhone4);
+            }
+        }
+
+        for (int i = 0; i<totalPhoneNo.size();i++){
+            urlUpdatePhonenumber = "http://"+macIP+":8080/test/people_query_Update.jsp?";
+            Log.v(TAG, "TelNo insert : "+totalPhoneNo.get(i));
+            urlUpdatePhonenumber = urlUpdatePhonenumber+"people_peopleno="+peopleno+"&totalPhoneNo="+totalPhoneNo.get(i);
+            connectUpdateData(urlUpdatePhonenumber);
+            if(phoneUpdate.equals("1")){
+                phoneUpdateResult++;
+            }
+        }
+
+       // urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
+
 
 
 //        if(result.equals("1")){
@@ -288,7 +345,7 @@ public class ModifyPeopleActivity extends Activity {
         //finish();
 
     } // people Delete data 송부
-    private void deletePeople(String peopleno, String phoneno){
+    private void deletePeople(String peopleno, ArrayList<Integer> phoneno){
 
         String urlAddr1 = "";
         String urlAddr3 = "";

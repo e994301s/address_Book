@@ -6,7 +6,6 @@
 	String peopleno = request.getParameter("no");
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
-	String relation = "친구";
 	String memo = request.getParameter("memo");
 	String phonetel = request.getParameter("phonetel");
 	String phoneno = request.getParameter("phoneno");
@@ -24,16 +23,15 @@
 	
 		
 		String A = "UPDATE people INNER JOIN phone ON peopleno = people_peopleno";
-		String B = " SET people.peoplename = ?, people.peopleemail = ?, people.peoplerelation = ?, people.peoplememo = ?, phone.phonetel = ?";
+		String B = " SET people.peoplename = ?, people.peopleemail = ?, people.peoplememo = ?, phone.phonetel = ?";
 		String C = " WHERE phoneno = ?"; 
 	
 	    ps = conn_mysql.prepareStatement(A+B+C);
 	    ps.setString(1, name);
 	    ps.setString(2, email);
-	    ps.setString(3, relation);
-		ps.setString(4, memo);
-		ps.setString(5, phonetel);
-		ps.setInt(6, Integer.parseInt(phoneno));
+		ps.setString(3, memo);
+		ps.setString(4, phonetel);
+		ps.setInt(5, Integer.parseInt(phoneno));
 	    
 	    ps.executeUpdate();
 	
