@@ -159,7 +159,7 @@ public class FindIDActivity extends Activity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.backBtn_findId:
-                    countDownTimer.cancel();
+                    //countDownTimer.cancel();
                     finish();
                     break;
 

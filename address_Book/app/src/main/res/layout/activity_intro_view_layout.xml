@@ -58,7 +58,7 @@
                 android:layout_gravity="right|center"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="10dp"
-                android:text="다시 안보기"
+                android:text="다시 보지 않기"
                 android:textSize="10dp"/>
          </LinearLayout>
 

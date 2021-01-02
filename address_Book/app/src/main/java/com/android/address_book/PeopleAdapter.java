@@ -99,7 +99,7 @@ public class PeopleAdapter extends BaseAdapter {
         webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
         img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
-
+        
 
         if(Integer.parseInt(data.get(position).getFavorite()) == 1 ) { // 즐겨찾기 적용되었을 때
             img_favoirteImg.setImageResource(R.drawable.ic_favorite);

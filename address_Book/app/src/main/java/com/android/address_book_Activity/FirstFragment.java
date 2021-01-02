@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,7 @@ public class FirstFragment extends Fragment {
     String peopleNum;
     ArrayList<People> searchArr;
     EditText search_EdT;
+    WebView webView;
 
 
     @Override
