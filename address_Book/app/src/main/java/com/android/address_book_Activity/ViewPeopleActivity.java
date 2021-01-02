@@ -100,11 +100,6 @@ public class ViewPeopleActivity extends Activity {
         //phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
 
-
-
-
-
-
 //        peoplename = intent.getStringExtra("peoplename");
 //        peopleemail = intent.getStringExtra("peopleemail");
 //        useremail = intent.getStringExtra("useremail");
@@ -217,13 +212,7 @@ public class ViewPeopleActivity extends Activity {
                     // List에서 받아온 파라미터 넘겨주기!!!!!!!!!!!!!!!
                     // peopleno & phoneno
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
-//                    intent.putExtra("peoplename", peoplename); //값 넘겨주기
-                      intent.putExtra("useremail", useremail); //값 넘겨주기
-//                    intent.putExtra("peoplerelation", peoplerelation); //값 넘겨주기
-//                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
-//                    intent.putExtra("peopleimage", peopleimage); //값 넘겨주기
-//                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
-
+                    intent.putExtra("useremail", useremail); //값 넘겨주기
 
                     startActivity(intent);
                     break;
@@ -254,22 +243,13 @@ public class ViewPeopleActivity extends Activity {
 
         if (peoplefavorite.equals("0")) {
             btn_view_favorite.setImageResource(R.drawable.ic_nonfavorite);
-
         } else if(peoplefavorite.equals("1")) {
-//            urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite="+peoplefavorite+"&peopleno=" + peopleno;
-//            String result = connectCheckData(urlAddr1);
             btn_view_favorite.setImageResource(R.drawable.ic_favorite);
         }
         if (peopleemg.equals("0")) {
-//            urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg="+peopleemg+"&peopleno=" + peopleno;
-//            String result = connectCheckData(urlAddr1);
             btn_view_emergency.setImageResource(R.drawable.ic_nonemg2);
-
         } else if(peopleemg.equals("1")) {
-//            urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg="+peopleemg+"&peopleno=" + peopleno;
-//            String result = connectCheckData(urlAddr1);
             btn_view_emergency.setImageResource(R.drawable.ic_emg2);
-
         }
     }
 

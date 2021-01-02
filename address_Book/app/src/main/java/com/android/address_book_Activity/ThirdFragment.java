@@ -45,6 +45,13 @@ public class ThirdFragment extends Fragment {
         search_EdT = v.findViewById(R.id.search_ET_Third);
 //        adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members);
 
+        macIP = "192.168.35.157";
+        email = "con@naver.com";
+        String urlAddr = "http://" + macIP + ":8080/test/";
+//        listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+        urlAddr1 = urlAddr + "favorite_people_query_all_no.jsp?email=con@naver.com";
+
+
 
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
@@ -82,6 +89,7 @@ public class ThirdFragment extends Fragment {
                 intent.putExtra("useremail", members.get(position).getUseremail());
                 intent.putExtra("phonetel", members.get(position).getTel());
                 intent.putExtra("macIP", macIP);
+
 
 
                 startActivity(intent);
