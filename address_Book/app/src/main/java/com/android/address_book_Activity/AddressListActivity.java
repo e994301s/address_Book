@@ -3,6 +3,7 @@ package com.android.address_book_Activity;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
@@ -56,20 +57,11 @@ import java.util.ArrayList;
 
 public class AddressListActivity extends AppCompatActivity {
 
-    final static String TAG = "SelectAllActivity";
-    String urlAddr = null;
+    final static String TAG = "AddressListActivity";
 
-    ArrayList<People> searchArr;
-    ArrayList<People> members;
-    PeopleAdapter adapter;
-    ListView listView;
     String macIP;
 
-
     String email;
-
-    EditText search_EdT;
-
 
     private BottomNavigationView mBottomNV;
 
@@ -80,47 +72,18 @@ public class AddressListActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        Intent intent = getIntent();
-        listView = findViewById(R.id.lv_student);
-
-
-
-
-        macIP = "192.168.35.157";
-        email = "con@naver.com";
-
-
-        urlAddr = "http://" + macIP + ":8080/test/";
-
-
-        search_EdT = findViewById(R.id.search_ET);
-
-
-        search_EdT.addTextChangedListener(new TextWatcher() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String text = search_EdT.getText().toString();
-                search(text);
+            public void onClick(View view) {
+                Intent intent = new Intent(AddressListActivity.this, RegisterPeopleActivity.class);
+                startActivity(intent);
             }
         });
+
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+        email = sf.getString("useremail","");
 
         mBottomNV = findViewById(R.id.nav_view);
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
@@ -132,14 +95,14 @@ public class AddressListActivity extends AppCompatActivity {
 
 //                switch (menuItem.getItemId()){
 //                    case R.id.navigation_1:
-//                        urlAddr2 = urlAddr + "people_query_all.jsp?email=qkr@naver.com";
+//                        urlAddr2 = urlAddr + "people_query_all.jsp?email="+email;
 //                        connectGetData(urlAddr2);
 //                        break;
 //
 //                    case R.id.navigation_2:
 //                        urlAddr4="";
 //                        String group1 = btnGroup1.getText().toString();
-//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email=qkr@naver.com&group=" + group1;
+//                        urlAddr4 = urlAddr + "group_people_query_all.jsp?email="+emaiol&group=" + group1;
 //                        connectGetData(urlAddr4);
 //                        break;
 //
@@ -155,8 +118,8 @@ public class AddressListActivity extends AppCompatActivity {
             }
         });
         mBottomNV.setSelectedItemId(R.id.navigation_1);
-        mBottomNV.setSelectedItemId(R.id.navigation_2);
-        mBottomNV.setSelectedItemId(R.id.navigation_3);
+//        mBottomNV.setSelectedItemId(R.id.navigation_2);
+//        mBottomNV.setSelectedItemId(R.id.navigation_3);
 
     }
 
@@ -187,20 +150,6 @@ public class AddressListActivity extends AppCompatActivity {
 //        }
 //    }
 
-    // 검색을 해주는 메소드
-    public void search(String charText) {
-        members.clear();    // 멤버에 있는 값을 초기화
-        if (charText.length() == 0) {
-            members.addAll(searchArr);   // 가져온 값을 비어있는 members에 넣는다
-        } else {
-            for (int i = 0; i < searchArr.size(); i++) {        // 검색할 내용만큼  검색을 한다
-                if (searchArr.get(i).getName().contains(charText)) {
-                    members.add(searchArr.get(i));
-                }
-            }
-        }
-        adapter.notifyDataSetChanged();  // 검색할때 매번 리셋해주는 역할을 한다.
-    }
 
 
 
@@ -220,14 +169,25 @@ public class AddressListActivity extends AppCompatActivity {
             if (id == R.id.navigation_1) {  // 메뉴 아이템 1번 선택
 
                 fragment = new FirstFragment();  // 프래그먼트 1번으로 이동
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
 
             } else if (id == R.id.navigation_2) {
 
                 fragment = new SecondFragment();
-
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
             } else {
 
                 fragment = new ThirdFragment();
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
             }
 
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
@@ -259,7 +219,7 @@ public class AddressListActivity extends AppCompatActivity {
                 LayoutInflater inflate = getLayoutInflater();
 
                 GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
-                customDialog.callFunction();
+                customDialog.callFunction(email, macIP);
 
 //                new AlertDialog.Builder(AddressListActivity.this)
 //                        .setTitle("그룹 추가")
@@ -288,18 +248,7 @@ public class AddressListActivity extends AppCompatActivity {
         }
     }
 
-    AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(AddressListActivity.this, ViewPeopleActivity.class);
-            intent.putExtra("peopleno", members.get(position).getNo());
-            intent.putExtra("useremail", members.get(position).getUseremail());
 
-            startActivity(intent);
-
-
-        }
-    };
 
 
 }

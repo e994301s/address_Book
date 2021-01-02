@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class JoinActivity extends Activity {
     Matcher match;
 
     EditText email, name, pw, pwCheck, phone;
-    ImageButton backBtn_join;
+    Button backBtn_join;
     TextView pwCheckMsg;
     String macIP, urlAddr;
     String emailInput = null;
@@ -70,7 +71,10 @@ public class JoinActivity extends Activity {
 
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
-        macIP = "192.168.219.154";
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+
+
         urlAddr = "http://" + macIP + ":8080/test/";
 
         TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);
@@ -86,7 +90,7 @@ public class JoinActivity extends Activity {
         phone = findViewById(R.id.phone_join);
         pwCheckMsg = findViewById(R.id.tv_pwCheckMsg_join);
         backBtn_join = findViewById(R.id.backBtn_join);
-        backBtn_join.setImageResource(R.drawable.ic_back);
+//        backBtn_join.setImageResource(R.drawable.ic_back);
 
 
         findViewById(R.id.backBtn_join).setOnClickListener(mClickListener);

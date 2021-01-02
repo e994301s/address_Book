@@ -3,13 +3,13 @@
 <%@page import="java.sql.*"%>        
 <%
 	request.setCharacterEncoding("utf-8");
-	int no = request.getParameter("peopleno");
-	String name = request.getParameter("peoplename");
-	String email = request.getParameter("peopleemail");
-	String relation = request.getParameter("peoplerelation");
-	String memo = request.getParameter("peoplememo");
+	String peopleno = request.getParameter("no");
+	String name = request.getParameter("name");
+	String email = request.getParameter("email");
+	String relation = "친구";
+	String memo = request.getParameter("memo");
 	String phonetel = request.getParameter("phonetel");
-	int phoneno = request.getParameter("phoneno");
+	String phoneno = request.getParameter("phoneno");
 		
 //------
 	String url_mysql = "jdbc:mysql://localhost/address?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
@@ -23,9 +23,9 @@
 	    Statement stmt_mysql = conn_mysql.createStatement();
 	
 		
-		String A = "UPDATE people INNER JOIN phone ON peopleno = people_peopleno"
-		String B = " SET people.peoplename = ?, people.peopleemail = ?, people.peoplerelation = ?, people.peoplememo = ?, phone.phonetel = ?
-		String C = " WHERE phoneno = ?; 
+		String A = "UPDATE people INNER JOIN phone ON peopleno = people_peopleno";
+		String B = " SET people.peoplename = ?, people.peopleemail = ?, people.peoplerelation = ?, people.peoplememo = ?, phone.phonetel = ?";
+		String C = " WHERE phoneno = ?"; 
 	
 	    ps = conn_mysql.prepareStatement(A+B+C);
 	    ps.setString(1, name);
@@ -33,7 +33,7 @@
 	    ps.setString(3, relation);
 		ps.setString(4, memo);
 		ps.setString(5, phonetel);
-		ps.setInt(6, phoneno)
+		ps.setInt(6, Integer.parseInt(phoneno));
 	    
 	    ps.executeUpdate();
 	

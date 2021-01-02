@@ -2,9 +2,11 @@ package com.android.address_book_Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -17,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.Task.CUDNetworkTask;
 import com.android.Task.NetworkTask;
 import com.android.Task.PeopleNetworkTask;
 import com.android.Task.SQLite;
@@ -45,7 +48,7 @@ public class ViewPeopleActivity extends Activity {
 
     final static String TAG = "ViewPeopleActivity";
     String urlAddr, urlAddr2 = null;
-    String IP; // MainActivity에서 넘겨줌
+    String macIP; // MainActivity에서 넘겨줌
     String useremail;
     String peoplename;
     String peopleemail;
@@ -54,7 +57,9 @@ public class ViewPeopleActivity extends Activity {
     String peopleimage;
     ArrayList<String> phonetel;
     String peopleno;
-    int phoneno, peoplefavorite, peopleemg;
+    ArrayList<Integer> phoneno;
+    String peoplefavorite;
+    String peopleemg;
     ArrayList<People> data = null;
     int result;
     Button btn_edit_addressView = null;
@@ -66,22 +71,38 @@ public class ViewPeopleActivity extends Activity {
     ArrayList<People> members;
     String urlImage;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_people);
 
         Intent intent = getIntent();
-        IP = intent.getStringExtra("IP");
+        macIP = intent.getStringExtra("macIP");
+
+        urlAddr = "http://" + macIP + ":8080/test/";
+
+
         urlImage = urlAddr;
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
-        phoneno = intent.getIntExtra("phoneno", 0);
+
+
+        urlAddr2 = urlAddr + "people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
+
+        // Task 연결
+        members = connectSelectedData(urlAddr2);
+
+
+        // get Data // set Text
+        phoneno = members.get(0).getPhoneno();
+
+        //phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
-        urlAddr = "http://192.168.35.157:8080/test/";
-        urlAddr2 = "http://192.168.35.157:8080/test/people_query_selected.jsp?email="+useremail+"&peopleno=" + peopleno;
+
+
+
+
 
 
 //        peoplename = intent.getStringExtra("peoplename");
@@ -101,34 +122,42 @@ public class ViewPeopleActivity extends Activity {
         iv_viewPeople=findViewById(R.id.iv_viewPeople);
         iv_viewPeople.getSettings().setJavaScriptEnabled(true);
         imageCheck();
-
         WebSettings webSettings = iv_viewPeople.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-// 화면 비율
+//
+        // 화면 비율
         webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
         webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-// 웹뷰 멀티 터치 가능하게 (줌기능)
-        webSettings.setBuiltInZoomControls(true);   // 줌 아이콘 사용
-        webSettings.setSupportZoom(true);
+        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        iv_viewPeople.setBackgroundColor(0); //배경색
+
+        iv_viewPeople.setHorizontalScrollBarEnabled(false); //가로 스크롤
+        iv_viewPeople.setVerticalScrollBarEnabled(false);   //세로 스크롤
+
+        iv_viewPeople.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+        iv_viewPeople.setScrollbarFadingEnabled(false);
+
+        // 웹뷰 멀티 터치 가능하게 (줌기능)
+        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+        webSettings.setSupportZoom(false);
 
 
-        // Task 연결
-        members = connectSelectedData(urlAddr2);
 
 
-        // get Data // set Text
         peoplename = members.get(0).getName();
         view_name = findViewById(R.id.view_name);
         view_name.setText(peoplename);
+      //  view_name.setText(Html.fromHtml("<u>"+ peoplename +"</u>"));
 
         phonetel = members.get(0).getTel();
         view_phone = findViewById(R.id.view_phone);
-        view_phone.setText((CharSequence) phonetel);
+        view_phone.setText(phonetel.get(0));
 
         peopleemail = members.get(0).getEmail();
         view_email = findViewById(R.id.view_email);
         view_email.setText(peopleemail);
+       // view_email.setText(Html.fromHtml("<u>"+ peopleemail +"</u>"));
+
 
         peoplerelation = members.get(0).getRelation();
         view_relation = findViewById(R.id.view_relation);
@@ -157,8 +186,12 @@ public class ViewPeopleActivity extends Activity {
         btn_view_message.setOnClickListener(OnclickListener);
         btn_view_favorite.setOnClickListener(OnclickListener);
         btn_view_emergency.setOnClickListener(OnclickListener);
-        favoriteCheck();
-        emergencyCheck();
+
+
+        peoplefavorite = members.get(0).getFavorite();
+        peopleemg = members.get(0).getEmergency();
+        onCreateFavoriteCheck();
+
 
     } // onCreate 끝 -----------------------------------------------------------------------
 
@@ -179,17 +212,17 @@ public class ViewPeopleActivity extends Activity {
                     break;
                 case R.id.btn_edit_addressView: // 연락처 수정/삭제 페이지로 이동
                     intent = new Intent(ViewPeopleActivity.this, ModifyPeopleActivity.class); //화면 이동시켜주기
-                    intent.putExtra("IP", IP); //값 넘겨주기
+                    intent.putExtra("macIP", macIP); //값 넘겨주기
 
                     // List에서 받아온 파라미터 넘겨주기!!!!!!!!!!!!!!!
                     // peopleno & phoneno
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
-                    intent.putExtra("peoplename", peoplename); //값 넘겨주기
-                    intent.putExtra("peopleemail", peopleemail); //값 넘겨주기
-                    intent.putExtra("peoplerelation", peoplerelation); //값 넘겨주기
-                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
-                    intent.putExtra("peopleimage", peopleimage); //값 넘겨주기
-                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
+//                    intent.putExtra("peoplename", peoplename); //값 넘겨주기
+                      intent.putExtra("useremail", useremail); //값 넘겨주기
+//                    intent.putExtra("peoplerelation", peoplerelation); //값 넘겨주기
+//                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
+//                    intent.putExtra("peopleimage", peopleimage); //값 넘겨주기
+//                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
 
 
                     startActivity(intent);
@@ -200,6 +233,7 @@ public class ViewPeopleActivity extends Activity {
                     break;
                 case R.id.btn_view_message: // 문자로 이동
                     Uri uri = Uri.parse("smsto:" + phonetel); // 상대방 번호 연결 → 값 받아서 연결 추가
+//                    Uri uri = Uri.parse("smsto:01012345678"); // 상대방 번호 연결 → 값 받아서 연결 추가
                     Intent it = new Intent(Intent.ACTION_SENDTO, uri);
                     it.putExtra("sms_body", "The SMS text");
                     startActivity(it);
@@ -215,6 +249,29 @@ public class ViewPeopleActivity extends Activity {
         }
     };
 
+    // 즐겨찾기 & emergency 1인지 0인지 판단
+    public void onCreateFavoriteCheck() {
+
+        if (peoplefavorite.equals("0")) {
+            btn_view_favorite.setImageResource(R.drawable.ic_nonfavorite);
+
+        } else if(peoplefavorite.equals("1")) {
+//            urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite="+peoplefavorite+"&peopleno=" + peopleno;
+//            String result = connectCheckData(urlAddr1);
+            btn_view_favorite.setImageResource(R.drawable.ic_favorite);
+        }
+        if (peopleemg.equals("0")) {
+//            urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg="+peopleemg+"&peopleno=" + peopleno;
+//            String result = connectCheckData(urlAddr1);
+            btn_view_emergency.setImageResource(R.drawable.ic_nonemg2);
+
+        } else if(peopleemg.equals("1")) {
+//            urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg="+peopleemg+"&peopleno=" + peopleno;
+//            String result = connectCheckData(urlAddr1);
+            btn_view_emergency.setImageResource(R.drawable.ic_emg2);
+
+        }
+    }
 
 
 
@@ -225,39 +282,37 @@ public class ViewPeopleActivity extends Activity {
         //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
 
          String urlAddr1 = "";
-         //urlAddr1 = urlAddr + "people_query_SelectFavorite.jsp?usremail=" + useremail + "&peopleno=" + peopleno;
 
-        if (peoplefavorite == 0) { // 0이라면 1로 세팅
+        if (peoplefavorite.equals("0")) { // 0이라면 1로 세팅
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=1&peopleno=" + peopleno;
-            String result = connectCheckData(urlAddr1);
-            peoplefavorite = 1;
+            connectCheckData(urlAddr1);
+            peoplefavorite = "1";
             btn_view_favorite.setImageResource(R.drawable.ic_favorite);
 
 
-            Toast.makeText(ViewPeopleActivity.this, peoplename + "이 즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ViewPeopleActivity.this, peoplename + "님이 즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT).show();
 
-        } else if(peoplefavorite == 1) { // 이미 있다면 0으로 세팅
+        } else if(peoplefavorite.equals("1")) { // 이미 있다면 0으로 세팅
             urlAddr1 = urlAddr + "people_query_Favorite.jsp?peoplefavorite=0&peopleno=" + peopleno;
-            String result = connectCheckData(urlAddr1);
-            peoplefavorite = 0;
+            connectCheckData(urlAddr1);
+            peoplefavorite = "0";
             btn_view_favorite.setImageResource(R.drawable.ic_nonfavorite);
 
 
-            Toast.makeText(ViewPeopleActivity.this, peoplename + "이 즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ViewPeopleActivity.this, peoplename + "님이 즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
         //connection FavoriteCheck Data
-        private String connectCheckData (String urlAddr1){
+        private void connectCheckData (String urlAddr1){
             String result = null;
             try {
-                NetworkTask insertNetworkTask = new NetworkTask(ViewPeopleActivity.this, urlAddr, "favoriteCount");
-                Object obj = insertNetworkTask.execute().get();
-                result = (String) obj;
+                CUDNetworkTask insertNetworkTask = new CUDNetworkTask(ViewPeopleActivity.this, urlAddr1, "favoriteCount");
+                insertNetworkTask.execute().get();
+//                result = (String) obj;
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
         }
 
 
@@ -266,47 +321,29 @@ public class ViewPeopleActivity extends Activity {
         //int result = 0;
         // INTENT 받아온 값 추가
         //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
-
         String urlAddr1 = "";
        // urlAddr1 = urlAddr + "people_query_SelectEmergency.jsp?usremail=" + useremail + "&peopleno=" + peopleno;
 
-
-        if (peopleemg == 0) { // 0이라면 1로 세팅
+        if (peopleemg.equals("0")) { // 0이라면 1로 세팅
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=1&peopleno=" + peopleno;
-            peopleemg = 1;
+            peopleemg = "1";
             btn_view_emergency.setImageResource(R.drawable.ic_emg2);
-
-            String result = connectEmgCheckData(urlAddr1);
+            connectCheckData(urlAddr1);
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "이 긴급연락처에 등록되었습니다.", Toast.LENGTH_SHORT).show();
 
-        } else if(peopleemg ==1) { // 이미 있다면 0으로 세팅
+        } else if(peopleemg.equals("1")) { // 이미 있다면 0으로 세팅
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=0&peopleno=" + peopleno;
-            String result = connectEmgCheckData(urlAddr1);
-            peopleemg = 0;
+            connectCheckData(urlAddr1);
+            peopleemg = "0";
             btn_view_emergency.setImageResource(R.drawable.ic_nonemg2);
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "이 긴급연락처에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    //connection Emergency Check Data
-    private String connectEmgCheckData (String urlAddr){
-        String result = null;
 
-        try {
-            NetworkTask insertNetworkTask = new NetworkTask(ViewPeopleActivity.this, urlAddr, "emergencyCount");
-            Object obj = insertNetworkTask.execute().get();
-            result = (String) obj;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        return result;
-    }
-
-
+    // 이미지 불러오기
     public void imageCheck() {
         // INTENT 받아온 값 추가
         //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
@@ -319,7 +356,7 @@ public class ViewPeopleActivity extends Activity {
         if (peopleimage == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            urlImage = urlImage+"ic_defaultpeople.png";
+            urlImage = urlImage+"ic_defaultpeople.jpg";
             iv_viewPeople.loadUrl(urlImage);
             iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
@@ -335,7 +372,7 @@ public class ViewPeopleActivity extends Activity {
             iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
         }
     }
-    static class WebViewClientClass extends WebViewClient {//페이지 이동
+    public static class WebViewClientClass extends WebViewClient {//페이지 이동
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);

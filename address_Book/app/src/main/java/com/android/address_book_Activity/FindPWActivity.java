@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -67,7 +68,9 @@ public class FindPWActivity extends Activity {
                 .permitDiskWrites()
                 .permitNetwork().build());
 
-        macIP = "192.168.219.154";
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+
         urlAddr = "http://" + macIP + ":8080/test/";
 
         name = findViewById(R.id.name_findPw);

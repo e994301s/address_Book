@@ -15,9 +15,11 @@
         <Button
             android:id="@+id/backBtn_findId"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="left|center"
             android:layout_margin="20dp"
+            android:background="@drawable/main_bg"
+            android:textColor="@color/white"
             android:text="back" />
 
         <TextView
@@ -96,6 +98,9 @@
         android:layout_gravity="left|center"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:background="@drawable/main_bg"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="인증번호 전송" />
 
     <LinearLayout

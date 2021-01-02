@@ -15,9 +15,10 @@
         <Button
             android:id="@+id/backBtn_changePW2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="left|center"
             android:layout_margin="20dp"
+            android:background="@drawable/main_bg"
             android:text="back" />
 
         <TextView
@@ -94,10 +95,11 @@
 
     <Button
         android:id="@+id/btnNextChangePW_changePW2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left|center"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:background="@drawable/main_bg"
         android:text="확 인" />
 </LinearLayout>

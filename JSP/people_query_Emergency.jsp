@@ -4,8 +4,8 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	int result = 0;
-	int peopleemg = request.getParameter("peoplefavorite");
-	int peopleno = request.getParameter("peopleno");
+	String peopleemg = request.getParameter("peopleemg");
+	String peopleno = request.getParameter("peopleno");
 		
 //------
 	String url_mysql = "jdbc:mysql://localhost/address?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
@@ -18,24 +18,19 @@
 	    Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 		Statement stmt_mysql = conn_mysql.createStatement();
 		
-		String A = "UPDATE status SET peopleemg = ? WHERE people_peopleno = ?";
+		String A = "UPDATE statuspeople SET peopleemg = ? WHERE people_peopleno = ?";
 
 		ps = conn_mysql.prepareStatement(A);
-		ps.setString(1, peopleemg);
-		ps.setInt(2, no);
-		
-		resultSet = ps.executeQuery();
-					
-		if (resultSet.next()) {
-			result = resultSet.getInt(1);
-		}
+		ps.setInt(1, Integer.parseInt(peopleemg));
+		ps.setInt(2, Integer.parseInt(peopleno));
+		ps.executeUpdate();
 	    conn_mysql.close();
 	} 
 	
 	catch (Exception e){
 	    e.printStackTrace();
 	}
-	return result;
+	
 	
 %>
 

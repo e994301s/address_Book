@@ -46,11 +46,11 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
     @Override
     protected void onPreExecute() {
         Log.v(TAG, "onPreExecute()");
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Create/Update/Delete");
-        progressDialog.setMessage("Working ....");
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setTitle("Create/Update/Delete");
+//        progressDialog.setMessage("Working ....");
+//        progressDialog.show();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
     protected void onPostExecute(Object o) {
         Log.v(TAG, "onPostExecute()");
         super.onPostExecute(o);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     @Override
@@ -104,12 +104,16 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
                 if(where.equals("Register")){
                     result = parserRegister(stringBuffer.toString());
                 }
-//                if(where.equals("deletePeople")){
-//                    parserDeletePeople(stringBuffer.toString());
-//                }
-//                if(where.equals("favoriteCount")){
-//                    parserfavoriteCheck(stringBuffer.toString());
-//                }else{
+                if(where.equals("modifyPeople")){
+                    parserModifyPeople(stringBuffer.toString());
+                }
+                if(where.equals("favoriteCount")){
+                    parserfavoriteCheck(stringBuffer.toString());
+                }
+                if(where.equals("deletePeople")){
+                    parserDeletePeople(stringBuffer.toString());
+                }
+//                else{
 //                    result = parserAction(stringBuffer.toString());
 //                }
 
@@ -132,8 +136,11 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
            return result;
 
         }
-//        else if(where.equals("deletePeople")){
-//           // return people;
+        if(where.equals("modifyPeople")){
+            return null;}
+
+        if(where.equals("deletePeople")){
+            return null;}
 
         if(where.equals("favoriteCount")) {
             return favoriteCheck;
@@ -166,32 +173,37 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
     }
 
     // delete action
-    private String parserDeletePeople(String s){
-        Log.v(TAG,"parserDeletePeople()");
-        String returnResult = null;
+    private void parserDeletePeople(String s){
+//        Log.v(TAG,"parserDeletePeople()");
+//        String returnResult = null;
 
         try{
-            JSONObject jsonObject = new JSONObject(s);
-            returnResult = jsonObject.getString("result");
-            Log.v(TAG, returnResult);
+//            JSONObject jsonObject = new JSONObject(s);
+//            returnResult = jsonObject.getString("result");
+//            Log.v(TAG, returnResult);
 
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        return returnResult;
+//        return returnResult;
     }
 
-    private void favoriteCheck(String s){
+    private void parserfavoriteCheck(String s){
         try {
-
+            JSONObject jsonObject = new JSONObject(s);
 
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
+    private void parserModifyPeople(String s){
+        try {
 
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

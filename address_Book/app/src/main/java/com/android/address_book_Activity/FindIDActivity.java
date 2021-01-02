@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
@@ -71,6 +72,7 @@ public class FindIDActivity extends Activity {
     //String SMSContents = "1234";
     String smsCode = createSMSCode();
 
+
     /*카운트 다운 타이머에 관련된 필드*/
 
     TextView time_counter; //시간을 보여주는 TextView
@@ -107,7 +109,9 @@ public class FindIDActivity extends Activity {
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
 
-        macIP = "192.168.219.154";
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+
         urlAddr = "http://" + macIP + ":8080/test/";
 
         name = findViewById(R.id.name_findId);
@@ -199,7 +203,7 @@ public class FindIDActivity extends Activity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            fieldCheck.setText("");
+            //fieldCheck.setText("");
             _afterLenght = s.length();
             // 삭제 중
             if (_beforeLenght > _afterLenght) {
@@ -255,8 +259,9 @@ public class FindIDActivity extends Activity {
            fieldCheck.setText("휴대폰 번호을 입력해주세요");
            phone.setFocusableInTouchMode(true);
            phone.requestFocus();
+
        } else{
-           fieldCheck.setText("");
+           //fieldCheck.setText("");
            String phoneCheck =phone.getText().toString().trim();
            boolean flag = Pattern.matches(pattern2, phoneCheck);
 
@@ -266,7 +271,6 @@ public class FindIDActivity extends Activity {
                phone.requestFocus();
 
            } else {
-               fieldCheck.setText("");
                urlAddr = urlAddr + "user_query_all.jsp?name=" + userName + "&phone=" + userPhone;
                users = connectSelectData(urlAddr);
 
@@ -277,15 +281,17 @@ public class FindIDActivity extends Activity {
                    }
                }
                Log.v(TAG, Integer.toString(count));
+
                if (count == 0) {
-                   fieldCheck.setText("일치하는 정보가 없습니다. \n이름 또는 휴대폰 번호를 다시 입력해주세요");
                    name.setText("");
                    phone.setText("");
+                   fieldCheck.setText("일치하는 정보가 없습니다. \n이름 또는 휴대폰 번호를 다시 입력해주세요");
+
                } else {
                    //sendSMS(userPhone, "[1234] 발송");
                    sendMessage(userPhone);
                    countDownTimer();
-                   fieldCheck.setText("");
+                   //fieldCheck.setText("");
                    layoutSMS.setVisibility(View.VISIBLE);
                    Toast.makeText(FindIDActivity.this, "문자 발송하였습니다.", Toast.LENGTH_SHORT).show();
 

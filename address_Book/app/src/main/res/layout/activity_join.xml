@@ -9,17 +9,14 @@
     tools:context="com.android.address_book_Activity.JoinActivity">
 
 
-    <ImageButton
+    <Button
         android:id="@+id/backBtn_join"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:maxHeight="70dp"
-        android:maxWidth="70dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:backgroundTint="#FFFFFF"
-        />
+        android:layout_height="40dp"
+        android:layout_gravity="left|center"
+        android:background="@drawable/main_bg"
+        android:textColor="@color/white"
+        android:text="back" />
 
     <TextView
         android:layout_width="match_parent"
@@ -93,12 +90,16 @@
             <Button
                 android:id="@+id/btnEmailCheck_join"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="중복 체크"
+                android:textSize="10dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/main_bg"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 />
 
         </LinearLayout>
@@ -208,9 +209,13 @@
     </ScrollView>
        <Button
             android:id="@+id/submitBtn_join"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
+            android:background="@drawable/main_bg"
+            android:textStyle="bold"
+           android:layout_marginBottom="5dp"
+           android:textColor="@color/white"
             android:text="가입" />
 
 </LinearLayout>
