@@ -333,7 +333,7 @@ public class ViewPeopleActivity extends Activity {
 
        // if (peopleimage.length() == 0) {
 //        if (peopleimage.equals("null")) {
-        if (peopleimage == null) {
+        if (members.get(0).getImage() == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
             urlImage = urlImage+"ic_defaultpeople.jpg";
@@ -343,7 +343,7 @@ public class ViewPeopleActivity extends Activity {
 
 //        } else if(peopleimage.length() != 0) {
        // } else if(peopleimage.equals("!=null")) {
-        } else if(peopleimage != null) {
+        } else if(members.get(0).getImage() != null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
            // peopleimage = members.get(0).getImage();
