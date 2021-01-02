@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -79,6 +80,7 @@ public class FirstFragment extends Fragment {
 
         urlAddrBase = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddrBase + "people_query_all_no.jsp?email=" + email;
+
 
         // 리스트 일반 클릭시
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

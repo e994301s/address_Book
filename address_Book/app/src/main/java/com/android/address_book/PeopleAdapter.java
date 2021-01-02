@@ -2,6 +2,7 @@ package com.android.address_book;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,26 @@ public class PeopleAdapter extends BaseAdapter {
         ImageView img_emgImg = convertView.findViewById(R.id.imgEmg_custom);
 
 
+
+        WebSettings wsetting = img_peopleImg.getSettings();
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//        {// https 이미지.
+//            wsetting.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+//        }
+//        img_peopleImg.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        img_peopleImg.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        img_peopleImg.setWebViewClient(new WebViewClient());
+        img_peopleImg.setWebChromeClient(new WebChromeClient());
+        img_peopleImg.setNetworkAvailable(true);
+
+        //// Sets whether the DOM storage API is enabled.
+        img_peopleImg.getSettings().setDomStorageEnabled(true);
+
+
+
         img_peopleImg.getSettings().setJavaScriptEnabled(true);
+     
+
         if(data.get(position).getImage().equals("null")){
             urlImageReal = urlImage+"ic_defaultpeople.jpg";
             img_peopleImg.loadUrl(urlImageReal);
@@ -90,6 +110,16 @@ public class PeopleAdapter extends BaseAdapter {
             img_peopleImg.loadUrl(urlImageReal);
             img_peopleImg.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             img_peopleImg.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                img_peopleImg.getSettings().setMixedContentMode ( WebSettings.MIXED_CONTENT_ALWAYS_ALLOW );
+            }
+            img_peopleImg.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//            {// https 이미지.
+//                wsetting.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+//            }
+
         }
         tv_name.setText(data.get(position).getName());
         WebSettings webSettings = img_peopleImg.getSettings();
@@ -98,8 +128,13 @@ public class PeopleAdapter extends BaseAdapter {
         webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
         webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
         img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        img_peopleImg.setHorizontalScrollBarEnabled(false); //가로 스크롤
+        img_peopleImg.setVerticalScrollBarEnabled(false);   //세로 스크롤
 
-        
+        img_peopleImg.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+        img_peopleImg.setScrollbarFadingEnabled(false);
+
+
 
         if(Integer.parseInt(data.get(position).getFavorite()) == 1 ) { // 즐겨찾기 적용되었을 때
             img_favoirteImg.setImageResource(R.drawable.ic_favorite);
