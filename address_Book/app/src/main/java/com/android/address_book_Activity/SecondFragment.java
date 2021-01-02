@@ -96,7 +96,6 @@ public class SecondFragment extends Fragment {
         // 그룹별 horizontal 셋팅
         connectGetData(urlAddr1);
         connectGroupGetData(urlAddr2);
-        groups = connectGroupGetData(urlAddr2);
 
         ll = v.findViewById(R.id.ll_01_group);
         tvs = new Button[groups.size() + 3];
@@ -158,9 +157,9 @@ public class SecondFragment extends Fragment {
                     urlAddr3 = urlAddrBase + "group_people_query_all.jsp?email=" + email + "&group=" + groupName;;
                     Log.v("here", urlAddr3);
                     connectGetData(urlAddr3);
+                    adapter.notifyDataSetChanged();
                 }
             }
-
         }
     };
 
@@ -182,8 +181,6 @@ public class SecondFragment extends Fragment {
             Log.v("here", "" + members);
             adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddrBase); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
