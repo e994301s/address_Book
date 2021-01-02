@@ -5,7 +5,7 @@
 	request.setCharacterEncoding("utf-8");
 	String peoplename = request.getParameter("peoplename");
 	String peopleemail = request.getParameter("peopleemail");
-	String peoplerelation = "k";
+	String peoplerelation = request.getParameter("peoplerelation");
     String peoplememo = request.getParameter("peoplememo");	
     String peopleimage = request.getParameter("peopleimage");	
 		
