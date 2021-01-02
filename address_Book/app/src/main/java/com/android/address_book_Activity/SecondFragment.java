@@ -65,13 +65,11 @@ public class SecondFragment extends Fragment {
 
         // listView와 Ip, jsp를 불러온다
         listView = v.findViewById(R.id.lv_group);
-<<<<<<< HEAD
+
         macIP = "192.168.35.157";
         email = "con@naver.com";
         urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "group_people_query_all.jsp?email=con@naver.com";
-=======
->>>>>>> 82c1e1c28ab013faea6c550e56034d31bbc3fd49
 
 
         email = getArguments().getString("useremail");
