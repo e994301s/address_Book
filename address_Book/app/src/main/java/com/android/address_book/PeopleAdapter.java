@@ -85,7 +85,7 @@ public class PeopleAdapter extends BaseAdapter {
             img_peopleImg.setClickable(false);
             img_peopleImg.getSettings().setJavaScriptEnabled(false);
             if (img_peopleImg != null)
-                img_peopleImg.loadUrl("http://이미지경로");
+                img_peopleImg.loadUrl(urlImageReal);
 
             //img_peopleImg.setImageResource(R.drawable.ic_defaultpeople);
 
@@ -94,16 +94,15 @@ public class PeopleAdapter extends BaseAdapter {
 
             urlImageReal = urlImage + data.get(position).getImage();
 
-            img_peopleImg.loadUrl(urlImageReal);
-            img_peopleImg.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
-            img_peopleImg.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
+            //img_peopleImg.loadUrl(urlImageReal);
 
             img_peopleImg.setFocusable(false);
             img_peopleImg.setClickable(false);
             img_peopleImg.getSettings().setJavaScriptEnabled(false);
             if (img_peopleImg != null)
-                img_peopleImg.loadUrl("http://이미지경로");
-
+                img_peopleImg.loadUrl(urlImageReal);
+            img_peopleImg.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
+            img_peopleImg.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
