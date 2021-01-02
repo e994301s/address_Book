@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class SecondFragment extends Fragment {
 
     final static String TAG = "SelectAllActivity";
-    String urlAddr = null;
+    String urlAddrBase = null;
     String urlAddr1 = null;
     String urlAddr2 = null;
     String urlAddr3 = null;
@@ -45,7 +45,7 @@ public class SecondFragment extends Fragment {
     String email, groupName;
     Button btnGroup1, btnGroup2, btnGroup3, btnGroup4;
     HorizontalScrollView horizontalScrollView;
-    ArrayList<People> searchArr;
+    ArrayList<People> searchArrG;
     EditText search_EdT;
 
     private LinearLayout ll;
@@ -77,9 +77,9 @@ public class SecondFragment extends Fragment {
 
         groupName = "가족";
 
-        urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + groupName;
-        urlAddr2 = urlAddr + "group_query_all.jsp?email=" + email;
+        urlAddrBase = "http://" + macIP + ":8080/test/";
+        urlAddr1 = urlAddrBase + "group_people_query_all.jsp?email=" + email + "&group=" + groupName;
+        urlAddr2 = urlAddrBase + "group_query_all.jsp?email=" + email;
 //        groupList = v.findViewById(R.id.lv_group_frg);
         horizontalScrollView = v.findViewById(R.id.hsv_01_group);
 
@@ -155,7 +155,7 @@ public class SecondFragment extends Fragment {
                     Log.v("here", Integer.toString(tvs[i].getId()));
                     String groupName = tvs[i].getText().toString();
                     Log.v("here", groupName);
-                    urlAddr3 = urlAddr + "group_people_query_all.jsp?email=" + email + "&group=" + groupName;;
+                    urlAddr3 = urlAddrBase + "group_people_query_all.jsp?email=" + email + "&group=" + groupName;;
                     Log.v("here", urlAddr3);
                     connectGetData(urlAddr3);
                 }
@@ -180,7 +180,7 @@ public class SecondFragment extends Fragment {
             Object obj = peopleNetworkTask.execute().get();
             members = (ArrayList<People>) obj;
             Log.v("here", "" + members);
-            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members); // 아댑터에 값을 넣어준다.
+            adapter = new PeopleAdapter(getContext(), R.layout.people_custom_layout, members, urlAddrBase); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
 
 

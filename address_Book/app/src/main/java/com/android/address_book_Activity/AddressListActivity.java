@@ -181,7 +181,7 @@ public class AddressListActivity extends AppCompatActivity {
                 bundle.putString("useremail", email);
                 bundle.putString("macIP", macIP);
                 fragment.setArguments(bundle);
-            } else {
+            } else if (id == R.id.navigation_3){
 
                 fragment = new ThirdFragment();
                 Bundle bundle = new Bundle(2);
