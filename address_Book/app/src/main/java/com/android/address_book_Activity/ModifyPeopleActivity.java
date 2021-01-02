@@ -72,8 +72,8 @@ public class ModifyPeopleActivity extends Activity {
     String peoplerelation;
     String peoplememo;
     String peopleimage;
-    ArrayList<String> phonetel;
-    ArrayList<Integer> phoneno;
+    String phonetel;
+    String phoneno;
 //    int phoneno;
     Spinner edit_spinner_relation;
     Button btn_updatePeople;
@@ -116,6 +116,11 @@ public class ModifyPeopleActivity extends Activity {
 
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
+        phoneno = intent.getStringExtra("phoneno");
+        peoplename = intent.getStringExtra("peoplename");
+        peopleemail = intent.getStringExtra("peopleemail");
+        phonetel = intent.getStringExtra("phonetel");
+        peoplememo= intent.getStringExtra("peoplememo");
 
 
         urlAddr2 = urlAddr + "people_query_all_no.jsp?email="+useremail+"&peopleno=" + peopleno;
@@ -124,14 +129,14 @@ public class ModifyPeopleActivity extends Activity {
         members = connectSelectedData(urlAddr2);
 
         // get Data // set Text
-        phoneno = members.get(0).getPhoneno();
+        //phoneno = members.get(0).getPhoneno();
 
 
         // 사진 연결
         url = "http://"+macIP+":8080/test/multipartRequest.jsp";
 
         tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
-        editImage.setOnClickListener(onClickListener);
+//        editImage.setOnClickListener(onClickListener);
         tv_editPeopleImage.setOnClickListener(onClickListener);
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -141,49 +146,50 @@ public class ModifyPeopleActivity extends Activity {
 
 
 
-        // get Data // set Text
-        peoplename = members.get(0).getName();
-        editName = findViewById(R.id.edit_peopleName);
+//        // get Data // set Text
+//        peoplename = members.get(0).getName();
+//        editName = findViewById(R.id.edit_peopleName);
         editName.setText(peoplename);
-
-        phonetel = members.get(0).getTel();
-        editPhone = findViewById(R.id.edit_peoplePhone);
-        editPhone.setText(phonetel.get(0));
-
-        peopleemail = members.get(0).getEmail();
-        editEmail = findViewById(R.id.edit_peopleEmail);
+//
+//        phonetel = members.get(0).getTel();
+//        editPhone = findViewById(R.id.edit_peoplePhone);
+//        editPhone.setText(phonetel.get(0));
+        editPhone.setText(phonetel);
+//
+//        peopleemail = members.get(0).getEmail();
+//        editEmail = findViewById(R.id.edit_peopleEmail);
         editEmail.setText(peopleemail);
-
-//        peoplerelation = members.get(0).getRelation();
-//        view_relation = findViewById(R.id.view_relation);
-//        view_relation.setText(peoplerelation);
-
-        peoplememo = members.get(0).getMemo();
-        editMemo = findViewById(R.id.edit_peopleMemo);
+//
+////        peoplerelation = members.get(0).getRelation();
+////        view_relation = findViewById(R.id.view_relation);
+////        view_relation.setText(peoplerelation);
+//
+//        peoplememo = members.get(0).getMemo();
+//        editMemo = findViewById(R.id.edit_peopleMemo);
         editMemo.setText(peoplememo);
-
-        // Web View에 이미지 띄움
-        editImage = findViewById(R.id.iv_editPeopleImage);
-        editImage.getSettings().setJavaScriptEnabled(true);
-        imageCheck();
-        WebSettings webSettings = editImage.getSettings();
-
-        // 화면 비율
-        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
-        editImage.setBackgroundColor(0); //배경색
-
-        editImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
-        editImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
-
-        editImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-        editImage.setScrollbarFadingEnabled(false);
-
-        // 웹뷰 멀티 터치 가능하게 (줌기능)
-        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
-        webSettings.setSupportZoom(false);
+//
+//        // Web View에 이미지 띄움
+//        editImage = findViewById(R.id.iv_editPeopleImage);
+//        editImage.getSettings().setJavaScriptEnabled(true);
+//        imageCheck();
+//        WebSettings webSettings = editImage.getSettings();
+//
+//        // 화면 비율
+//        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+//        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+//        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//
+//        editImage.setBackgroundColor(0); //배경색
+//
+//        editImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
+//        editImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
+//
+//        editImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+//        editImage.setScrollbarFadingEnabled(false);
+//
+//        // 웹뷰 멀티 터치 가능하게 (줌기능)
+//        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+//        webSettings.setSupportZoom(false);
 
 
 
@@ -207,12 +213,12 @@ public class ModifyPeopleActivity extends Activity {
             Intent intent;
             switch (v.getId()){
                 case R.id.btn_backToViewPeople: // view로 돌아가기
-                    finish();
-//                    intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
-//                    intent.putExtra("IP", IP); //값 넘겨주기
-//                    intent.putExtra("peopleno", peopleno); //값 넘겨주기
-//                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
-//                    startActivity(intent); //이동시킨 화면 시작
+                    //finish();
+                    intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
+                    intent.putExtra("macIP", macIP); //값 넘겨주기
+                    intent.putExtra("peopleno", peopleno); //값 넘겨주기
+                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
+                    startActivity(intent); //이동시킨 화면 시작
                     break;
                 case R.id.btn_updatePeople: // update
                     // 순서 1. 네트워크 연결 및 이미지 서버에 전송, 이미지 이름 저장
@@ -266,9 +272,10 @@ public class ModifyPeopleActivity extends Activity {
     };
 
     // people Update data 송부
-    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, ArrayList<Integer> phoneno, ArrayList<String> phonetel){
+    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, String phoneno, String phonetel){
         String urlAddr1 = "";
-        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
+//        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
+        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
         connectUpdateData(urlAddr1);
 
 
@@ -281,7 +288,7 @@ public class ModifyPeopleActivity extends Activity {
         //finish();
 
     } // people Delete data 송부
-    private void deletePeople(String peopleno, ArrayList<Integer> phoneno){
+    private void deletePeople(String peopleno, String phoneno){
 
         String urlAddr1 = "";
         String urlAddr3 = "";
@@ -341,7 +348,7 @@ public class ModifyPeopleActivity extends Activity {
 
         // if (peopleimage.length() == 0) {
 //        if (peopleimage.equals("null")) {
-        if (peopleimage == null) {
+        if (members.get(0).getImage() == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
             urlImage = urlImage+"ic_defaultpeople.jpg";
@@ -351,10 +358,10 @@ public class ModifyPeopleActivity extends Activity {
 
 //        } else if(peopleimage.length() != 0) {
             // } else if(peopleimage.equals("!=null")) {
-        } else if(peopleimage != null) {
+        } else if(members.get(0).getImage() != null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            urlImage = urlImage + peopleimage;
+            urlImage = urlImage + members.get(0).getImage();
             editImage.loadUrl(urlImage);
             editImage.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             editImage.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용

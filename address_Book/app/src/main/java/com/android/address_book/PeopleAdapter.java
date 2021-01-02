@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.BaseAdapter;
@@ -63,7 +64,6 @@ public class PeopleAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
 
-
         if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
         }
@@ -74,12 +74,18 @@ public class PeopleAdapter extends BaseAdapter {
         ImageView img_emgImg = convertView.findViewById(R.id.imgEmg_custom);
 
 
-
         if(data.get(position).getImage().equals("null")){
             urlImageReal = urlImage+"ic_defaultpeople.jpg";
             img_peopleImg.loadUrl(urlImageReal);
             img_peopleImg.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             img_peopleImg.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
+
+
+            img_peopleImg.setFocusable(false);
+            img_peopleImg.setClickable(false);
+            img_peopleImg.getSettings().setJavaScriptEnabled(false);
+            if (img_peopleImg != null)
+                img_peopleImg.loadUrl(urlImageReal);
 
             //img_peopleImg.setImageResource(R.drawable.ic_defaultpeople);
 
@@ -88,9 +94,16 @@ public class PeopleAdapter extends BaseAdapter {
 
             urlImageReal = urlImage + data.get(position).getImage();
 
-            img_peopleImg.loadUrl(urlImageReal);
+            //img_peopleImg.loadUrl(urlImageReal);
+
+            img_peopleImg.setFocusable(false);
+            img_peopleImg.setClickable(false);
+            img_peopleImg.getSettings().setJavaScriptEnabled(false);
+            if (img_peopleImg != null)
+                img_peopleImg.loadUrl(urlImageReal);
             img_peopleImg.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             img_peopleImg.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
+
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 img_peopleImg.getSettings().setMixedContentMode ( WebSettings.MIXED_CONTENT_ALWAYS_ALLOW );
@@ -105,38 +118,47 @@ public class PeopleAdapter extends BaseAdapter {
         tv_name.setText(data.get(position).getName());
         WebSettings webSettings = img_peopleImg.getSettings();
 //
-//        // 화면 비율
-//        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-//        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-//        img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-//        img_peopleImg.setHorizontalScrollBarEnabled(false); //가로 스크롤
-//        img_peopleImg.setVerticalScrollBarEnabled(false);   //세로 스크롤
-//
-//        img_peopleImg.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-//        img_peopleImg.setScrollbarFadingEnabled(false);
-//
-//
-//        WebSettings wsetting = img_peopleImg.getSettings();
-////        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-////        {// https 이미지.
-////            wsetting.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-////        }
-////        img_peopleImg.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-//        img_peopleImg.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-//        img_peopleImg.setWebViewClient(new WebViewClient());
-//        img_peopleImg.setWebChromeClient(new WebChromeClient());
-//        img_peopleImg.setNetworkAvailable(true);
-//
-//        //// Sets whether the DOM storage API is enabled.
-//        img_peopleImg.getSettings().setDomStorageEnabled(true);
-//
-//
-//
-//        img_peopleImg.getSettings().setJavaScriptEnabled(true);
-//
-//        img_peopleImg.clearView();
-//        img_peopleImg.requestLayout();
+        // 화면 비율
+        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+        img_peopleImg.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+        img_peopleImg.setHorizontalScrollBarEnabled(false); //가로 스크롤
+        img_peopleImg.setVerticalScrollBarEnabled(false);   //세로 스크롤
 
+        img_peopleImg.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+        img_peopleImg.setScrollbarFadingEnabled(false);
+
+
+        WebSettings wsetting = img_peopleImg.getSettings();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {// https 이미지.
+            wsetting.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+//        img_peopleImg.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        img_peopleImg.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        img_peopleImg.setWebViewClient(new WebViewClient());
+        img_peopleImg.setWebChromeClient(new WebChromeClient());
+        img_peopleImg.setNetworkAvailable(true);
+
+        //// Sets whether the DOM storage API is enabled.
+        img_peopleImg.getSettings().setDomStorageEnabled(true);
+        // 웹뷰 멀티 터치 가능하게 (줌기능)
+        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+        webSettings.setSupportZoom(false);
+
+
+
+//        img_peopleImg.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        img_peopleImg.setInitialScale(1);
+//        img_peopleImg.getSettings().setLoadWithOverviewMode(true);
+//        img_peopleImg.getSettings().setUseWideViewPort(true);
+
+        img_peopleImg.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+
+        img_peopleImg.getSettings().setJavaScriptEnabled(true);
+
+        img_peopleImg.clearView();
+        img_peopleImg.requestLayout();
 
 
 

@@ -213,6 +213,12 @@ public class ViewPeopleActivity extends Activity {
                     // peopleno & phoneno
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
                     intent.putExtra("useremail", useremail); //값 넘겨주기
+                    intent.putExtra("phoneno", phoneno); //값 넘겨주기
+                    intent.putExtra("peoplename", peoplename); //값 넘겨주기
+                    intent.putExtra("peopleemail", peopleemail); //값 넘겨주기
+                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
+                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
+
 
                     startActivity(intent);
                     break;
@@ -333,7 +339,7 @@ public class ViewPeopleActivity extends Activity {
 
        // if (peopleimage.length() == 0) {
 //        if (peopleimage.equals("null")) {
-        if (peopleimage == null) {
+        if (members.get(0).getImage() == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
             urlImage = urlImage+"ic_defaultpeople.jpg";
@@ -343,10 +349,11 @@ public class ViewPeopleActivity extends Activity {
 
 //        } else if(peopleimage.length() != 0) {
        // } else if(peopleimage.equals("!=null")) {
-        } else if(peopleimage != null) {
+        } else if(members.get(0).getImage() != null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            urlImage = urlImage + peopleimage;
+           // peopleimage = members.get(0).getImage();
+            urlImage = urlImage + members.get(0).getImage();
             iv_viewPeople.loadUrl(urlImage);
             iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
