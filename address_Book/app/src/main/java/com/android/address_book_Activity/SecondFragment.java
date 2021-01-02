@@ -1,5 +1,6 @@
 package com.android.address_book_Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -78,6 +80,10 @@ public class SecondFragment extends Fragment {
 //        groupList = v.findViewById(R.id.lv_group_frg);
         horizontalScrollView = v.findViewById(R.id.hsv_01_group);
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10,0,10,0);  // 왼쪽, 위, 오른쪽, 아래 순서입니다.
+
+
         // 그룹에 관한 버튼 액션
 //        btnGroup1 = v.findViewById(R.id.button1);
 //        btnGroup2 = v.findViewById(R.id.button2);
@@ -102,10 +108,12 @@ public class SecondFragment extends Fragment {
             tvs[i] = new Button(getContext());
             tvs[i].setText(groupDefault[i]);
             tvs[i].setTextSize(15);
-            tvs[i].getCompoundDrawablePadding();
+            tvs[i].setBackground(ContextCompat.getDrawable(getContext(), R.drawable.scroll_layout));
+//            tvs[i].getCompoundDrawablePadding();
             tvs[i].setId(i);
             ll.addView(tvs[i]);
-            ll.setPadding(5,5,5,5);
+            tvs[i].setLayoutParams(params);
+//            ll.setPadding(5,5,5,5);
             tvs[i].setOnClickListener(mClickListener);
 
         }
@@ -114,11 +122,12 @@ public class SecondFragment extends Fragment {
             // main에 보여주기 위해 기본 셋팅
             tvs[i] = new Button(getContext());
             tvs[i].setText(groups.get(i-3).getGroupName());
+            tvs[i].setBackground(ContextCompat.getDrawable(getContext(), R.drawable.scroll_layout));
             tvs[i].setTextSize(15);
-            tvs[i].getCompoundDrawablePadding();
+//            tvs[i].getCompoundDrawablePadding();
             tvs[i].setId(i);
             ll.addView(tvs[i]);
-            ll.setPadding(5,5,5,5);
+//            ll.setPadding(5,5,5,5);
             tvs[i].setOnClickListener(mClickListener);
 
         }
