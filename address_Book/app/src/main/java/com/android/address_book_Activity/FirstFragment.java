@@ -101,7 +101,7 @@ public class FirstFragment extends Fragment {
         });
 
 
-       // connectGetData(urlAddr1);
+        connectGetData(urlAddr1);
         int addressSum = members.size();
 
         textView.setText("(총 " + addressSum + "개의 연락처)");
