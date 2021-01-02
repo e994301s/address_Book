@@ -111,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_weight="0.6"
         android:background="@drawable/search_layout"
         >
@@ -144,8 +144,8 @@
         android:id="@+id/hsv_01_group"
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_marginBottom="5dp"
         android:layout_weight="0.6"
+        android:layout_margin="5dp"
         >
 
         <LinearLayout
