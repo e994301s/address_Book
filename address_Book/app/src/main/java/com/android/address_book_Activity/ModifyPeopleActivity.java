@@ -341,7 +341,7 @@ public class ModifyPeopleActivity extends Activity {
 
         // if (peopleimage.length() == 0) {
 //        if (peopleimage.equals("null")) {
-        if (peopleimage == null) {
+        if (members.get(0).getImage() == null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
             urlImage = urlImage+"ic_defaultpeople.jpg";
@@ -351,10 +351,10 @@ public class ModifyPeopleActivity extends Activity {
 
 //        } else if(peopleimage.length() != 0) {
             // } else if(peopleimage.equals("!=null")) {
-        } else if(peopleimage != null) {
+        } else if(members.get(0).getImage() != null) {
 //            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
 //            String result = connectCheckData(urlAddr1);
-            urlImage = urlImage + peopleimage;
+            urlImage = urlImage + members.get(0).getImage();
             editImage.loadUrl(urlImage);
             editImage.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             editImage.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
