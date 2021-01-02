@@ -73,7 +73,7 @@ public class FirstFragment extends Fragment {
         textView = v.findViewById(R.id.tv_sum_first);
 
         String urlAddr = "http://" + macIP + ":8080/test/";
-        urlAddr1 = urlAddr + "people_query_all_no.jsp?email=con@naver.com";
+        urlAddr1 = urlAddr + "people_query_all_no.jsp?email="+email;
 
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
@@ -81,6 +81,7 @@ public class FirstFragment extends Fragment {
         urlAddrBase = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddrBase + "people_query_all_no.jsp?email=" + email;
 
+        connectGetData(urlAddr1);
 
         // 리스트 일반 클릭시
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -92,13 +93,14 @@ public class FirstFragment extends Fragment {
                 intent.putExtra("phonetel", members.get(position).getTel());
                 intent.putExtra("macIP", macIP);
 
+                Toast.makeText(getActivity(), members.get(position).getNo(), Toast.LENGTH_SHORT).show();
 
                 startActivity(intent);
             }
         });
 
 
-        connectGetData(urlAddr1);
+       // connectGetData(urlAddr1);
         int addressSum = members.size();
 
         textView.setText("(총 " + addressSum + "개의 연락처)");
