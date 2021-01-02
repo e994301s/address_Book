@@ -72,9 +72,6 @@ public class FirstFragment extends Fragment {
         listView = v.findViewById(R.id.lv_people);
         textView = v.findViewById(R.id.tv_sum_first);
 
-
-        macIP = "192.168.35.157";
-        email = "con@naver.com";
         String urlAddr = "http://" + macIP + ":8080/test/";
         urlAddr1 = urlAddr + "people_query_all_no.jsp?email=con@naver.com";
 
