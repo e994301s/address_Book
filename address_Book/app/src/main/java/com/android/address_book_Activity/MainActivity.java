@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             savechb.setChecked(saveLoginData);
         }
 
-        macIP = "192.168.35.157";
+        macIP = "192.168.219.191";
 
 
 
