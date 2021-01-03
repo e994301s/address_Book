@@ -45,7 +45,6 @@
             android:text="수정"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:layout_marginRight="10dp"
             />
     </LinearLayout>
 
