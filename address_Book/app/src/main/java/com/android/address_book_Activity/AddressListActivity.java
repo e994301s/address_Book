@@ -224,7 +224,6 @@ public class AddressListActivity extends AppCompatActivity {
 
                 GroupCustomDialogActivity customDialog = new GroupCustomDialogActivity(AddressListActivity.this);
                 customDialog.callFunction(email, macIP);
-
 //                new AlertDialog.Builder(AddressListActivity.this)
 //                        .setTitle("그룹 추가")
 //                        .setMessage((CharSequence) dialogView)

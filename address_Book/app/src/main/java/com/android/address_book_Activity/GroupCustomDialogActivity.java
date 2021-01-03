@@ -2,6 +2,7 @@ package com.android.address_book_Activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -32,8 +33,6 @@ public class GroupCustomDialogActivity{
     public GroupCustomDialogActivity(Context context) {
         this.context = context;
     }
-
-
 
     // 호출할 다이얼로그 함수를 정의한다.
     public void callFunction(String email, String macIP) {
@@ -85,8 +84,9 @@ public class GroupCustomDialogActivity{
 
                     if(count == 0) {
                        insertGroup(groupName, email);
-
+//                        ((AddressListActivity)context).
                         // 커스텀 다이얼로그를 종료한다.
+
                         dlg.dismiss();
                     } else {
                         Toast.makeText(context, "동일한 그룹이 존재합니다.", Toast.LENGTH_SHORT).show();
