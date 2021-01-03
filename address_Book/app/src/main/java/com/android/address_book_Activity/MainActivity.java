@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         appData = getSharedPreferences("appData", MODE_PRIVATE);
         load();
@@ -90,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
             savechb.setChecked(saveLoginData);
         }
 
-        macIP = "192.168.219.191";
+
+        macIP = "192.168.200.197";
+
 
 
 
