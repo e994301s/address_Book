@@ -76,9 +76,10 @@ public class PhoneFindPWActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.backBtn_phonefindPw:
-                    countDownTimer.cancel();
-                    Intent intent = new Intent(PhoneFindPWActivity.this, FindPWActivity.class);
-                    startActivity(intent);
+//                    countDownTimer.cancel();
+//                    Intent intent = new Intent(PhoneFindPWActivity.this, FindPWActivity.class);
+//                    startActivity(intent);
+                    finish();
                     break;
 
                 case R.id.btnSendMsg_phonefindPw:

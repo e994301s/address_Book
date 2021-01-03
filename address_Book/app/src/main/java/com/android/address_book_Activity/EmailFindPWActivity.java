@@ -60,9 +60,10 @@ public class EmailFindPWActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.backBtn_emailfindPw:
-                    countDownTimer.cancel();
-                    Intent intent = new Intent(EmailFindPWActivity.this, FindPWActivity.class);
-                    startActivity(intent);
+//                    countDownTimer.cancel();
+//                    Intent intent = new Intent(EmailFindPWActivity.this, FindPWActivity.class);
+//                    startActivity(intent);
+                    finish();
                     break;
 
                 case R.id.btnFindPw_emailfindPw:
