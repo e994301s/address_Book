@@ -84,8 +84,8 @@ public class ModifyPeopleActivity extends Activity {
     Spinner spinner = null;
 //    int phoneno;
     Spinner edit_spinner_relation;
-    Button btn_updatePeople, add_view;
-    ImageButton btn_backToViewPeople, btn_remove;
+    Button btn_updatePeople, add_view, btn_backToViewPeople;
+    ImageButton btn_remove;
     WebView editImage;
     TextView tv_editPeopleImage;
   //  ArrayList<String> editPhoneMain;
@@ -229,10 +229,8 @@ public class ModifyPeopleActivity extends Activity {
         // 화면 구성 id (버튼 모음)
         tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
         btn_backToViewPeople = findViewById(R.id.btn_backToViewPeople);
-        btn_backToViewPeople.setImageResource(R.drawable.ic_back);
         btn_updatePeople = findViewById(R.id.btn_updatePeople);
         btn_remove = findViewById(R.id.btn_remove);
-        btn_remove.setImageResource(R.drawable.ic_remove);
 
         // 스피너 구성
         edit_spinner_relation = findViewById(R.id.edit_spinner_relation);

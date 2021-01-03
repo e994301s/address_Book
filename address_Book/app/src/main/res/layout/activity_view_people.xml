@@ -14,16 +14,14 @@
         android:padding="10dp"
         >
 
-        <ImageButton
+        <Button
             android:id="@+id/btn_backToList"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="right|center"
-            android:adjustViewBounds="true"
-            android:backgroundTint="#FFFFFF"
-            android:maxWidth="50dp"
-            android:maxHeight="50dp"
-            android:scaleType="fitCenter"
+            android:background="@drawable/main_bg"
+            android:text="back"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
         <View

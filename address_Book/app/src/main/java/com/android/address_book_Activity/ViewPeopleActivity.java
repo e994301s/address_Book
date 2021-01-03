@@ -64,9 +64,10 @@ public class ViewPeopleActivity extends Activity {
     ArrayList<People> data = null;
     int result;
     Button btn_edit_addressView = null;
+    Button backToList;
     ScrollView scrollview_people;
     WebView iv_viewPeople;
-    ImageButton backToList, btn_view_favorite, btn_view_emergency, btn_view_dial, btn_view_message;
+    ImageButton btn_view_favorite, btn_view_emergency, btn_view_dial, btn_view_message;
     TextView view_name, view_phone, view_email, view_relation, view_memo;
     PeopleAdapter adapter;
     ArrayList<People> members;
@@ -163,7 +164,6 @@ public class ViewPeopleActivity extends Activity {
 
         btn_view_dial.setImageResource(R.drawable.ic_dial);
         btn_view_message.setImageResource(R.drawable.ic_message);
-        backToList.setImageResource(R.drawable.ic_back);
 
         // 클릭리스너
         backToList.setOnClickListener(OnclickListener);
