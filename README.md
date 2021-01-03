@@ -1,6 +1,7 @@
 # 사소한(사람들의 소중한 주소록)
 제작자 : 김대환, 박경미, 박인영, 송예진, 유민규
 
+
 ## build.gradle에 필요한 라이브러리
 
 dependencies {
@@ -19,6 +20,7 @@ dependencies {
     
 }
 
+
 ## Manifest에 필요한 권한들
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,17 +31,23 @@ dependencies {
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    
 
 ## Tomcat을 연결하기 위한 XML
 
 안드로이드 스튜디오를 통해 address_Book을 실행시키면 app/res/xml/network_security_config.jsp 파일을 통해 Tomcat과 연결을 할 수 있다.
 
+
 ## DB(MYSQL) 연결
+
 MySQL Connector Download Link: [MySQL Connector][Connector]
 
 [Connector]: https://dev.mysql.com/downloads/connector/j/8.0.html
 
+
+
 ## JSP 폴더 내 자료
+
 JSP 폴더 내의 자료는 톰켓 서버 경로(/webapps/ROOT/test) 안에 'jsp파일'들을 넣어준다.
 
 
