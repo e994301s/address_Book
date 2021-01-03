@@ -50,8 +50,8 @@ public class FindPWActivity extends Activity {
     ////////////////////////////////////////////
     ////////////////////////////////////////////
 
-    String user = "pakk7026@gmail.com"; // 보내는 계정의 id
-    String password = "kyeongmi7"; // 보내는 계정의 pw
+    String user = "@gmail.com"; // 보내는 계정의 id
+    String password = ""; // 보내는 계정의 pw
 
     EditText name, email;
     TextView check;

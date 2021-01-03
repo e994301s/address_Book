@@ -137,9 +137,9 @@ public class EmailFindPWActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 닫기 시 FindIDActivity 종료
-                        EmailFindPWActivity.this.finish();
+                       finish();
                     }
-                })  // 페이지 이동이 없으므로 null
+                })
                 .show();
     }
 
