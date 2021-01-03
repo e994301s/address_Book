@@ -46,6 +46,7 @@
             android:background="@drawable/main_bg"
             android:layout_gravity="center"
             android:text="바로 시작하기"
+            android:textStyle="bold"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="135dp"
             android:textColor="#FFFFFF" >
@@ -53,13 +54,13 @@
 
             <CheckBox
                 android:id="@+id/save_in"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="10dp"
                 android:text="다시 보지 않기"
-                android:textSize="10dp"/>
+                android:textSize="9dp"/>
          </LinearLayout>
 
     </LinearLayout>
