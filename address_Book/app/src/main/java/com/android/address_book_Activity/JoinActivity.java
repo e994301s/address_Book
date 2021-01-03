@@ -15,10 +15,12 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -56,9 +58,10 @@ public class JoinActivity extends Activity {
 
     EditText email, name, pw, pwCheck, phone;
     Button backBtn_join;
-    TextView pwCheckMsg;
+    TextView pwCheckMsg, agreeContent, content;
     String macIP, urlAddr;
     String emailInput = null;
+    CheckBox checkAgree;
     int btnCheck = 0;
 
     private int _beforeLenght = 0;
@@ -91,7 +94,7 @@ public class JoinActivity extends Activity {
         pwCheckMsg = findViewById(R.id.tv_pwCheckMsg_join);
         backBtn_join = findViewById(R.id.backBtn_join);
 //        backBtn_join.setImageResource(R.drawable.ic_back);
-
+        checkAgree = findViewById(R.id.checkAgree_join);
 
         findViewById(R.id.backBtn_join).setOnClickListener(mClickListener);
         findViewById(R.id.btnEmailCheck_join).setOnClickListener(mClickListener);
@@ -305,6 +308,7 @@ public class JoinActivity extends Activity {
                 }
 
                 if (count == 0) {
+                    email.setEnabled(false);
                     Toast.makeText(JoinActivity.this, "Email 사용이 가능합니다.", Toast.LENGTH_SHORT).show();
                     btnCheck = 1;
                 } else {
@@ -344,49 +348,56 @@ public class JoinActivity extends Activity {
             phone.setFocusableInTouchMode(true);
             phone.requestFocus();
 
+        } else if (checkAgree.isChecked() != true){
+            Toast.makeText(JoinActivity.this, "약관 동의 체크해주세요.", Toast.LENGTH_SHORT).show();
+
         } else{
             String userName = name.getText().toString().trim();
             String userEmail = email.getText().toString().trim();
             String userPW = pw.getText().toString().trim();
             String userPhone = phone.getText().toString().trim();
 
-            if(!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
-                Toast.makeText(JoinActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
-                btnCheck = 0;
 
-            } else {
 
-                if (btnCheck == 1) {
-                    Boolean check = pwdRegularExpressionChk(userPW);
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+                    Toast.makeText(JoinActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    btnCheck = 0;
 
-                    if (check == false) {
-                        alertCheck("비밀번호를 영문, 특수문자 포함하여 최소 8자 이상");
-                    } else {
+                } else {
 
-                        String phoneCheck = phone.getText().toString().trim();
-                        boolean flag = Pattern.matches(pattern2, phoneCheck);
+                    if (btnCheck == 1) {
+                        Boolean check = pwdRegularExpressionChk(userPW);
 
-                        if (flag == false) {
-                            alertCheck("휴대폰 번호 확인 후 다시");
-
+                        if (check == false) {
+                            alertCheck("비밀번호를 영문, 특수문자 포함하여 최소 8자 이상");
                         } else {
 
-                            if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                                insertUser(userName, userEmail, userPW, userPhone);
+                            String phoneCheck = phone.getText().toString().trim();
+                            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+                            if (flag == false) {
+                                alertCheck("휴대폰 번호 확인 후 다시");
 
                             } else {
-                                pwCheck.setText("");
-                                Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+
+                                if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
+                                    insertUser(userName, userEmail, userPW, userPhone);
+
+                                } else {
+                                    pwCheck.setText("");
+                                    Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+
+                                }
 
                             }
                         }
+
+                    } else {
+                        Toast.makeText(JoinActivity.this, "Email 중복 채크 해주세요.", Toast.LENGTH_SHORT).show();
+
                     }
-
-                } else {
-                    Toast.makeText(JoinActivity.this, "Email 중복 채크 해주세요.", Toast.LENGTH_SHORT).show();
-
                 }
-            }
+
         }
     }
 

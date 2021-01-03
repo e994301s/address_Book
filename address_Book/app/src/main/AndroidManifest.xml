@@ -22,7 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Address_Book"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.android.address_book_Activity.UpdatePhoneNumber"></activity>
         <activity android:name="com.android.address_book_Activity.PhoneFindPWActivity" />
         <activity android:name="com.android.address_book_Activity.EmailFindPWActivity" />
         <activity android:name="com.android.address_book_Activity.JoinActivity" />

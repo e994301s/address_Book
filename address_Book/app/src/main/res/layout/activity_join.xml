@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         >
         <LinearLayout
             android:orientation="vertical"
@@ -196,7 +196,7 @@
                 android:id="@+id/phone_join"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="휴대폰 ex)010-0000-0000"
+                android:hint="휴대폰"
                 android:textSize="18dp"
                 android:inputType="phone"
                 android:maxLength="13"
@@ -205,7 +205,24 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/checkAgree_join"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="개인정보 수집 및 이용약관 동의"
+                    android:layout_weight="9"
+                    />
+
         </LinearLayout>
+
+        </LinearLayout>
+
+
     </ScrollView>
        <Button
             android:id="@+id/submitBtn_join"
