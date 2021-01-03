@@ -10,18 +10,28 @@
 
 
 
+### G-Email 인증 시 설정
+ 1. libs 폴더에 아래 3개 jar 파일 추가
+    1. activation.jar
+    2. additionnal.jar
+    3. mail.jar
+    
+-> Gmail 라이브러리 폴더에서 다운로드
 
-
+ 2. FindPWActivity에서 사용할 Gmail 및 비밀번호 기입
+ 3. 사용할 Gmail 내 보안 > 보안 수준이 낮은 앱의 액세스 허용 설정
+ 
 
 ### build.gradle에 필요한 라이브러리
 
 dependencies {
 
+    //이메일 인증 보내기 위한 라이브러리 (gmail 사용)
     implementation files('lib/activation.jar')
     implementation files('lib/additionnal.jar')
     implementation files('lib/mail.jar')
     
-    사진을 서버에 올리기 위한 라이브러리
+    //사진을 서버에 올리기 위한 라이브러리
     implementation 'com.squareup.okhttp3:okhttp:4.10.0-RC1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
