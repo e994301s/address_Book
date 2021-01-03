@@ -316,7 +316,8 @@ public class ModifyPeopleActivity extends Activity {
     // people Update data 송부
     private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, ArrayList<Integer> phoneno, String phonetel){
         String urlAddr1 = "";
-        urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
+        urlAddr1 = urlAddr + "people_query_Update.jsp?no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
+
        peoplename = editName.getText().toString();
        peopleemail = editEmail.getText().toString();
        peoplememo = editMemo.getText().toString();
