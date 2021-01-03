@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="30dp"
-    tools:context="com.android.address_book_Activity.JoinActivity">
+    tools:context="com.android.address_book_Activity.JoinActivity"
+    >
 
 
     <Button
@@ -26,13 +27,14 @@
         android:textStyle="bold"
         android:textSize="30dp"
         android:text="회원가입"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="40dp"
         />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         >
         <LinearLayout
             android:orientation="vertical"
@@ -46,7 +48,6 @@
             android:layout_weight="1.8"
             app:errorEnabled="true"
             android:layout_margin="10dp"
-            android:background="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -55,7 +56,9 @@
                 android:layout_height="match_parent"
                 android:hint="이름"
                 android:textSize="18dp"
-                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:background="@drawable/gray_bg"
+
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="2.5"
+            android:gravity="bottom"
             >
 
             <com.google.android.material.textfield.TextInputLayout
@@ -73,30 +77,31 @@
                 android:layout_weight="3"
                 app:errorEnabled="true"
                 android:layout_margin="10dp"
-                android:background="@color/white"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_join"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/gray_bg"
                     android:inputType="textEmailAddress"
                     android:hint="이메일"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnEmailCheck_join"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:text="중복 체크"
-                android:textSize="10dp"
+                android:textSize="13dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/main_bg"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -138,7 +143,6 @@
             android:layout_weight="1.8"
             app:errorEnabled="true"
             android:layout_margin="10dp"
-            android:background="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -148,7 +152,9 @@
                 android:hint="비밀번호 (8자 이상)"
                 android:textSize="18dp"
                 android:inputType="textPassword"
-                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:background="@drawable/gray_bg"
+
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -159,7 +165,6 @@
             android:layout_weight="1.8"
             app:errorEnabled="true"
             android:layout_margin="10dp"
-            android:background="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -169,7 +174,8 @@
                 android:hint="비밀번호 확인"
                 android:textSize="18dp"
                 android:inputType="textPassword"
-                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:background="@drawable/gray_bg"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -179,7 +185,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginLeft="20dp"
-            android:layout_weight="0.8"
+            android:layout_weight="0.6"
             />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -189,23 +195,44 @@
             android:layout_weight="1.8"
             app:errorEnabled="true"
             android:layout_margin="10dp"
-            android:background="@color/white"
+            android:layout_gravity="top"
+
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_join"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="휴대폰 ex)010-0000-0000"
+                android:hint="휴대폰"
                 android:textSize="18dp"
                 android:inputType="phone"
                 android:maxLength="13"
-                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:background="@drawable/gray_bg"
+                android:layout_gravity="top"
+
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/checkAgree_join"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="개인정보 수집 및 이용약관 동의"
+                    android:layout_weight="9"
+                    />
+
         </LinearLayout>
+
+        </LinearLayout>
+
+
     </ScrollView>
        <Button
             android:id="@+id/submitBtn_join"

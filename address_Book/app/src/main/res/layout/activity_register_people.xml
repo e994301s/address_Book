@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.address_book_Activity.RegisterPeopleActivity">
+    tools:context="com.android.address_book_Activity.RegisterPeopleActivity"
+    android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,6 +20,9 @@
             android:layout_gravity="right"
             android:layout_margin="10dp"
             android:background="@drawable/main_bg"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:textColor="@color/white"
             />
         <ImageView
             android:id="@+id/registerImage"
@@ -42,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:maxHeight="70dp"
-                android:maxWidth="70dp"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:backgroundTint="#FFFFFF"
@@ -54,8 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:maxHeight="70dp"
-                android:maxWidth="70dp"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:backgroundTint="#FFFFFF"
@@ -65,24 +69,31 @@
         <EditText
             android:id="@+id/registerName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="이름"
-            android:layout_margin="10dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/gray_bg"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
             />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             >
             <EditText
                 android:id="@+id/registerMainTelNo"
                 android:layout_width="0px"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="9"
                 android:hint="대표 전화번호"
                 android:layout_margin="10dp"
                 android:inputType="phone"
-                android:gravity="right"
+                android:textSize="15dp"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:background="@drawable/gray_bg"
                 />
 
             <Button
@@ -95,6 +106,7 @@
                 android:gravity="center"
                 android:textSize="20dp"
                 android:background="@drawable/main_bg"
+                android:textColor="@color/white"
                 />
         </LinearLayout>
 
@@ -111,10 +123,13 @@
         <EditText
             android:id="@+id/registerEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="이메일"
             android:layout_margin="10dp"
             android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:background="@drawable/gray_bg"
+            android:textSize="15dp"
             />
         <Spinner
             android:id="@+id/group_spiner"
@@ -122,15 +137,19 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:spinnerMode="dropdown"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
             />
 
         <EditText
             android:id="@+id/registerComment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="메모"
             android:layout_margin="10dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/gray_bg"
+            android:textSize="15dp"
             />
 
     </LinearLayout>

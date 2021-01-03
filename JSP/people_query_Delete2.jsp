@@ -4,7 +4,7 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	String peopleno = request.getParameter("peopleno");
-	String phoneno = request.getParameter("phoneno");
+
 
 		
 //------
@@ -20,11 +20,11 @@
 	    Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	    Statement stmt_mysql = conn_mysql.createStatement();
 	
-		String A = "DELETE people, phone FROM people INNER JOIN phone ON people.peopleno = phone.people_peopleno WHERE phoneno = ?";
+		String A = "DELETE people FROM people WHERE peopleno = ?";
 	
 		ps = conn_mysql.prepareStatement(A);
 
-        ps.setInt(1, Integer.parseInt(phoneno));
+        ps.setInt(1, Integer.parseInt(peopleno));
  
 		result = ps.executeUpdate();
 %>
