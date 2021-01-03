@@ -3,8 +3,10 @@
 
 
 
+
 ## 사소한(사람들의 소중한 주소록)
 제작자 : 김대환, 박경미, 박인영, 송예진, 유민규
+
 
 
 
@@ -30,6 +32,7 @@ dependencies {
 
 
 
+
 ### Manifest에 필요한 권한들
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -44,9 +47,17 @@ dependencies {
 
 
 
+### Ip 변경
+
+안드로이드 스튜디오를 통해 address_Book을 실행시키면 app/java/com.android/address_book_Activity/MainActivity 
+
+
+
+
 ### Tomcat을 연결하기 위한 XML
 
-안드로이드 스튜디오를 통해 address_Book을 실행시키면 app/res/xml/network_security_config.jsp 파일을 통해 Tomcat과 연결을 할 수 있다.
+안드로이드 스튜디오를 통해 address_Book을 실행시키면 app/res/xml/network_security_config.jsp 를 통해 Tomcat과 연결을 할 수 있다.
+
 
 
 
@@ -60,9 +71,11 @@ MySQL Connector Download Link: [MySQL Connector][Connector]
 
 
 
+
 ### JSP 폴더 내 자료
 
 JSP 폴더 내의 자료는 톰켓 서버 경로(/webapps/ROOT/test) 안에 'jsp파일'들을 넣어준다.
+
 
 
 
@@ -72,6 +85,9 @@ JSP 폴더 내의 자료는 톰켓 서버 경로(/webapps/ROOT/test) 안에 'jsp
 String url_mysql = "jdbc:mysql://localhost/__데이터베이스 스키마 이름__?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
 String id_mysql = "**아이디**";
 String pw_mysql = "**암호**";
+
+
+
 
 
 
@@ -85,6 +101,7 @@ String pw_mysql = "**암호**";
 |peoplerelation||||peoplefavorite|userphone|
 |peoplememo|||||userdeletedate|
 |peopleimage|||||userimage|
+
 
 
 
