@@ -127,25 +127,23 @@ public class ModifyPeopleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_people);
 
+        // intent 받아오기
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
-        urlGetGroup = "http://"+macIP+":8080/test/group_query_all.jsp?email="+useremail;
-
-
-       // urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp";
-        urlAddr = "http://" + macIP + ":8080/test/";
-        urlImage = urlAddr;
-        urlAddr2 = urlAddr + "people_query_selectModify.jsp?email="+useremail+"&peopleno=" + peopleno;
-
-
 //        phoneno = intent.getStringExtra("phoneno");
 //        peoplename = intent.getStringExtra("peoplename");
 //        peopleemail = intent.getStringExtra("peopleemail");
 //        phonetel = intent.getStringExtra("phonetel");
 //        peoplememo= intent.getStringExtra("peoplememo");
 
+
+        // url 세팅
+        urlGetGroup = "http://"+macIP+":8080/test/group_query_all.jsp?email="+useremail;
+        urlAddr = "http://" + macIP + ":8080/test/";
+        urlImage = urlAddr;
+        urlAddr2 = urlAddr + "people_query_selectModify.jsp?email="+useremail+"&peopleno=" + peopleno;
 
 
         // Task 연결
@@ -161,12 +159,11 @@ public class ModifyPeopleActivity extends Activity {
 //        editImage.setOnClickListener(onClickListener);
         tv_editPeopleImage.setOnClickListener(onClickListener);
 
+        // Thread 사용
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitDiskReads()
                 .permitDiskWrites()
                 .permitNetwork().build());
-
-        edit_spinner_relation = findViewById(R.id.edit_spinner_relation);
 
 //        // get Data // set Text
         add_view = findViewById(R.id.addUpdateTelNoButton);
@@ -211,35 +208,32 @@ public class ModifyPeopleActivity extends Activity {
         imageCheck();
         WebSettings webSettings = editImage.getSettings();
         imageName = members.get(0).getImage();
-        // 화면 비율
+        
+        // Web View 세팅
         webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
         webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
         //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         editImage.setBackgroundColor(0); //배경색
-
         editImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
         editImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
-
         editImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
         editImage.setScrollbarFadingEnabled(false);
 
         // 웹뷰 멀티 터치 가능하게 (줌기능)
         webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
-//        webSettings.setSupportZoom(false);
+        webSettings.setSupportZoom(false);
 
-
-
+        // 화면 구성 id (버튼 모음)
         tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
-
         btn_backToViewPeople = findViewById(R.id.btn_backToViewPeople);
         btn_backToViewPeople.setImageResource(R.drawable.ic_back);
         btn_updatePeople = findViewById(R.id.btn_updatePeople);
         btn_remove = findViewById(R.id.btn_remove);
         btn_remove.setImageResource(R.drawable.ic_remove);
 
-
         // 스피너 구성
+        edit_spinner_relation = findViewById(R.id.edit_spinner_relation);
         ArrayList<Group> totalGroup = new ArrayList<Group>();
         connectGroupGetData();
         groupName = new ArrayList<String>();
@@ -254,6 +248,7 @@ public class ModifyPeopleActivity extends Activity {
         spinner = findViewById(R.id.edit_spinner_relation);
         spinner.setAdapter(spinnerAdapter);
 
+        // 버튼 클릭 리스너
         btn_backToViewPeople.setOnClickListener(onClickListener);
         btn_updatePeople.setOnClickListener(onClickListener);
         btn_remove.setOnClickListener(onClickListener);
@@ -267,7 +262,7 @@ public class ModifyPeopleActivity extends Activity {
             peoplerelation = spinner.getSelectedItem().toString();
             Intent intent;
             switch (v.getId()){
-                case R.id.addUpdateTelNoButton:
+                case R.id.addUpdateTelNoButton: // 클릭시 번호 추가 입력
                     RegisterAddPhoneNumber n_layout = new RegisterAddPhoneNumber(getApplicationContext());
                     LinearLayout con = (LinearLayout)findViewById(R.id.update_phonenum_layout);
                     con.addView(n_layout);
@@ -279,7 +274,6 @@ public class ModifyPeopleActivity extends Activity {
                     addPhoneCheck =1;
                     break;
                 case R.id.btn_backToViewPeople: // view로 돌아가기
-                    //finish();
                     intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
                     intent.putExtra("macIP", macIP); //값 넘겨주기
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
@@ -322,7 +316,6 @@ public class ModifyPeopleActivity extends Activity {
                     intent1.putExtra("useremail", useremail);
                     startActivity(intent1);
                     finish();
-
 
                     //updatePeople(peopleno, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phoneno, phonetel);
                     break;

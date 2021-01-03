@@ -76,30 +76,24 @@ public class ViewPeopleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_people);
 
+        // intent
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
-
-        urlAddr = "http://" + macIP + ":8080/test/";
-
-
-        urlImage = urlAddr;
-
         peopleno = intent.getStringExtra("peopleno");
         useremail = intent.getStringExtra("useremail");
 
-
+        // url 세팅
+        urlAddr = "http://" + macIP + ":8080/test/";
+        urlImage = urlAddr;
         urlAddr2 = urlAddr + "people_query_selectModify.jsp?email="+useremail+"&peopleno=" + peopleno;
 
         // Task 연결
         members = connectSelectedData(urlAddr2);
 
-
         // get Data // set Text
-
-
+        scrollview_people = findViewById(R.id.scrollview_people);
         //phoneno = intent.getIntExtra("phoneno", 0);
         //urlAddr = "http://" + IP + ":8080/address/people_query_all.jsp";
-
 //        peoplename = intent.getStringExtra("peoplename");
 //        peopleemail = intent.getStringExtra("peopleemail");
 //        useremail = intent.getStringExtra("useremail");
@@ -110,25 +104,20 @@ public class ViewPeopleActivity extends Activity {
 //        peoplefavorite = intent.getIntExtra("peoplefavorite", 0);
 //        peopleemg = intent.getIntExtra("peopleemg", 0);
 
-        scrollview_people = findViewById(R.id.scrollview_people);
-
-
         // Web View에 이미지 띄움
         iv_viewPeople=findViewById(R.id.iv_viewPeople);
         iv_viewPeople.getSettings().setJavaScriptEnabled(true);
         imageCheck();
         WebSettings webSettings = iv_viewPeople.getSettings();
 //
-        // 화면 비율
+        // WebView 세팅
         webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
         webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
         //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         iv_viewPeople.setBackgroundColor(0); //배경색
-
         iv_viewPeople.setHorizontalScrollBarEnabled(false); //가로 스크롤
         iv_viewPeople.setVerticalScrollBarEnabled(false);   //세로 스크롤
-
         iv_viewPeople.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
         iv_viewPeople.setScrollbarFadingEnabled(false);
 
@@ -138,7 +127,7 @@ public class ViewPeopleActivity extends Activity {
 
 
 
-
+        // DB에서 받아오기
         peoplename = members.get(0).getName();
         view_name = findViewById(R.id.view_name);
         view_name.setText(peoplename);
@@ -152,7 +141,6 @@ public class ViewPeopleActivity extends Activity {
         view_email = findViewById(R.id.view_email);
         view_email.setText(peopleemail);
        // view_email.setText(Html.fromHtml("<u>"+ peopleemail +"</u>"));
-
 
         peoplerelation = members.get(0).getRelation();
         view_relation = findViewById(R.id.view_relation);
@@ -175,6 +163,7 @@ public class ViewPeopleActivity extends Activity {
         btn_view_message.setImageResource(R.drawable.ic_message);
         backToList.setImageResource(R.drawable.ic_back);
 
+        // 클릭리스너
         backToList.setOnClickListener(OnclickListener);
         btn_edit_addressView.setOnClickListener(OnclickListener);
         btn_view_dial.setOnClickListener(OnclickListener);
@@ -182,7 +171,7 @@ public class ViewPeopleActivity extends Activity {
         btn_view_favorite.setOnClickListener(OnclickListener);
         btn_view_emergency.setOnClickListener(OnclickListener);
 
-
+        // emergency&favorite 값 받아와서 띄워주기
         phoneno = members.get(0).getPhoneno();
         peoplefavorite = members.get(0).getFavorite();
         peopleemg = members.get(0).getEmergency();
@@ -192,15 +181,11 @@ public class ViewPeopleActivity extends Activity {
     } // onCreate 끝 -----------------------------------------------------------------------
 
     View.OnClickListener OnclickListener = new View.OnClickListener() {
-
-        // DB 선언
-        SQLiteDatabase DB;
-
         @Override
         public void onClick(View v) {
             Intent intent;
-            switch (v.getId()) { // List로 이동
-                case R.id.btn_backToList:
+            switch (v.getId()) {
+                case R.id.btn_backToList: // List로 이동
                     finish();
 //                    intent = new Intent(ViewPeopleActivity.this, AddressListActivity.class); //화면 이동시켜주기
 //                    intent.putExtra("IP", IP); //값 넘겨주기
@@ -210,8 +195,7 @@ public class ViewPeopleActivity extends Activity {
                     intent = new Intent(ViewPeopleActivity.this, ModifyPeopleActivity.class); //화면 이동시켜주기
                     intent.putExtra("macIP", macIP); //값 넘겨주기
 
-                    // List에서 받아온 파라미터 넘겨주기!!!!!!!!!!!!!!!
-                    // peopleno & phoneno
+                    // peopleno & phoneno 값 넘겨주기
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
                     intent.putExtra("useremail", useremail); //값 넘겨주기
                   //  intent.putExtra("phoneno", phoneno); //값 넘겨주기
@@ -220,17 +204,15 @@ public class ViewPeopleActivity extends Activity {
 //                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
 //                    intent.putExtra("peoplememo", peoplememo); //값 넘겨주기
 
-
                     startActivity(intent);
                     finish();
                     break;
-                case R.id.btn_view_dial: // 지정된 전화로 이동
+                case R.id.btn_view_dial: // 메인 phoneNumber 기준 전화로 이동
                     intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phonetel));
                     startActivity(intent);
                     break;
-                case R.id.btn_view_message: // 문자로 이동
+                case R.id.btn_view_message: // 메인 phoneNumber 기준 문자로 이동
                     Uri uri = Uri.parse("smsto:" + phonetel); // 상대방 번호 연결 → 값 받아서 연결 추가
-//                    Uri uri = Uri.parse("smsto:01012345678"); // 상대방 번호 연결 → 값 받아서 연결 추가
                     Intent it = new Intent(Intent.ACTION_SENDTO, uri);
                     it.putExtra("sms_body", "The SMS text");
                     startActivity(it);
@@ -241,14 +223,12 @@ public class ViewPeopleActivity extends Activity {
                 case R.id.btn_view_emergency: // 긴급연락처 추가/해제
                     emergencyCheck();
                     break;
-
             }
         }
     };
 
     // 즐겨찾기 & emergency 1인지 0인지 판단
     public void onCreateFavoriteCheck() {
-
         if (peoplefavorite.equals("0")) {
             btn_view_favorite.setImageResource(R.drawable.ic_nonfavorite);
         } else if(peoplefavorite.equals("1")) {
@@ -262,12 +242,8 @@ public class ViewPeopleActivity extends Activity {
     }
 
 
-
     // 즐겨찾기 1인지 0인지 판단
     public void favoriteCheck() {
-        //int result = 0;
-        // INTENT 받아온 값 추가
-        //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
 
          String urlAddr1 = "";
 
@@ -277,7 +253,6 @@ public class ViewPeopleActivity extends Activity {
             peoplefavorite = "1";
             btn_view_favorite.setImageResource(R.drawable.ic_favorite);
 
-
             Toast.makeText(ViewPeopleActivity.this, peoplename + "님이 즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT).show();
 
         } else if(peoplefavorite.equals("1")) { // 이미 있다면 0으로 세팅
@@ -285,7 +260,6 @@ public class ViewPeopleActivity extends Activity {
             connectCheckData(urlAddr1);
             peoplefavorite = "0";
             btn_view_favorite.setImageResource(R.drawable.ic_nonfavorite);
-
 
             Toast.makeText(ViewPeopleActivity.this, peoplename + "님이 즐겨찾기에서 해제되었습니다.", Toast.LENGTH_SHORT).show();
         }
@@ -306,11 +280,7 @@ public class ViewPeopleActivity extends Activity {
 
     // 긴급연락처 1인지 0인지 판단
     public void emergencyCheck() {
-        //int result = 0;
-        // INTENT 받아온 값 추가
-        //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
         String urlAddr1 = "";
-       // urlAddr1 = urlAddr + "people_query_SelectEmergency.jsp?usremail=" + useremail + "&peopleno=" + peopleno;
 
         if (peopleemg.equals("0")) { // 0이라면 1로 세팅
             urlAddr1 = urlAddr + "people_query_Emergency.jsp?peopleemg=1&peopleno=" + peopleno;
@@ -333,28 +303,14 @@ public class ViewPeopleActivity extends Activity {
 
     // 이미지 불러오기
     public void imageCheck() {
-        // INTENT 받아온 값 추가
-        //String query = "select count(peoplefavorite) where userinfo_useremial=" + userinfo_useremail + "and people_peopleno =" + people_peopleno;
 
-        String urlAddr1 = "";
-        //urlAddr1 = urlAddr + "people_query_SelectFavorite.jsp?usremail=" + useremail + "&peopleno=" + peopleno;
-
-       // if (peopleimage.length() == 0) {
-//        if (peopleimage.equals("null")) {
-        if (members.get(0).getImage() == null) {
-//            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
-//            String result = connectCheckData(urlAddr1);
+        if (members.get(0).getImage() == null) { // DB에 이미지 없음
             urlImage = urlImage+"ic_defaultpeople.jpg";
             iv_viewPeople.loadUrl(urlImage);
             iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             iv_viewPeople.setWebViewClient(new WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
 
-//        } else if(peopleimage.length() != 0) {
-       // } else if(peopleimage.equals("!=null")) {
-        } else if(members.get(0).getImage() != null) {
-//            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
-//            String result = connectCheckData(urlAddr1);
-           // peopleimage = members.get(0).getImage();
+        } else if(members.get(0).getImage() != null) { // DB에 이미지 있을 때
             urlImage = urlImage + members.get(0).getImage();
             iv_viewPeople.loadUrl(urlImage);
             iv_viewPeople.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
