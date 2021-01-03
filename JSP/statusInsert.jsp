@@ -21,7 +21,7 @@
 	    Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 		Statement stmt_mysql = conn_mysql.createStatement();
 	
-	    String A = "insert into status (userinfo_useremail, people_peopleno, peopleemg, peoplefavorite";
+	    String A = "insert into statuspeople (userinfo_useremail, people_peopleno, peopleemg, peoplefavorite";
 	    String B = ") values (?,?,?,?)";
 	
 	    ps = conn_mysql.prepareStatement(A+B);
