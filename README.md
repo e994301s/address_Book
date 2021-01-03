@@ -21,6 +21,8 @@ dependencies {
 }
 
 
+
+
 ## Manifest에 필요한 권한들
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,11 +33,15 @@ dependencies {
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    
+ 
+
+
 
 ## Tomcat을 연결하기 위한 XML
 
 안드로이드 스튜디오를 통해 address_Book을 실행시키면 app/res/xml/network_security_config.jsp 파일을 통해 Tomcat과 연결을 할 수 있다.
+
+
 
 
 ## DB(MYSQL) 연결
@@ -46,9 +52,12 @@ MySQL Connector Download Link: [MySQL Connector][Connector]
 
 
 
+
 ## JSP 폴더 내 자료
 
 JSP 폴더 내의 자료는 톰켓 서버 경로(/webapps/ROOT/test) 안에 'jsp파일'들을 넣어준다.
+
+
 
 
 ## JSP와 DB를 연결하기 위한 JSP내 사용자 환경에 맞는 소스 변경 요소들
@@ -57,3 +66,15 @@ String url_mysql = "jdbc:mysql://localhost/__데이터베이스 스키마 이름
 String id_mysql = "**아이디**";
 String pw_mysql = "**암호**";
 
+
+
+## DB 구성요소
+### 스키마 이름 : address
+|people|phone|register|relation|statuspeople|userinfo|
+|------|------|------|------|------|------|
+|peopleno|phoneno|userinfo_useremail|relationno|people_peopleno|useremail|
+|peoplename|people_peopleno|registerdeletedate|userinfo_useremail|userinfo_useremail|username|
+|peopleemail|phonetel|people_peopleno|relationname|peopleemg|userpw|
+|peoplerelation||||peoplefavorite|userphone|
+|peoplememo|||||userdeletedate|
+|peopleimage|||||userimage|
