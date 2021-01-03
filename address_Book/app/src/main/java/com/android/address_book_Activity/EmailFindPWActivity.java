@@ -86,6 +86,7 @@ public class EmailFindPWActivity extends AppCompatActivity {
             sendNum.setFocusableInTouchMode(true);
             sendNum.requestFocus();
             msg.setText("인증번호가 다릅니다. \n다시 입력해주세요.");
+            msg.setTextColor(getResources().getColor(R.color.red));
         }
     }
 
