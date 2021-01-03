@@ -75,7 +75,7 @@ public class ModifyPeopleActivity extends Activity {
     String peoplerelation;
     String peoplememo;
     String peopleimage;;
-    ArrayList<String> phonetel, phonetel1, phonetel2, phonetel3, phonetel4;
+    ArrayList<String> phonetel;
     ArrayList<Integer> phoneno;
     ArrayList<Group> totalGroup;
     ArrayList<String> groupName;
@@ -154,7 +154,6 @@ public class ModifyPeopleActivity extends Activity {
         // get Data // set Text
         phoneno = members.get(0).getPhoneno();
 
-
         // 사진 연결
         url = "http://"+macIP+":8080/test/multipartRequest.jsp";
 
@@ -167,7 +166,7 @@ public class ModifyPeopleActivity extends Activity {
                 .permitDiskWrites()
                 .permitNetwork().build());
 
-
+        edit_spinner_relation = findViewById(R.id.edit_spinner_relation);
 
 //        // get Data // set Text
         add_view = findViewById(R.id.addUpdateTelNoButton);
@@ -207,11 +206,11 @@ public class ModifyPeopleActivity extends Activity {
         editMemo.setText(peoplememo);
 //
 //        // Web View에 이미지 띄움
-//        editImage = findViewById(R.id.iv_editPeopleImage);
-//        editImage.getSettings().setJavaScriptEnabled(true);
-//        imageCheck();
+        editImage = findViewById(R.id.iv_editPeopleImage);
+        editImage.getSettings().setJavaScriptEnabled(true);
+        imageCheck();
         WebSettings webSettings = editImage.getSettings();
-//
+        imageName = members.get(0).getImage();
         // 화면 비율
         webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
         webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
@@ -239,10 +238,6 @@ public class ModifyPeopleActivity extends Activity {
         btn_remove = findViewById(R.id.btn_remove);
         btn_remove.setImageResource(R.drawable.ic_remove);
 
-        btn_backToViewPeople.setOnClickListener(onClickListener);
-        btn_updatePeople.setOnClickListener(onClickListener);
-        btn_remove.setOnClickListener(onClickListener);
-        add_view.setOnClickListener(onClickListener);
 
         // 스피너 구성
         ArrayList<Group> totalGroup = new ArrayList<Group>();
@@ -259,6 +254,10 @@ public class ModifyPeopleActivity extends Activity {
         spinner = findViewById(R.id.edit_spinner_relation);
         spinner.setAdapter(spinnerAdapter);
 
+        btn_backToViewPeople.setOnClickListener(onClickListener);
+        btn_updatePeople.setOnClickListener(onClickListener);
+        btn_remove.setOnClickListener(onClickListener);
+        add_view.setOnClickListener(onClickListener);
     } // onCreate end -------------------------------------------------------------------
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -284,8 +283,8 @@ public class ModifyPeopleActivity extends Activity {
                     intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
                     intent.putExtra("macIP", macIP); //값 넘겨주기
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
-                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
                     startActivity(intent); //이동시킨 화면 시작
+                    finish();
                     break;
                 case R.id.btn_updatePeople: // update
 
@@ -301,9 +300,28 @@ public class ModifyPeopleActivity extends Activity {
                         Log.v(TAG, "image Name : "+ imageName);
 
                         // DB와 연결(NetworkTask)해서 정보 update
-                    updatePeople(peopleno, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phoneno, phonetel.get(0));
+                    peoplename = editName.getText().toString();
+                    Log.v("Modify", "Modify Name : "+ peoplename);
+                    phonetel.set(0, editPhoneMain.getText().toString());
+                    Log.v("Modify", "Modify tel : "+ phonetel.get(0));
+                    peopleemail = editEmail.getText().toString();
+                    Log.v("Modify", "Modify email : "+ peopleemail);
+                    peoplerelation = edit_spinner_relation.getSelectedItem().toString();
+                    Log.v("Modify", "Modify relation : "+ peoplerelation);
+                    peoplememo = editMemo.getText().toString();
+                    Log.v("Modify", "Modify memmo : "+ peoplememo);
+                    Log.v("Modify", "Modify phoneno : "+phoneno.get(0));
+                    if(imageCheck == 1){
+                        peopleimage = imageName;
+                    }
+                    updatePeople();
 
-
+                    Intent intent1 = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class);
+                    intent1.putExtra("macIP", macIP); //값 넘겨주기
+                    intent1.putExtra("peopleno", peopleno); //값 넘겨주기
+                    intent1.putExtra("useremail", useremail);
+                    startActivity(intent1);
+                    finish();
 
 
                     //updatePeople(peopleno, peoplename, peopleemail, peoplerelation, peoplememo, peopleimage, phoneno, phonetel);
@@ -340,14 +358,11 @@ public class ModifyPeopleActivity extends Activity {
     };
 
     // people Update data 송부
-    private void updatePeople(String peopleno, String peoplename, String peopleemail, String peoplerelation, String peoplememo, String peopleimage, ArrayList<Integer> phoneno, String phonetel){
+    private void updatePeople(){
         String urlAddr1 = "";
-        urlAddr1 = urlAddr + "people_query_Update.jsp?no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&memo="+peoplememo+"&phoneno="+phoneno+"&phonetel="+phonetel;
+        urlAddr1 = urlAddr + "people_query_Update.jsp?no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
 
-       peoplename = editName.getText().toString();
-       peopleemail = editEmail.getText().toString();
-       peoplememo = editMemo.getText().toString();
-       phonetel = editPhoneMain.getText().toString();
+
 
         connectUpdateData(urlAddr1);
 
@@ -390,11 +405,11 @@ public class ModifyPeopleActivity extends Activity {
 //        }
 
 
-        Intent intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
-        intent.putExtra("macIP", macIP); //값 넘겨주기
-        intent.putExtra("peopleno", peopleno); //값 넘겨주기
-        intent.putExtra("phonetel", phonetel); //값 넘겨주기
-        startActivity(intent); //이동시킨 화면 시작
+//        Intent intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
+//        intent.putExtra("macIP", macIP); //값 넘겨주기
+//        intent.putExtra("peopleno", peopleno); //값 넘겨주기
+//        intent.putExtra("phonetel", phonetel); //값 넘겨주기
+//        startActivity(intent); //이동시킨 화면 시작
 
        // urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
 
@@ -411,7 +426,7 @@ public class ModifyPeopleActivity extends Activity {
 
         String urlAddr1 = "";
         String urlAddr3 = "";
-        urlAddr1 = urlAddr + "people_query_Delete.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
+        urlAddr1 = urlAddr + "people_query_Delete.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno.get(0);
         connectDeleteData(urlAddr1);
 //        urlAddr1 = urlAddr + "people_query_Delete1.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
 //        connectDeleteData(urlAddr1);
@@ -427,11 +442,11 @@ public class ModifyPeopleActivity extends Activity {
 //
 //        }
 
-        Intent intent = new Intent(ModifyPeopleActivity.this, AddressListActivity.class); //화면 이동시켜주기
-                    intent.putExtra("macIP", macIP); //값 넘겨주기
-                    intent.putExtra("peopleno", peopleno); //값 넘겨주기
-                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
-                    startActivity(intent); //이동시킨 화면 시작
+//        Intent intent = new Intent(ModifyPeopleActivity.this, AddressListActivity.class); //화면 이동시켜주기
+//                    intent.putExtra("macIP", macIP); //값 넘겨주기
+//                    intent.putExtra("peopleno", peopleno); //값 넘겨주기
+//                    intent.putExtra("phonetel", phonetel); //값 넘겨주기
+//                    startActivity(intent); //이동시킨 화면 시작
 
 //        if(result.equals("1")){
 //            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 삭제되었습니다.", Toast.LENGTH_SHORT).show();

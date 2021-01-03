@@ -138,6 +138,7 @@ public class SecondFragment extends Fragment {
 //            tvs[i].getCompoundDrawablePadding();
             tvs[i].setId(i);
             ll.addView(tvs[i]);
+            tvs[i].setLayoutParams(params);
 //            ll.setPadding(5,5,5,5);
             tvs[i].setOnClickListener(mClickListener);
 
