@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.address_book_Activity.ModifyPeopleActivity">
+    tools:context="com.android.address_book_Activity.ModifyPeopleActivity"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +43,8 @@
             android:background="@drawable/main_bg"
             android:text="수정"
             android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,6 +52,7 @@
         android:layout_height="200dp"
         android:gravity="center"
         android:orientation="vertical"
+
         >
         <WebView
             android:id="@+id/iv_editPeopleImage"
@@ -57,6 +60,7 @@
             android:layout_height="160dp"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
+            android:background="@drawable/title_layout"
             />
     </LinearLayout>
 
@@ -85,11 +89,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_peopleName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:text="test 입니다 test"
-            android:textSize="22dp"
-            android:gravity="center"
+            android:textSize="15dp"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"
+            android:background="@drawable/gray_bg"
+            android:layout_margin="10dp"
             />
     </LinearLayout>
 
@@ -101,24 +108,31 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_peoplePhone"
             android:layout_width="0px"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="9"
             android:text="전화번호 입력 창입니다"
             android:inputType="phone"
-            android:textSize="22dp"
-            android:gravity="right"
+            android:textSize="15dp"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"
+            android:background="@drawable/gray_bg"
             />
             <Button
                 android:id="@+id/addUpdateTelNoButton"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_margin="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="24dp"
                 android:text="+"
                 android:gravity="center"
                 android:textSize="20dp"
                 android:background="@drawable/main_bg"
+                android:textColor="@color/white"
+
                 />
     </LinearLayout>
     <LinearLayout
@@ -135,16 +149,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edit_peopleEmail"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:text="email 수정창입니다."
-        android:inputType="textEmailAddress"
-        android:textSize="22dp"
-        android:gravity="center"
-        />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_peopleEmail"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gray_bg"
+            android:gravity="left|center"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:text="email 수정창입니다."
+            android:textSize="15dp" />
             <Spinner
                 android:id="@+id/edit_spinner_relation"
                 android:layout_width="wrap_content"
@@ -152,35 +169,39 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:spinnerMode="dropdown"
-
+                android:layout_marginLeft="10dp"
                 />
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edit_peopleMemo"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:text="testtesttesttesttest"
-        android:textSize="22dp"
-        android:gravity="center"
+        android:textSize="15dp"
+        android:gravity="left|center"
+        android:paddingLeft="10dp"
+        android:background="@drawable/gray_bg"
+        android:layout_margin="10dp"
         />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         >
 
         <ImageButton
             android:id="@+id/btn_remove"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_gravity="top"
-            android:layout_marginLeft="30dp"
             android:adjustViewBounds="true"
             android:backgroundTint="#FFFFFF"
             android:maxWidth="70dp"
             android:maxHeight="70dp"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     </LinearLayout>

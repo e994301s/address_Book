@@ -354,6 +354,9 @@ public class ModifyPeopleActivity extends Activity {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             deletePeople(peopleno, phoneno);
+            Intent intent = new Intent(ModifyPeopleActivity.this, AddressListActivity.class);
+            startActivity(intent);
+            finish();
         }
     };
 
@@ -426,12 +429,14 @@ public class ModifyPeopleActivity extends Activity {
 
         String urlAddr1 = "";
         String urlAddr3 = "";
-        urlAddr1 = urlAddr + "people_query_Delete.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno.get(0);
+
+//            urlAddr1 = urlAddr + "people_query_Delete.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno.get(i)+"&userinfo_useremail="+useremail;
+//            connectDeleteData(urlAddr1);
+        urlAddr1 = urlAddr + "people_query_Delete1.jsp?peopleno=" + peopleno;
         connectDeleteData(urlAddr1);
-//        urlAddr1 = urlAddr + "people_query_Delete1.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
-//        connectDeleteData(urlAddr1);
-//        urlAddr3 = urlAddr + "people_query_Delete2.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
-//        connectDeleteData(urlAddr3);
+        urlAddr3 = urlAddr + "people_query_Delete2.jsp?peopleno=" + peopleno;
+        connectDeleteData(urlAddr3);
+
 //        if (result.equals("1")) {
 //            Toast.makeText(ModifyPeopleActivity.this, "삭제하였습니다.", Toast.LENGTH_SHORT).show();
 //            Intent intent2 = new Intent(ModifyPeopleActivity.this, AddressListActivity.class);
