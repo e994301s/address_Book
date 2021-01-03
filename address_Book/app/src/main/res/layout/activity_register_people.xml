@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.address_book_Activity.RegisterPeopleActivity">
+    tools:context="com.android.address_book_Activity.RegisterPeopleActivity"
+    android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +21,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/main_bg"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textColor="@color/white"
             />
         <ImageView
@@ -45,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:maxHeight="70dp"
-                android:maxWidth="70dp"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:backgroundTint="#FFFFFF"
@@ -57,8 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:maxHeight="70dp"
-                android:maxWidth="70dp"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:backgroundTint="#FFFFFF"
@@ -73,6 +74,7 @@
             android:paddingLeft="10dp"
             android:background="@drawable/gray_bg"
             android:layout_marginLeft="10dp"
+            android:textSize="15dp"
             />
         <LinearLayout
             android:orientation="horizontal"
@@ -127,6 +129,7 @@
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp"
             android:background="@drawable/gray_bg"
+            android:textSize="15dp"
             />
         <Spinner
             android:id="@+id/group_spiner"
@@ -146,6 +149,7 @@
             android:layout_margin="10dp"
             android:paddingLeft="10dp"
             android:background="@drawable/gray_bg"
+            android:textSize="15dp"
             />
 
     </LinearLayout>

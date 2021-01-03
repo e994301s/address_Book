@@ -16,7 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:gravity="top">
 
         <ImageButton
             android:id="@+id/btn_backToViewPeople"
@@ -25,8 +26,8 @@
             android:layout_gravity="left|center"
             android:adjustViewBounds="true"
             android:backgroundTint="#FFFFFF"
-            android:maxWidth="70dp"
-            android:maxHeight="70dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
             android:scaleType="fitCenter"
             android:textStyle="bold" />
 
@@ -44,20 +45,20 @@
             android:text="수정"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:layout_marginRight="10dp"/>
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:gravity="center"
         android:orientation="vertical"
-
+        android:layout_marginTop="40dp"
         >
         <WebView
             android:id="@+id/iv_editPeopleImage"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:scaleType="fitCenter"
             android:backgroundTint="#FFFFFF"
             android:background="@drawable/title_layout"
@@ -68,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginBottom="50dp"
         >
         <TextView
             android:id="@+id/tv_editPeopleImage"
@@ -123,7 +125,7 @@
             <Button
                 android:id="@+id/addUpdateTelNoButton"
                 android:layout_width="30dp"
-                android:layout_height="40dp"
+                android:layout_height="38dp"
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="24dp"
