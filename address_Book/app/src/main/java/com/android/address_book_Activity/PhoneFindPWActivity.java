@@ -187,7 +187,7 @@ public class PhoneFindPWActivity extends AppCompatActivity {
 
             //전송
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, "[주소록]의 인증번호는 "+getSMSCode() +"입니다.", null, null); //SMSContents앞서 전역변수로 입력한, 번호 [랜덤숫자 생성] 포스팅의 메서드를 활용하여 넣으면, 랜덤으로 숫자가 보내진다.
+            smsManager.sendTextMessage(phoneNo, null, "[사람들의 소중한 주소록]의 인증번호는 "+getSMSCode() +"입니다.", null, null); //SMSContents앞서 전역변수로 입력한, 번호 [랜덤숫자 생성] 포스팅의 메서드를 활용하여 넣으면, 랜덤으로 숫자가 보내진다.
             //
             Log.d(TAG, "=== 문자 전송 완료 ===" );
 
@@ -224,7 +224,7 @@ public class PhoneFindPWActivity extends AppCompatActivity {
     // 인증코드 일치 여부 확인
     private void checkCode(String code){
         if(code.equals(smsCode)){
-            Toast.makeText(PhoneFindPWActivity.this, "일치", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(PhoneFindPWActivity.this, "일치", Toast.LENGTH_SHORT).show();
             alertCheck();
 
         } else{
