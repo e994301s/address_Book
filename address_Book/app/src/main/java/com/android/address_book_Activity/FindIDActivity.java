@@ -88,6 +88,9 @@ public class FindIDActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_id);
 
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             Log.d(TAG, "=== sms전송을 위한 퍼미션 확인 ===" );
@@ -109,10 +112,9 @@ public class FindIDActivity extends Activity {
 //        Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
 
-        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
-        macIP = sf.getString("macIP","");
 
         urlAddr = "http://" + macIP + ":8080/test/";
+        Log.d(TAG, macIP );
 
         name = findViewById(R.id.name_findId);
         phone = findViewById(R.id.phone_findId);
@@ -271,8 +273,9 @@ public class FindIDActivity extends Activity {
                phone.requestFocus();
 
            } else {
-               urlAddr = urlAddr + "user_query_all.jsp?name=" + userName + "&phone=" + userPhone;
-               users = connectSelectData(urlAddr);
+               String urlAddr1 = "";
+               urlAddr1 = urlAddr + "userFind.jsp";
+               users = connectSelectData(urlAddr1);
 
                for (int i = 0; i < users.size(); i++) {
                    if (userName.equals(users.get(i).getUserName()) && userPhone.equals(users.get(i).getUserPhone())) {
@@ -325,7 +328,7 @@ public class FindIDActivity extends Activity {
 
             //전송
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, "[주소록]의 인증번호는 "+getSMSCode() +"입니다.", null, null); //SMSContents앞서 전역변수로 입력한, 번호 [랜덤숫자 생성] 포스팅의 메서드를 활용하여 넣으면, 랜덤으로 숫자가 보내진다.
+            smsManager.sendTextMessage(phoneNo, null, "[사람들의 소중한 주소록]의 인증번호는 "+getSMSCode() +"입니다.", null, null); //SMSContents앞서 전역변수로 입력한, 번호 [랜덤숫자 생성] 포스팅의 메서드를 활용하여 넣으면, 랜덤으로 숫자가 보내진다.
             //
             Log.d(TAG, "=== 문자 전송 완료 ===" );
 
