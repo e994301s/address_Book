@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class GroupCustomDialogActivity{
 
     private Context context;
-    private String urlAddr, macIP, email;
+    private String urlAddr, macIP;
     ArrayList<Group> group = null;
 
 
@@ -84,7 +84,7 @@ public class GroupCustomDialogActivity{
                     }
 
                     if(count == 0) {
-                       insertGroup(groupName);
+                       insertGroup(groupName, email);
 
                         // 커스텀 다이얼로그를 종료한다.
                         dlg.dismiss();
@@ -107,7 +107,7 @@ public class GroupCustomDialogActivity{
     }
 
     // group insert action
-    private void insertGroup(String relationname) {
+    private void insertGroup(String relationname, String email) {
         String urlAddr2 = "";
         urlAddr2 = urlAddr + "relationInsert.jsp?email=" + email + "&relationname=" + relationname;
 
