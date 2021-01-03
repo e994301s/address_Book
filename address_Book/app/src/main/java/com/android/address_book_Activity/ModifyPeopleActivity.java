@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
@@ -209,23 +210,23 @@ public class ModifyPeopleActivity extends Activity {
 //        editImage = findViewById(R.id.iv_editPeopleImage);
 //        editImage.getSettings().setJavaScriptEnabled(true);
 //        imageCheck();
-//        WebSettings webSettings = editImage.getSettings();
+        WebSettings webSettings = editImage.getSettings();
 //
-//        // 화면 비율
-//        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-//        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-//        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-//
-//        editImage.setBackgroundColor(0); //배경색
-//
-//        editImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
-//        editImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
-//
-//        editImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-//        editImage.setScrollbarFadingEnabled(false);
-//
-//        // 웹뷰 멀티 터치 가능하게 (줌기능)
-//        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+        // 화면 비율
+        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        editImage.setBackgroundColor(0); //배경색
+
+        editImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
+        editImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
+
+        editImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+        editImage.setScrollbarFadingEnabled(false);
+
+        // 웹뷰 멀티 터치 가능하게 (줌기능)
+        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
 //        webSettings.setSupportZoom(false);
 
 
@@ -396,8 +397,6 @@ public class ModifyPeopleActivity extends Activity {
         startActivity(intent); //이동시킨 화면 시작
 
        // urlAddr1 = urlAddr + "people_query_Update.jsp?" + "no="+peopleno+"&name="+peoplename+"&email="+peopleemail+"&relation="+peoplerelation+"&memo="+peoplememo+"&phoneno="+phoneno.get(0)+"&phonetel="+phonetel.get(0);
-
-
 
 //        if(result.equals("1")){
 //            Toast.makeText(ModifyPeopleActivity.this, peoplename + "의 정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();

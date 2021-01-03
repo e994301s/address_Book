@@ -31,8 +31,7 @@
 	    ps.setString(2, email);
 		ps.setString(3, memo);
 		ps.setString(4, phonetel);
-		ps.setInt(5, Integer.parseInt(phoneno));
-	    
+		ps.setInt(5, Integer.parseInt(phoneno));    
 	    ps.executeUpdate();
 	
 	    conn_mysql.close();
