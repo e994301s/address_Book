@@ -222,6 +222,7 @@ public class ViewPeopleActivity extends Activity {
 
 
                     startActivity(intent);
+                    finish();
                     break;
                 case R.id.btn_view_dial: // 지정된 전화로 이동
                     intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phonetel));
