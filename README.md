@@ -82,8 +82,10 @@ JSP 폴더 내의 자료는 톰켓 서버 경로(/webapps/ROOT/test) 안에 'jsp
 
 ### JSP와 DB를 연결하기 위한 JSP내 사용자 환경에 맞는 소스 변경 요소들
 
-String url_mysql = "jdbc:mysql://localhost/__데이터베이스 스키마 이름__?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
+String url_mysql = "jdbc:mysql://localhost/___데이터베이스 스키마 이름___?serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false";
+
 String id_mysql = "**아이디**";
+
 String pw_mysql = "**암호**";
 
 
