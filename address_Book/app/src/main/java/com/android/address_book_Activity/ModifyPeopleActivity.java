@@ -15,6 +15,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,7 +27,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.android.Task.CUDNetworkTask;
+import com.android.Task.GroupNetworkTask;
 import com.android.Task.PeopleNetworkTask;
+import com.android.address_book.Group;
 import com.android.address_book.People;
 import com.android.address_book.R;
 
@@ -70,9 +73,13 @@ public class ModifyPeopleActivity extends Activity {
     String peopleemail;
     String peoplerelation;
     String peoplememo;
-    String peopleimage;
+    String peopleimage;;
     ArrayList<String> phonetel, phonetel1, phonetel2, phonetel3, phonetel4;
     ArrayList<Integer> phoneno;
+    ArrayList<Group> totalGroup;
+    ArrayList<String> groupName;
+    ArrayAdapter<String> spinnerAdapter = null;
+    Spinner spinner = null;
 //    int phoneno;
     Spinner edit_spinner_relation;
     Button btn_updatePeople, add_view;
@@ -90,7 +97,7 @@ public class ModifyPeopleActivity extends Activity {
     EditText editMemo;
     String phoneUpdate, urlUpdatePhonenumber, macIP;
     ArrayList<People> members;
-    String urlImage;
+    String urlImage, urlGetGroup;
     int imageCheck=0;
     String strUpdatePhone=null;
     String strUpdatePhone1=null;
@@ -121,15 +128,17 @@ public class ModifyPeopleActivity extends Activity {
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
+        peopleno = intent.getStringExtra("peopleno");
+        useremail = intent.getStringExtra("useremail");
+        urlGetGroup = "http://"+macIP+":8080/test/group_query_all.jsp?email="+useremail;
 
 
        // urlAddr = "http://" + IP + ":8080/address/people_query_Update.jsp";
         urlAddr = "http://" + macIP + ":8080/test/";
-
         urlImage = urlAddr;
+        urlAddr2 = urlAddr + "people_query_selectModify.jsp?email="+useremail+"&peopleno=" + peopleno;
 
-        peopleno = intent.getStringExtra("peopleno");
-        useremail = intent.getStringExtra("useremail");
+
 //        phoneno = intent.getStringExtra("phoneno");
 //        peoplename = intent.getStringExtra("peoplename");
 //        peopleemail = intent.getStringExtra("peopleemail");
@@ -137,7 +146,6 @@ public class ModifyPeopleActivity extends Activity {
 //        peoplememo= intent.getStringExtra("peoplememo");
 
 
-        urlAddr2 = urlAddr + "people_query_selectModify.jsp?email="+useremail+"&peopleno=" + peopleno;
 
         // Task 연결
         members = connectSelectedData(urlAddr2);
@@ -235,11 +243,28 @@ public class ModifyPeopleActivity extends Activity {
         btn_remove.setOnClickListener(onClickListener);
         add_view.setOnClickListener(onClickListener);
 
+        // 스피너 구성
+        ArrayList<Group> totalGroup = new ArrayList<Group>();
+        connectGroupGetData();
+        groupName = new ArrayList<String>();
+        groupName.add("가족");
+        groupName.add("친구");
+        groupName.add("회사");
+        for(int i = 0 ; i < totalGroup.size();i++){
+            groupName.add(totalGroup.get(i).getGroupName());
+        }
+        spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, groupName);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner = findViewById(R.id.edit_spinner_relation);
+        spinner.setAdapter(spinnerAdapter);
+
     } // onCreate end -------------------------------------------------------------------
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            // spinner
+            peoplerelation = spinner.getSelectedItem().toString();
             Intent intent;
             switch (v.getId()){
                 case R.id.addUpdateTelNoButton:
@@ -578,6 +603,17 @@ public class ModifyPeopleActivity extends Activity {
             e.printStackTrace();
         }
         return phoneUpdate;
+    }
+
+    private ArrayList<Group> connectGroupGetData() {
+        try {
+            GroupNetworkTask groupNetworkTask = new GroupNetworkTask(ModifyPeopleActivity.this, urlGetGroup, "select");
+            Object obj = groupNetworkTask.execute().get();
+            totalGroup = (ArrayList<Group>) obj;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalGroup;
     }
 
 
