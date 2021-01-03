@@ -11,13 +11,13 @@
     android:gravity="center"
     android:padding="5dp"
     android:orientation="horizontal"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     tools:ignore="WebViewLayout">
         <WebView
             android:id="@+id/imgPeople_custom"
             android:layout_width="0px"
             android:layout_weight="2"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:maxWidth="@android:dimen/app_icon_size"
             android:maxHeight="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
