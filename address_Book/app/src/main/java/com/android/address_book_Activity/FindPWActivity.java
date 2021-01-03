@@ -150,9 +150,9 @@ public class FindPWActivity extends Activity {
                 email.requestFocus();
 
             } else {
-
-                urlAddr = urlAddr + "user_query_all.jsp?name=" + userName;
-                users = connectSelectData(urlAddr);
+                String urlAddr1 = "";
+                urlAddr1 = urlAddr + "userFind.jsp";
+                users = connectSelectData(urlAddr1);
 
                 for (int i = 0; i < users.size(); i++) {
                     if (userName.equals(users.get(i).getUserName()) && userEmail.equals(users.get(i).getUserEmail())) {

@@ -48,7 +48,7 @@ public class GroupNetworkTask extends AsyncTask<Integer, String, Object> {
     protected Object doInBackground(Integer... integers) {
 
         Log.v(TAG, "doInBackground()");
-
+        Log.v(TAG, mAddr);
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
