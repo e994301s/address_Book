@@ -20,11 +20,12 @@
 	    Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	    Statement stmt_mysql = conn_mysql.createStatement();
 	
-		String A = "DELETE people, phone FROM people INNER JOIN phone ON people.peopleno = phone.people_peopleno WHERE phoneno = ?";
-	
+		String A = "update register set registerdeletedate = now() where people_peopleno = ?";
+		
+
 		ps = conn_mysql.prepareStatement(A);
 
-        ps.setString(1, phoneno);
+        ps.setString(1, no);
  
 		result = ps.executeUpdate();
 %>

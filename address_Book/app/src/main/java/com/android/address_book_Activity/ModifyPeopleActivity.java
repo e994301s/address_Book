@@ -412,12 +412,23 @@ public class ModifyPeopleActivity extends Activity {
 
         String urlAddr1 = "";
         String urlAddr3 = "";
-        urlAddr1 = urlAddr + "people_query_Delete1.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
+        urlAddr1 = urlAddr + "people_query_Delete.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
         connectDeleteData(urlAddr1);
-        urlAddr3 = urlAddr + "people_query_Delete2.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
-        connectDeleteData(urlAddr3);
+//        urlAddr1 = urlAddr + "people_query_Delete1.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
+//        connectDeleteData(urlAddr1);
+//        urlAddr3 = urlAddr + "people_query_Delete2.jsp?peopleno=" + peopleno+ "&phoneno=" + phoneno;
+//        connectDeleteData(urlAddr3);
+//        if (result.equals("1")) {
+//            Toast.makeText(ModifyPeopleActivity.this, "삭제하였습니다.", Toast.LENGTH_SHORT).show();
+//            Intent intent2 = new Intent(ModifyPeopleActivity.this, AddressListActivity.class);
+//            startActivity(intent2);
+//
+//        } else {
+//            Toast.makeText(ModifyPeopleActivity.this, "탈퇴 실패하였습니다.", Toast.LENGTH_SHORT).show();
+//
+//        }
 
-        Intent intent = new Intent(ModifyPeopleActivity.this, ViewPeopleActivity.class); //화면 이동시켜주기
+        Intent intent = new Intent(ModifyPeopleActivity.this, AddressListActivity.class); //화면 이동시켜주기
                     intent.putExtra("macIP", macIP); //값 넘겨주기
                     intent.putExtra("peopleno", peopleno); //값 넘겨주기
                     intent.putExtra("phonetel", phonetel); //값 넘겨주기
