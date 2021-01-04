@@ -24,7 +24,7 @@
 	
 	    ps = conn_mysql.prepareStatement(A+B);
 	    ps.setString(1, useremail);
-		
+	    ps.setString(2, relationname);
 		result = ps.executeUpdate();
 %>
 		{

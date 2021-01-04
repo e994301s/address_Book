@@ -114,7 +114,7 @@ public class GroupCustomDialogActivity{
         String result = connectInsertData(urlAddr2);
 
         if (result.equals("1")) {
-            Toast.makeText(context, "\"" +  relationname + "\" 을 입력하였습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "\"" +  relationname + "\" 그룹 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(context, "\"" +  relationname + "\" 입력 실패하였습니다.", Toast.LENGTH_SHORT).show();
