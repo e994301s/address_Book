@@ -194,12 +194,12 @@
         <ImageButton
             android:id="@+id/btn_remove"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_gravity="top"
             android:adjustViewBounds="true"
             android:backgroundTint="#FFFFFF"
-            android:maxWidth="70dp"
-            android:maxHeight="70dp"
+            android:maxWidth="60dp"
+            android:maxHeight="60dp"
             android:scaleType="fitCenter"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>

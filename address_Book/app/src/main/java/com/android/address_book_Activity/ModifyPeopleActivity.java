@@ -230,7 +230,8 @@ public class ModifyPeopleActivity extends Activity {
         tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
         btn_backToViewPeople = findViewById(R.id.btn_backToViewPeople);
         btn_updatePeople = findViewById(R.id.btn_updatePeople);
-        btn_remove = findViewById(R.id.btn_remove);
+        btn_remove =findViewById(R.id.btn_remove);
+        btn_remove.setImageResource(R.drawable.ic_remove);
 
         // 스피너 구성
         edit_spinner_relation = findViewById(R.id.edit_spinner_relation);
